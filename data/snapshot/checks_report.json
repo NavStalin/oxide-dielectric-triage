@@ -1,0 +1,583 @@
+[
+  {
+    "id": "C1",
+    "severity": "fail",
+    "passed": true,
+    "summary": "6/6 known ground states within 50 meV/atom (e_hull)",
+    "rationale": "Materials labs make routinely must come out stable, or the data or the hull code is broken.",
+    "details": [
+      {
+        "formula": "HfO2",
+        "jid": "JVASP-9147",
+        "spg": "P2_1/c",
+        "value_ev": 0.0,
+        "passed": true
+      },
+      {
+        "formula": "ZrO2",
+        "jid": "JVASP-113",
+        "spg": "P2_1/c",
+        "value_ev": 0.0031,
+        "passed": true
+      },
+      {
+        "formula": "Al2O3",
+        "jid": "JVASP-32",
+        "spg": "R-3c",
+        "value_ev": 0.0,
+        "passed": true
+      },
+      {
+        "formula": "SiO2",
+        "jid": "JVASP-41",
+        "spg": "P3_221",
+        "value_ev": 0.0,
+        "passed": true
+      },
+      {
+        "formula": "Y2O3",
+        "jid": "JVASP-20793",
+        "spg": "Ia-3",
+        "value_ev": 0.0,
+        "passed": true
+      },
+      {
+        "formula": "MgO",
+        "jid": "JVASP-116",
+        "spg": "Fm-3m",
+        "value_ev": 0.0297,
+        "passed": true
+      }
+    ]
+  },
+  {
+    "id": "C2",
+    "severity": "report",
+    "passed": false,
+    "summary": "1/6 known ground states within 50 meV/atom (jarvis_ehull_raw)",
+    "rationale": "Re-test the JARVIS ehull field each refresh; it failed C1 on 2026-11-17 (D-013).",
+    "details": [
+      {
+        "formula": "HfO2",
+        "jid": "JVASP-9147",
+        "spg": "P2_1/c",
+        "value_ev": 1.7776,
+        "passed": false
+      },
+      {
+        "formula": "ZrO2",
+        "jid": "JVASP-113",
+        "spg": "P2_1/c",
+        "value_ev": 1.4679,
+        "passed": false
+      },
+      {
+        "formula": "Al2O3",
+        "jid": "JVASP-32",
+        "spg": "R-3c",
+        "value_ev": 1.5963,
+        "passed": false
+      },
+      {
+        "formula": "SiO2",
+        "jid": "JVASP-58349",
+        "spg": "P3_121",
+        "value_ev": 1.385,
+        "passed": false
+      },
+      {
+        "formula": "Y2O3",
+        "jid": "JVASP-20793",
+        "spg": "Ia-3",
+        "value_ev": 2.0073,
+        "passed": false
+      },
+      {
+        "formula": "MgO",
+        "jid": "JVASP-116",
+        "spg": "Fm-3m",
+        "value_ev": 0.0149,
+        "passed": true
+      }
+    ]
+  },
+  {
+    "id": "C3",
+    "severity": "warn",
+    "passed": false,
+    "summary": "71/5174 records have TBmBJ gap below OptB88vdW gap by > 0.05 eV",
+    "rationale": "TBmBJ almost always gives a larger gap than OptB88vdW; the reverse deserves a human look.",
+    "details": [
+      {
+        "jid": "JVASP-44991",
+        "formula": "FeSb4O12",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.063
+      },
+      {
+        "jid": "JVASP-86620",
+        "formula": "Cr2AgBiO8",
+        "gap_mbj": 1.244,
+        "gap_optb88": 1.302
+      },
+      {
+        "jid": "JVASP-91764",
+        "formula": "NaCO2",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.081
+      },
+      {
+        "jid": "JVASP-90191",
+        "formula": "Rb2MnCl4O2",
+        "gap_mbj": 0.484,
+        "gap_optb88": 0.574
+      },
+      {
+        "jid": "JVASP-42577",
+        "formula": "Li2FeO3",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.053
+      },
+      {
+        "jid": "JVASP-43466",
+        "formula": "Li2Fe3SbO8",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.059
+      },
+      {
+        "jid": "JVASP-48713",
+        "formula": "VOF3",
+        "gap_mbj": 1.935,
+        "gap_optb88": 1.993
+      },
+      {
+        "jid": "JVASP-86022",
+        "formula": "Cr2AgBiO8",
+        "gap_mbj": 1.244,
+        "gap_optb88": 1.302
+      },
+      {
+        "jid": "JVASP-85552",
+        "formula": "UO2F2",
+        "gap_mbj": 2.318,
+        "gap_optb88": 2.392
+      },
+      {
+        "jid": "JVASP-91344",
+        "formula": "K3NO3",
+        "gap_mbj": 0.18,
+        "gap_optb88": 0.266
+      },
+      {
+        "jid": "JVASP-48530",
+        "formula": "Li7VO5F",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.089
+      },
+      {
+        "jid": "JVASP-43610",
+        "formula": "Na6MnO4",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.077
+      },
+      {
+        "jid": "JVASP-54764",
+        "formula": "U3H2O10",
+        "gap_mbj": 2.074,
+        "gap_optb88": 2.131
+      },
+      {
+        "jid": "JVASP-2601",
+        "formula": "Li2PdO2",
+        "gap_mbj": 1.286,
+        "gap_optb88": 1.342
+      },
+      {
+        "jid": "JVASP-42216",
+        "formula": "Li2Co2OF6",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.082
+      },
+      {
+        "jid": "JVASP-29311",
+        "formula": "UH2O4",
+        "gap_mbj": 2.54,
+        "gap_optb88": 2.632
+      },
+      {
+        "jid": "JVASP-1257",
+        "formula": "UO3",
+        "gap_mbj": 1.717,
+        "gap_optb88": 1.808
+      },
+      {
+        "jid": "JVASP-7889",
+        "formula": "V2CoO6",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.064
+      },
+      {
+        "jid": "JVASP-7897",
+        "formula": "PrCrO3",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.068
+      },
+      {
+        "jid": "JVASP-8689",
+        "formula": "UCO5",
+        "gap_mbj": 2.388,
+        "gap_optb88": 2.48
+      },
+      {
+        "jid": "JVASP-29465",
+        "formula": "Cu2H3ClO3",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.079
+      },
+      {
+        "jid": "JVASP-47796",
+        "formula": "Li2FeSiO4",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.085
+      },
+      {
+        "jid": "JVASP-50846",
+        "formula": "Sr2Li2Nb4O13",
+        "gap_mbj": 1.415,
+        "gap_optb88": 1.47
+      },
+      {
+        "jid": "JVASP-19299",
+        "formula": "Mg3Ni2O7",
+        "gap_mbj": 0.195,
+        "gap_optb88": 0.259
+      },
+      {
+        "jid": "JVASP-29374",
+        "formula": "TiZnBi2O6",
+        "gap_mbj": 0.815,
+        "gap_optb88": 0.895
+      },
+      {
+        "jid": "JVASP-11387",
+        "formula": "Li2GeO3",
+        "gap_mbj": 3.62,
+        "gap_optb88": 3.695
+      },
+      {
+        "jid": "JVASP-13316",
+        "formula": "LiMnO2",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.052
+      },
+      {
+        "jid": "JVASP-30340",
+        "formula": "CrSbO4",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.085
+      },
+      {
+        "jid": "JVASP-10001",
+        "formula": "Li2ZrTeO6",
+        "gap_mbj": 2.775,
+        "gap_optb88": 2.857
+      },
+      {
+        "jid": "JVASP-32943",
+        "formula": "AsNO2F6",
+        "gap_mbj": 2.977,
+        "gap_optb88": 3.05
+      },
+      {
+        "jid": "JVASP-57229",
+        "formula": "Cr3CuO8",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.093
+      },
+      {
+        "jid": "JVASP-50529",
+        "formula": "NbRhO4",
+        "gap_mbj": 0.796,
+        "gap_optb88": 0.854
+      },
+      {
+        "jid": "JVASP-30566",
+        "formula": "TiZnBi2O6",
+        "gap_mbj": 0.816,
+        "gap_optb88": 0.896
+      },
+      {
+        "jid": "JVASP-9791",
+        "formula": "Ba2YRuO6",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.099
+      },
+      {
+        "jid": "JVASP-42715",
+        "formula": "Li2VOF3",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.099
+      },
+      {
+        "jid": "JVASP-29796",
+        "formula": "UH2O4",
+        "gap_mbj": 1.727,
+        "gap_optb88": 1.785
+      },
+      {
+        "jid": "JVASP-9986",
+        "formula": "Ba2HoRuO6",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.086
+      },
+      {
+        "jid": "JVASP-9988",
+        "formula": "Ba2ErRuO6",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.079
+      },
+      {
+        "jid": "JVASP-11356",
+        "formula": "CrO2",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.087
+      },
+      {
+        "jid": "JVASP-57569",
+        "formula": "SbO2",
+        "gap_mbj": 1.995,
+        "gap_optb88": 2.092
+      },
+      {
+        "jid": "JVASP-57524",
+        "formula": "UOF4",
+        "gap_mbj": 2.496,
+        "gap_optb88": 2.551
+      },
+      {
+        "jid": "JVASP-25606",
+        "formula": "NaUBO5",
+        "gap_mbj": 2.048,
+        "gap_optb88": 2.125
+      },
+      {
+        "jid": "JVASP-54453",
+        "formula": "VCuO3",
+        "gap_mbj": 0.875,
+        "gap_optb88": 0.958
+      },
+      {
+        "jid": "JVASP-30329",
+        "formula": "CrPO5",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.059
+      },
+      {
+        "jid": "JVASP-29297",
+        "formula": "UPbO4",
+        "gap_mbj": 1.537,
+        "gap_optb88": 1.591
+      },
+      {
+        "jid": "JVASP-40668",
+        "formula": "Li2VH2OF5",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.08
+      },
+      {
+        "jid": "JVASP-46739",
+        "formula": "LiFe2P2O8",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.083
+      },
+      {
+        "jid": "JVASP-45779",
+        "formula": "Li2VOF3",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.082
+      },
+      {
+        "jid": "JVASP-46119",
+        "formula": "Na2VPCO7",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.051
+      },
+      {
+        "jid": "JVASP-47076",
+        "formula": "Li3VO2F2",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.057
+      },
+      {
+        "jid": "JVASP-46244",
+        "formula": "Li2AlCoO4",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.088
+      },
+      {
+        "jid": "JVASP-36757",
+        "formula": "CdAgO2",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.061
+      },
+      {
+        "jid": "JVASP-45900",
+        "formula": "Li2FeC2O6",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.064
+      },
+      {
+        "jid": "JVASP-44667",
+        "formula": "Li2Mn3FeO8",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.054
+      },
+      {
+        "jid": "JVASP-42928",
+        "formula": "Mn3O2F4",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.075
+      },
+      {
+        "jid": "JVASP-42931",
+        "formula": "LiCoSi2O6",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.068
+      },
+      {
+        "jid": "JVASP-42957",
+        "formula": "VRhO4",
+        "gap_mbj": 0.127,
+        "gap_optb88": 0.194
+      },
+      {
+        "jid": "JVASP-9884",
+        "formula": "MgCu2O4",
+        "gap_mbj": 0.377,
+        "gap_optb88": 0.459
+      },
+      {
+        "jid": "JVASP-11696",
+        "formula": "K3CrO8",
+        "gap_mbj": 1.527,
+        "gap_optb88": 1.582
+      },
+      {
+        "jid": "JVASP-55288",
+        "formula": "TbSr3RhO6",
+        "gap_mbj": 2.077,
+        "gap_optb88": 2.139
+      },
+      {
+        "jid": "JVASP-55278",
+        "formula": "Sr3DyRhO6",
+        "gap_mbj": 2.095,
+        "gap_optb88": 2.165
+      },
+      {
+        "jid": "JVASP-43719",
+        "formula": "Mn3O4F2",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.077
+      },
+      {
+        "jid": "JVASP-10596",
+        "formula": "CaMo2O4",
+        "gap_mbj": 0.132,
+        "gap_optb88": 0.23
+      },
+      {
+        "jid": "JVASP-24276",
+        "formula": "Rb2U3I4O20",
+        "gap_mbj": 2.045,
+        "gap_optb88": 2.122
+      },
+      {
+        "jid": "JVASP-26771",
+        "formula": "Rb2USi4O12",
+        "gap_mbj": 2.523,
+        "gap_optb88": 2.606
+      },
+      {
+        "jid": "JVASP-13282",
+        "formula": "Na3UO4",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.078
+      },
+      {
+        "jid": "JVASP-59219",
+        "formula": "LiVP2O7",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.058
+      },
+      {
+        "jid": "JVASP-142458",
+        "formula": "CeZr3O8",
+        "gap_mbj": 1.833,
+        "gap_optb88": 1.912
+      },
+      {
+        "jid": "JVASP-135626",
+        "formula": "NbTlO3",
+        "gap_mbj": 0.239,
+        "gap_optb88": 0.319
+      },
+      {
+        "jid": "JVASP-149754",
+        "formula": "SnO",
+        "gap_mbj": 0.304,
+        "gap_optb88": 0.384
+      },
+      {
+        "jid": "JVASP-186051",
+        "formula": "InBiO2",
+        "gap_mbj": 0.0,
+        "gap_optb88": 0.088
+      }
+    ]
+  },
+  {
+    "id": "C4",
+    "severity": "fail",
+    "passed": true,
+    "summary": "mbj_bandgap 20.5%; icsd 25.1%; dfpt_piezo_max_dielectric 6.9%",
+    "rationale": "A refreshed dataset that silently loses fields must not be ranked.",
+    "details": [
+      {
+        "field": "mbj_bandgap",
+        "fraction": 0.2054,
+        "band": [
+          0.1,
+          0.4
+        ],
+        "passed": true
+      },
+      {
+        "field": "icsd",
+        "fraction": 0.2511,
+        "band": [
+          0.15,
+          0.4
+        ],
+        "passed": true
+      },
+      {
+        "field": "dfpt_piezo_max_dielectric",
+        "fraction": 0.0688,
+        "band": [
+          0.03,
+          0.15
+        ],
+        "passed": true
+      }
+    ]
+  },
+  {
+    "id": "C5",
+    "severity": "fail",
+    "passed": true,
+    "summary": "0 candidates violate the element filters (8889 checked)",
+    "rationale": "Our own filters must remove every excluded element.",
+    "details": []
+  }
+]

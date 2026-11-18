@@ -1,0 +1,24 @@
+# Which records count as candidates, and how polymorphs are grouped. Admin-editable.
+
+excluded_anion_elements: [H, C, N, S, F, Cl, Br, I]  # pure oxides by default (brief decision 5)
+allow_extra_anions: false     # admin may set true; a user request can only tighten this
+
+# A formula whose representative polymorph has no positive band gap is a metal and cannot be a dielectric.
+exclude_metals: true
+
+# D-030: DFT (OptB88vdW, and TBmBJ without a Hubbard U) often predicts f-electron and open-shell 3d
+# oxides to be metals when they are insulators (Yb2O3, NiO in this dataset). For compounds containing
+# these elements a zero gap is treated as unknown: the formula is listed for review, not ranked or dropped.
+unreliable_zero_gap_elements: [Ce, Pr, Nd, Sm, Eu, Gd, Tb, Dy, Ho, Er, Tm, Yb,
+                               V, Cr, Mn, Fe, Co, Ni, Cu]
+
+# Polymorphs within this energy of each other are treated as tied when picking the representative.
+# Ties prefer: has ICSD reference, then has TBmBJ gap, then lower formation energy, then jid.
+tie_tolerance_ev: 0.001
+
+# D-014: if the representative has no ICSD reference and another polymorph within this energy has one,
+# name that polymorph in a "known phase" note.
+known_phase_window_ev: 0.030
+
+# Optional filter on JARVIS `dimensionality`. null = no filter. Decided after looking at value counts.
+allowed_dimensionality: null

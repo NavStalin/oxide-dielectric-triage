@@ -1,0 +1,22 @@
+# Source allowlist. Admin-only; cannot be changed from a query.
+# The HTTP client refuses any host not listed here.
+
+allowed_hosts:
+  - ndownloader.figshare.com   # JARVIS-DFT dataset download
+  - figshare.com
+  - oqmd.org                   # OQMD REST API cross-check
+
+jarvis:
+  dataset: dft_3d
+  raw_dir: data/raw
+  record_url_template: "https://www.ctcms.nist.gov/~knc6/jsmol/{jid}.html"   # verified 200 for JVASP-9147
+  dataset_doi: "https://doi.org/10.6084/m9.figshare.6815699"
+
+oqmd:
+  enabled: true
+  base_url: "https://oqmd.org/oqmdapi/formationenergy"
+  timeout_s: 10
+  agreement_tolerance_ev: 0.05
+
+materials_project:
+  enabled: false   # needs an account and API key

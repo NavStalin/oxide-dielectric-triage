@@ -1,0 +1,69 @@
+{
+  "source": "JARVIS-DFT (NIST)",
+  "dataset": "dft_3d",
+  "file_name": "jdft_3d-9-24-2025.json",
+  "file_url": "https://ndownloader.figshare.com/files/64391379",
+  "references": [
+    "https://doi.org/10.1016/j.commatsci.2025.114063",
+    "https://doi.org/10.6084/m9.figshare.6815699"
+  ],
+  "raw_file_sha256": "f9e0a3309f0000d5de1ec9e49c93963109ea45e63f451103f8f6595d2eabf7f5",
+  "raw_file_retrieved_at": "2026-11-17T20:56:28+00:00",
+  "snapshot_built_at": "2026-11-18T22:23:34+00:00",
+  "code_version": null,
+  "config_hashes": {
+    "ranking": "012da0297a49",
+    "candidates": "39061fedf98a",
+    "hazards": "fdfa6b01c897",
+    "sources": "7af25cf0db04",
+    "checks": "e85eec322a2f"
+  },
+  "counts": {
+    "records_total": 93902,
+    "records_with_formation_energy": 93902,
+    "records_oxygen": 25194,
+    "formulas_oxygen": 15671
+  },
+  "hull": {
+    "method": "LP over all JARVIS entries in each chemical system (D-013)",
+    "runtime_s": 15.2
+  },
+  "candidates_default_config": {
+    "formulas_in": 15671,
+    "dropped": {
+      "contains H, C, N, S or halogen": 4156,
+      "metal (no band gap)": 2119,
+      "element with no stable isotopes": 506,
+      "not an oxide": 1
+    },
+    "needs_review": 3520,
+    "formulas_out": 5369
+  },
+  "checks": {
+    "C1": {
+      "passed": true,
+      "severity": "fail",
+      "summary": "6/6 known ground states within 50 meV/atom (e_hull)"
+    },
+    "C2": {
+      "passed": false,
+      "severity": "report",
+      "summary": "1/6 known ground states within 50 meV/atom (jarvis_ehull_raw)"
+    },
+    "C3": {
+      "passed": false,
+      "severity": "warn",
+      "summary": "71/5174 records have TBmBJ gap below OptB88vdW gap by > 0.05 eV"
+    },
+    "C4": {
+      "passed": true,
+      "severity": "fail",
+      "summary": "mbj_bandgap 20.5%; icsd 25.1%; dfpt_piezo_max_dielectric 6.9%"
+    },
+    "C5": {
+      "passed": true,
+      "severity": "fail",
+      "summary": "0 candidates violate the element filters (8889 checked)"
+    }
+  }
+}

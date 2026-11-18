@@ -1,0 +1,28 @@
+# Ranking criteria. Scientists change weights here, in the app sliders, or in the request text.
+# Weights need not sum to 1; they are renormalised over the criteria that have a value.
+
+weights:
+  stability: 0.35
+  band_gap: 0.30
+  hazard: 0.20
+  simplicity: 0.15
+  dielectric: 0.0     # DFPT kappa covers ~7% of oxides, so off by default (D-016)
+
+stability:            # recomputed energy above hull, eV/atom (D-013). Piecewise linear.
+  points: [[0.0, 1.0], [0.025, 0.8], [0.100, 0.0]]
+
+band_gap:             # eV. 0 at or below zero_at, linear to 1 at full_at.
+  zero_at: 2.0
+  full_at: 6.0
+
+dielectric:           # total static kappa from DFPT. 0 at or below zero_at, linear to 1 at full_at.
+  zero_at: 4.0        # about SiO2
+  full_at: 25.0       # about HfO2/ZrO2 class
+
+simplicity:           # by number of distinct elements
+  "2": 1.0
+  "3": 0.7
+  "4": 0.4
+  "5+": 0.1
+
+rank_by: suitability  # or: confidence_adjusted (Milestone 2)

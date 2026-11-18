@@ -1,0 +1,52 @@
+[project]
+name = "triage"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "NavStalin", email = "n.stalin@icloud.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "jarvis-tools>=2026.6.12",
+    "jinja2>=3.1.6",
+    "numpy>=2.5.5",
+    "pandas>=3.1.1",
+    "plotly>=7.1.0",
+    "pyarrow>=26.0.1",
+    "pydantic>=2.14.3",
+    "pyyaml>=6.0.3",
+    "requests>=2.34.2",
+    "scipy>=1.18.1",
+    "streamlit>=1.67.0",
+    "typer>=0.29.1",
+]
+
+[build-system]
+requires = ["uv_build>=0.9.25,<0.10.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+    "responses>=0.26.3",
+    "ruff>=0.17.5",
+]
+
+[project.scripts]
+triage = "triage.cli:app"
+
+[project.optional-dependencies]
+llm = [
+    "anthropic>=2.10.0",
+    "python-dotenv>=1.2.4",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-m 'not network'"
+markers = ["network: hits a live public API (deselected by default)"]
+
+[tool.ruff]
+line-length = 100
+extend-exclude = ["scripts"]

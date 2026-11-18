@@ -1,0 +1,38 @@
+# Known-answer sanity checks (D-022, docs/PLAN.md section 9a).
+# Expected values here are human judgments used only to test the data. They are never shown as property values.
+
+C1_known_ground_states:
+  severity: fail
+  rationale: "Materials labs make routinely must come out stable, or the data or the hull code is broken."
+  tolerance_ev: 0.050   # 25 meV would fail on real data: MgO rock salt is +30 meV in JARVIS (D-022)
+  materials:            # formula: JARVIS space-group symbol(s) of the experimentally known room-temperature phase
+    HfO2: ["P2_1/c"]
+    ZrO2: ["P2_1/c"]
+    Al2O3: ["R-3c"]
+    SiO2: ["P3_121", "P3_221"]   # alpha-quartz, either hand
+    Y2O3: ["Ia-3"]
+    MgO: ["Fm-3m"]
+  # Pass if the lowest-hull entry with that formula and space group is within tolerance of the hull.
+
+C2_raw_ehull_field:
+  severity: report
+  rationale: "Re-test the JARVIS ehull field each refresh; it failed C1 on 2026-11-17 (D-013)."
+  tolerance_ev: 0.050
+
+C3_gap_method_order:
+  severity: warn
+  rationale: "TBmBJ almost always gives a larger gap than OptB88vdW; the reverse deserves a human look."
+  slack_ev: 0.05
+
+C4_coverage:
+  severity: fail
+  rationale: "A refreshed dataset that silently loses fields must not be ranked."
+  # fraction of O-containing records with the field present. Observed 2026-11-17: 0.205, 0.251, 0.069
+  bands:
+    mbj_bandgap: [0.10, 0.40]
+    icsd: [0.15, 0.40]
+    dfpt_piezo_max_dielectric: [0.03, 0.15]
+
+C5_no_excluded_elements:
+  severity: fail
+  rationale: "Our own filters must remove every excluded element."

@@ -1,0 +1,18 @@
+[
+  {
+    "_comment": "SYNTHETIC test fixture shaped like a JARVIS dft_3d record. Not real data. Never read by the app.",
+    "jid": "SYN-1", "formula": "XO2", "atoms": {"elements": ["Hf", "O", "O"]},
+    "spg_symbol": "P2_1/c", "spg_number": "14", "formation_energy_peratom": -3.0, "ehull": 1.5,
+    "mbj_bandgap": "na", "optb88vdw_bandgap": 4.0, "dfpt_piezo_max_dielectric": "na",
+    "dfpt_piezo_max_dielectric_electronic": "na", "dfpt_piezo_max_dielectric_ionic": "na",
+    "icsd": "", "dimensionality": "na", "reference": "mp-0"
+  },
+  {
+    "_comment": "SYNTHETIC. Metal gap 0.0 is a real value and must not become None.",
+    "jid": "SYN-2", "formula": "XO", "atoms": {"elements": ["Ti", "O"]},
+    "spg_symbol": "Fm-3m", "spg_number": "225", "formation_energy_peratom": -2.0, "ehull": 0,
+    "mbj_bandgap": 0.0, "optb88vdw_bandgap": 0.0, "dfpt_piezo_max_dielectric": 12.5,
+    "dfpt_piezo_max_dielectric_electronic": 5.0, "dfpt_piezo_max_dielectric_ionic": 7.5,
+    "icsd": "123,456", "dimensionality": "3D-bulk", "reference": "mp-1"
+  }
+]

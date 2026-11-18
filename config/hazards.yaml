@@ -1,0 +1,52 @@
+# Element-level hazard flags. Admin-editable.
+# Every entry quotes the source wording and records the date it was checked.
+# An element flag is NOT compound toxicology: oxidation state, form and exposure route are not assessed.
+
+penalty_per_flagged_element: 0.5   # hazard score = max(0, 1 - penalty * n_flagged)
+
+sources:
+  rohs:
+    title: "Commission Delegated Directive (EU) 2015/863 of 31 March 2015 amending Annex II to Directive 2011/65/EU (RoHS)"
+    url: "https://eur-lex.europa.eu/eli/dir_del/2015/863/oj"
+    checked: "2026-11-18"
+  iarc:
+    title: "IARC Monographs: Agents Classified by the IARC Monographs (List of Classifications), Group 1"
+    url: "https://monographs.iarc.who.int/list-of-classifications"
+    page_last_update: "30 October 2026"   # shown on https://monographs.iarc.who.int/agents-classified-by-the-iarc/
+    checked: "2026-11-18"
+  ciaaw:
+    title: "CIAAW: Standard Atomic Weights (elements shown with no standard atomic weight)"
+    url: "https://ciaaw.org/atomic-weights.htm"
+    checked: "2026-11-18"
+
+# Penalised elements. `source_wording` is quoted from the source.
+flags:
+  Pb: {sources: [rohs], source_wording: ["Lead (0,1 %)"]}
+  Hg: {sources: [rohs], source_wording: ["Mercury (0,1 %)"]}
+  Cd: {sources: [rohs, iarc], source_wording: ["Cadmium (0,01 %)", "Cadmium and cadmium compounds"]}
+  Cr:
+    sources: [rohs, iarc]
+    source_wording: ["Hexavalent chromium (0,1 %)", "Chromium (VI) compounds"]
+    note: "Both sources concern Cr(VI) only. Oxidation state is not assessed, so every Cr compound is flagged."
+  As: {sources: [iarc], source_wording: ["Arsenic and inorganic arsenic compounds"]}
+  Be: {sources: [iarc], source_wording: ["Beryllium and beryllium compounds"]}
+  Ni: {sources: [iarc], source_wording: ["Nickel compounds"]}
+
+# Hard exclusions: elements with no stable isotopes. Removed before scoring.
+excluded:
+  rule: "Tc, Pm, and every element with Z >= 84"
+  elements_explicit: [Tc, Pm]
+  min_atomic_number: 84
+  citations:
+    - source: ciaaw
+      covers: "Tc, Pm, Po to Og (Z 84 to 118 except Th, Pa, U) are listed with no standard atomic weight."
+    - source: iarc
+      covers: "Th and U: 'Thorium-232 and its decay products' and 'Uranium, mixture of isotopes' are Group 1."
+  uncited: "Pa is excluded by admin policy (radioactive). CIAAW lists a standard atomic weight for Th, Pa and U, so it does not support their exclusion on its own."
+
+# Known compound-form hazards that element flags miss. Shown as caveats, never scored.
+compound_notes:
+  SiO2:
+    source: iarc
+    source_wording: "Silica dust, crystalline, in the form of quartz or cristobalite"
+    note: "Group 1 as respirable crystalline dust. Si is not flagged at element level."
