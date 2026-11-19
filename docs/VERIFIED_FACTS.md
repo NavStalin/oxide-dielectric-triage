@@ -126,6 +126,7 @@ HTTP 200, no key, 24 entries available for HfO2.
 - SiO2 query returned 204 entries, all named `SiO2`; lowest stability 0.0 (I-42d).
 - SrTiO3 and Y2O3 queries, and later HfO2, returned **HTTP 502** ("temporary error, try again in
   30 seconds") repeatedly through the afternoon. Treat OQMD as unreliable; the app must work without it.
+- 2026-11-19: still failing (HTTP 502 and timeouts on three full runs about 40 s apart).
 
 ## 4. Hazard sources (URLs resolve; list contents not yet read line by line)
 
