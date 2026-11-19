@@ -331,16 +331,16 @@ or a computed score. This is the "no invented values" test.
 
 ### Milestone 4 (Sat 21 Nov): design note and final review
 
-- [ ] `docs/DESIGN_NOTE.md`, 3.5 pages max plus one diagram, built from `DECISIONS.md`, following
+- [x] `docs/DESIGN_NOTE.md`, 3.5 pages max plus one diagram, built from `DECISIONS.md`, following
       the six sections in the brief. Lead with the suitability/confidence split and the `ehull`
       finding; they show judgment. Section 6 ("next steps") must include the three-stage learning
       roadmap from `docs/TALK_NOTES.md`, kept to a short paragraph, and one sentence on what
       extending to another materials class would take (new property adapter, scoring functions,
       known-answer checks, a domain expert to set thresholds).
-- [ ] One architecture diagram (Mermaid, exported to PNG or SVG).
-- [ ] Final pass against section 0: for R1 to R6 and L1 to L4, write the file or test that proves
+- [x] One architecture diagram (Mermaid, exported to PNG or SVG).
+- [x] Final pass against section 0: for R1 to R6 and L1 to L4, write the file or test that proves
       each one. Put the finished table in the README.
-- [ ] Clean-clone test: fresh directory, `make setup`, `make test`, `make evals`, run the app with
+- [x] Clean-clone test: fresh directory, `make setup`, `make test`, `make evals`, run the app with
       networking off.
 
 ### Sunday 22 Nov: buffer, Nav sends it

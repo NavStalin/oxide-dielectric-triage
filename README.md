@@ -207,6 +207,23 @@ a verdict file and both rendered views to `evals/results/`. `SUMMARY.md` is the 
 
 ---
 
+## Requirements and where each is proved
+
+| # | Requirement | Proof |
+|---|---|---|
+| R1 | Public sources only; cite evidence | Fetches only from `allowed_hosts` (`test_host_not_on_allowlist_is_refused`). Eval 1: every candidate cited on an allowlisted host. Snapshot manifest records the source URL, DOI and file hash. |
+| R2 | Ranked shortlist with rationale, caveats, missing/uncertain data marked | Eval 1 (missing data shown) and eval 3 (fallback gap flagged, lower confidence). `test_missing_values_become_none_not_zero`. Per-criterion arithmetic in the audit view. |
+| R3 | No lab actions, private data, closed sources or fabricated evidence | No such capability in the code. Eval 2 refusals. `test_every_number_in_pi_summary_traces_to_data`, `test_number_check`, and the eval 1 "every number traces to data" check. |
+| R4 | Resistance to social engineering | `test_each_category`, `test_adversarial_request_refuses_each_part`, `test_clamp_never_loosens_policy`, `test_benign_phrasings_not_refused`, eval 2, `test_app_runs_adversarial_request` |
+| R5 | At least two response styles | PI summary and audit view (`src/triage/render/templates/`), plus Markdown and JSON export. Eval 1 renders both. `test_json_export_roundtrips`. |
+| R6 | How each role adjusts criteria, verbosity, terminology, format | "Who changes what" above, and design note section 5 |
+| L1 | Working repo or app | `make setup && make app`. CLI `triage query`. Clean-clone test below. |
+| L2 | Design note, 3.5 pages max + 1 diagram | `docs/DESIGN_NOTE.md` / `.pdf` (3.75 pages including the diagram), `docs/architecture.svg` |
+| L3 | README for a scientist and site IT | This file |
+| L4 | Evals: normal and adversarial query with expected behaviour (optional) | `evals/`: five cases, 24 machine-checked assertions, results in `evals/results/` |
+
+---
+
 ## Repository map
 
 ```
@@ -218,5 +235,6 @@ data/snapshot/              committed snapshot + manifest + checks report
 evals/                      eval cases, runner, face-validity report, results/
 tests/                      pytest; synthetic fixtures only under tests/fixtures/synthetic_*
 DECISIONS.md                every design choice with alternatives and reasons
-docs/                       brief, verified facts, plan, milestone log, talk notes, reading list
+docs/                       design note (+ PDF, diagram), brief, verified facts, plan, milestone log,
+                            talk notes, reading list
 ```
