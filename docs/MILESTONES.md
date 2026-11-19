@@ -7,8 +7,8 @@ material). Add a section when each milestone closes.
 | Milestone | Planned date | Status | Commit |
 |---|---|---|---|
 | 1. Data and scoring | Wed 18 Nov | Done | `de1ee57` |
-| 2. Policy, cross-check, views, interfaces | Thu 19 Nov | Done (finished early, 18 Nov) | pending |
-| 3. Evals and README | Fri 20 Nov | Not started | |
+| 2. Policy, cross-check, views, interfaces | Thu 19 Nov | Done (finished early, 18 Nov) | `f29afa8` |
+| 3. Evals and README | Fri 20 Nov | Done (finished early, 19 Nov) | see git log |
 | 4. Design note and final review | Sat 21 Nov | Not started | |
 
 ---
@@ -101,9 +101,38 @@ the brief) wasn't built.
 
 ---
 
-## Milestone 3: evals and README (planned Fri 20 Nov)
+## Milestone 3: evals and README (done 2026-11-19)
 
-To fill in when done: eval results 1–5, the face-validity table and the README.
+**Built**
+- **Eval suite:** `make evals` runs five cases through the same code path as the app and writes
+  verdicts plus both rendered views to `evals/results/`. Cases are in `evals/cases.yaml`.
+  - Options: `--provider llm` runs the cases through Claude; `--live-oqmd` tries the real OQMD.
+- **Face-validity report** (`evals/face_validity.py`): uses the pipeline's own ranking, and explains
+  each position from the score arithmetic.
+- **README:** a scientist quick start, a site IT section (install, snapshot, config, offline,
+  optional key, logs), the "who changes what" table and the eval table.
+- **Tests:** 88 pass (4 new), and lint is clean.
+
+**Results**
+- Evals 1, 2, 3 and 5: 24/24 checks pass. Eval 4 is a report.
+- Face validity: Al2O3 #1, SiO2 #2, HfO2 #6, Y2O3 #288, La2O3 #434, ZrO2 #474 of 5,369.
+  - The low three lose all their points on band gap, because all three use the fallback gap.
+  - This was predicted, and the weights were not tuned.
+
+**Findings**
+- **Eval 5 first passed for the wrong reason.** For "High-k oxides for capacitors", none of the top 5
+  had any κ data. "Missing is neutral" let no-data materials win.
+  - Fix (D-040): a criterion the request turns on requires data. 8,430 formulas without κ are
+    dropped and counted.
+  - New shortlist, each with a cited κ: NaSmO2, LuTaO4, NaPrO2, TeO2, SnB4O7.
+- **HfO2 can't be ranked on κ:** its stable form has no DFPT value in JARVIS. We don't borrow values
+  from other polymorphs (D-042).
+- **κ outliers:** 133 values are above 100 (largest 1,176). LuTaO4 (277) now carries a caution
+  caveat (D-041).
+
+**Decisions:** D-040 to D-043. D-040 accepted by Nav.
+
+**Open:** OQMD was still timing out on 2026-11-19, so a live cross-check remains for before the talk.
 
 ## Milestone 4: design note and final review (planned Sat 21 Nov)
 

@@ -1,0 +1,130 @@
+{
+  "settings": "default weights, no request filters, rank by suitability then confidence",
+  "weights": {
+    "stability": 0.35,
+    "band_gap": 0.3,
+    "hazard": 0.2,
+    "simplicity": 0.15,
+    "dielectric": 0.0
+  },
+  "ranked_formulas": 5369,
+  "top_score": 1.0,
+  "formulas_at_top_score": 4,
+  "snapshot_built_at": "2026-11-18T22:23:34+00:00",
+  "rows": [
+    {
+      "formula": "HfO2",
+      "rank": 6,
+      "of": 5369,
+      "suitability": 0.975,
+      "confidence": "High",
+      "representative": "JVASP-9147 P2_1/c",
+      "e_hull_meV": 0,
+      "band_gap_eV": 5.66,
+      "gap_method": "TBmBJ",
+      "has_icsd": true,
+      "contributions": {
+        "stability": 0.35,
+        "band_gap": 0.275,
+        "hazard": 0.2,
+        "simplicity": 0.15
+      },
+      "why": "Loses 0.025 on band gap (total 0.975). Confidence High (points: 5)."
+    },
+    {
+      "formula": "ZrO2",
+      "rank": 474,
+      "of": 5369,
+      "suitability": 0.832,
+      "confidence": "Low",
+      "representative": "JVASP-145794 Pbca",
+      "e_hull_meV": 0,
+      "band_gap_eV": 3.76,
+      "gap_method": "OptB88vdW",
+      "has_icsd": false,
+      "contributions": {
+        "stability": 0.35,
+        "band_gap": 0.132,
+        "hazard": 0.2,
+        "simplicity": 0.15
+      },
+      "why": "Loses 0.168 on band gap (total 0.832). Representative JVASP-145794 has no TBmBJ gap, so the OptB88vdW fallback (3.76 eV) is scored; the lowest-energy polymorph that has one, JVASP-113 (P2_1/c, 3 meV/atom above hull), has TBmBJ 4.21 eV. Representative JVASP-145794 (Pbca) has no ICSD reference; JVASP-113 (P2_1/c) is 3 meV/atom higher and has one. Confidence Low (points: 1)."
+    },
+    {
+      "formula": "Al2O3",
+      "rank": 1,
+      "of": 5369,
+      "suitability": 1.0,
+      "confidence": "High",
+      "representative": "JVASP-32 R-3c",
+      "e_hull_meV": 0,
+      "band_gap_eV": 7.57,
+      "gap_method": "TBmBJ",
+      "has_icsd": true,
+      "contributions": {
+        "stability": 0.35,
+        "band_gap": 0.3,
+        "hazard": 0.2,
+        "simplicity": 0.15
+      },
+      "why": "Scores the maximum suitability (1.000) along with 3 others. Confidence High (points: 5)."
+    },
+    {
+      "formula": "Y2O3",
+      "rank": 288,
+      "of": 5369,
+      "suitability": 0.873,
+      "confidence": "Medium",
+      "representative": "JVASP-20793 Ia-3",
+      "e_hull_meV": 0,
+      "band_gap_eV": 4.31,
+      "gap_method": "OptB88vdW",
+      "has_icsd": true,
+      "contributions": {
+        "stability": 0.35,
+        "band_gap": 0.173,
+        "hazard": 0.2,
+        "simplicity": 0.15
+      },
+      "why": "Loses 0.127 on band gap (total 0.873). Representative JVASP-20793 has no TBmBJ gap, so the OptB88vdW fallback (4.31 eV) is scored; the lowest-energy polymorph that has one, JVASP-57843 (C2/m, 28 meV/atom above hull), has TBmBJ 5.25 eV. Confidence Medium (points: 3)."
+    },
+    {
+      "formula": "SiO2",
+      "rank": 2,
+      "of": 5369,
+      "suitability": 1.0,
+      "confidence": "High",
+      "representative": "JVASP-41 P3_221",
+      "e_hull_meV": 0,
+      "band_gap_eV": 8.1,
+      "gap_method": "TBmBJ",
+      "has_icsd": true,
+      "contributions": {
+        "stability": 0.35,
+        "band_gap": 0.3,
+        "hazard": 0.2,
+        "simplicity": 0.15
+      },
+      "why": "Scores the maximum suitability (1.000) along with 3 others. Confidence High (points: 5)."
+    },
+    {
+      "formula": "La2O3",
+      "rank": 434,
+      "of": 5369,
+      "suitability": 0.841,
+      "confidence": "Low",
+      "representative": "JVASP-154699 P-3m1",
+      "e_hull_meV": 0,
+      "band_gap_eV": 3.88,
+      "gap_method": "OptB88vdW",
+      "has_icsd": false,
+      "contributions": {
+        "stability": 0.35,
+        "band_gap": 0.141,
+        "hazard": 0.2,
+        "simplicity": 0.15
+      },
+      "why": "Loses 0.159 on band gap (total 0.841). Representative JVASP-154699 has no TBmBJ gap, so the OptB88vdW fallback (3.88 eV) is scored. Confidence Low (points: 1)."
+    }
+  ]
+}

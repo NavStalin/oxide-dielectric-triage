@@ -44,6 +44,7 @@ llm = [
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["."]
 addopts = "-m 'not network'"
 markers = ["network: hits a live public API (deselected by default)"]
 

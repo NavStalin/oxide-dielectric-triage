@@ -195,6 +195,37 @@ note as its key caveat; its hazard score stays 1.0 because the element rule is t
 `allowed_hosts` (figshare, OQMD); citation links may point to `citation_hosts` (NIST JARVIS pages, DOI,
 EUR-Lex, IARC). Keeps "what the app can reach" distinct from "where a scientist can click".
 
+## Milestone 3 (2026-11-19)
+
+**D-040 A criterion that's off by default requires data once a request turns it on.** Found by
+eval 5. With "missing is neutral" (D-010), the request "High-k oxides for capacitors" returned Li2O,
+B2O3, HfO2, AlBO3 and Ca3B2O6. None of the five has a DFPT κ, so all five beat oxides that do. Now,
+when a criterion has weight 0 in `ranking.yaml` and the request or a slider raises it, candidates
+without that value are dropped from ranking and counted in the funnel (8,430 dropped for κ).
+Configured in `ranking.yaml` `require_data_when_enabled`.
+- Alternatives considered:
+  - Score missing κ as 0: hides the reason.
+  - Keep it neutral: the result answers a different question from the one asked.
+- The default request is unchanged. Accepted by Nav 2026-11-19.
+
+**D-041 Very large DFPT κ gets a caution caveat, not a different score.** In the snapshot:
+- 133 of 1,734 κ values are above 100, and the largest is 1,176.
+- LuTaO4 (277) reached the eval 5 shortlist.
+
+Very large ionic contributions usually mean a soft polar mode near an instability. The score already
+saturates at κ = 25, so the outlier doesn't dominate. It is now flagged above
+`dielectric.caveat_above` (100). The threshold is a judgment call and lives in config.
+
+**D-042 Only the representative polymorph's own κ is used; no borrowing from other polymorphs.**
+Monoclinic HfO2, the stable form, has no κ. Four other HfO2 polymorphs do (e.g. P4_2/nmc 141, Pca2_1
+24). Using them would score a phase different from the one whose stability and gap are scored. So
+HfO2 can't be ranked on κ. Reported as a data-coverage finding, not patched.
+
+**D-043 The face-validity report uses the pipeline's own ranking function.** `rank_offline` was pulled
+out of `run_triage` so the report places all 5,369 formulas with exactly the same ordering as the
+app. Where a representative has no TBmBJ gap, the report names the lowest-energy polymorph that has
+one. It doesn't pick the polymorph with the largest gap, which would be cherry-picking.
+
 ---
 
 ## Open questions for Nav

@@ -117,6 +117,12 @@ def caveats_for(cand: Candidate, suit: Suitability, xc: CrossCheck, s: dict) -> 
         )
     if cand.known_phase_note:
         out.append(cand.known_phase_note)
+    k_lim = s["ranking"]["dielectric"].get("caveat_above")
+    if k_lim is not None and r.kappa_total is not None and r.kappa_total > k_lim:
+        out.append(
+            f"DFPT dielectric constant {r.kappa_total:.0f} is unusually large (above {k_lim:.0f}); "
+            "often a sign of a soft polar mode near an instability. Treat κ with caution."
+        )
     for f in hazards.flags_for(r.elements, s["hazards"]):
         out.append(
             f"Element flag {f.element}: {'; '.join(f.wording)}." + (f" {f.note}" if f.note else "")
@@ -204,6 +210,24 @@ def _allowed_numbers(f: dict) -> list[float]:
     return [float(v) for v in vals] + [float(f["n_elements"])]
 
 
+def rank_offline(
+    scored: list[tuple[Candidate, Suitability]], s: dict | None = None
+) -> list[tuple[Candidate, Suitability, Confidence]]:
+    """Full ranking before the cross-check: suitability, then offline confidence (D-031).
+
+    Shared by the pipeline (to pick the shortlist) and the face-validity report (to place every
+    formula), so both use exactly the same ordering.
+    """
+    s = s or _settings()
+    corr_els = s["candidates"]["unreliable_zero_gap_elements"]
+    no_xc = CrossCheck(status="not_run", detail="OQMD cross-check runs on the shortlist only")
+    out = [(c, su, confidence.assess(c, su, no_xc, s["confidence"], corr_els)) for c, su in scored]
+    out.sort(
+        key=lambda x: (-round(x[1].total, 3), LEVEL_ORDER[x[2].level], -x[2].points, x[0].formula)
+    )
+    return out
+
+
 # ---------- main ------------------------------------------------------------------------------
 
 
@@ -271,6 +295,11 @@ def run_triage(
         }
         kept, review = [], []
         extra: dict[str, int] = {}
+        required = {
+            name: field
+            for name, field in (s["ranking"].get("require_data_when_enabled") or {}).items()
+            if crit.weights.get(name, 0) > 0 and not s["ranking"]["weights"].get(name, 0)
+        }
 
         def drop(why: str) -> None:
             extra[why] = extra.get(why, 0) + 1
@@ -285,6 +314,10 @@ def run_triage(
                 continue
             if crit.max_e_hull is not None and (r.e_hull is None or r.e_hull > crit.max_e_hull):
                 drop(f"energy above hull > {crit.max_e_hull * 1000:.0f} meV/atom")
+                continue
+            lacking = [n for n, f in required.items() if getattr(r, f) is None]
+            if lacking:
+                drop(f"no {', '.join(lacking)} data (criterion turned on by request)")
                 continue
             if c.status == "needs_review":
                 review.append(c)
@@ -308,20 +341,9 @@ def run_triage(
     style = crit.style or s["output"]["default_style"]
     n = crit.shortlist_size or s["output"]["shortlist"][style]
     corr_els = s["candidates"]["unreliable_zero_gap_elements"]
-    no_xc = CrossCheck(status="not_run", detail="OQMD cross-check runs on the shortlist only")
 
     with trace.step("rank (ties by offline confidence)") as t:
-        prelim = [
-            (c, su, confidence.assess(c, su, no_xc, s["confidence"], corr_els)) for c, su in scored
-        ]
-        prelim.sort(
-            key=lambda x: (
-                -round(x[1].total, 3),
-                LEVEL_ORDER[x[2].level],
-                -x[2].points,
-                x[0].formula,
-            )
-        )
+        prelim = rank_offline(scored, s)
         pool = prelim[: n * 2 if s["ranking"]["rank_by"] == "confidence_adjusted" else n]
         t["detail"] = f"shortlist pool {len(pool)} of {len(prelim)}"
 

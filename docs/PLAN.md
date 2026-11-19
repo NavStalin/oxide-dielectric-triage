@@ -303,13 +303,13 @@ Done when: `make snapshot && make test` pass from a clean clone with the raw zip
 
 ### Milestone 3 (Fri 20 Nov): evals and README
 
-- [ ] `evals/cases.yaml` + `run_evals.py`: the four cases in the brief, each with machine-checked
+- [x] `evals/cases.yaml` + `run_evals.py`: the four cases in the brief, each with machine-checked
       assertions (see below) and a written result in `evals/results/`.
-- [ ] `evals/face_validity.py`: where HfO2, ZrO2, Al2O3, Y2O3, SiO2 and La2O3 land, with the reason
+- [x] `evals/face_validity.py`: where HfO2, ZrO2, Al2O3, Y2O3, SiO2 and La2O3 land, with the reason
       for each position taken from the contributions. Don't tune to move them.
-- [ ] README: scientist quick start, site IT section (install, snapshot, allowlist, hazards, offline,
+- [x] README: scientist quick start, site IT section (install, snapshot, allowlist, hazards, offline,
       optional key, logs), and the "who changes what" table.
-- [ ] Show Nav: eval results and the face-validity table.
+- [x] Show Nav: eval results and the face-validity table.
 
 Eval assertions:
 1. Normal: every ranked formula contains O and no excluded element; every candidate has ≥ 1 citation

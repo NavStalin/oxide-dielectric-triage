@@ -139,3 +139,25 @@ def test_every_number_in_pi_summary_traces_to_data():
 def test_json_export_roundtrips():
     r = run_triage(EXAMPLE, oqmd_enabled=False)
     assert '"ranked"' in to_json(r)
+
+
+def test_requested_dielectric_requires_kappa_data():
+    """D-040: once a request turns κ on, candidates without κ are dropped and counted, not ranked."""
+    r = run_triage("High-k oxides for capacitors.", oqmd_enabled=False)
+    assert r.ranked
+    assert all(rc.candidate.representative.kappa_total is not None for rc in r.ranked)
+    assert any("no dielectric data" in k for k in r.filter_counts)
+
+
+def test_default_request_does_not_require_kappa():
+    r = run_triage(EXAMPLE, oqmd_enabled=False)
+    assert not any("no dielectric data" in k for k in r.filter_counts)
+    assert any(rc.candidate.representative.kappa_total is None for rc in r.ranked)
+
+
+def test_large_kappa_gets_caveat():
+    """D-041: DFPT κ above the configured limit carries a caution caveat."""
+    r = run_triage("High-k oxides for capacitors. Top 25.", oqmd_enabled=False)
+    big = [rc for rc in r.ranked if rc.candidate.representative.kappa_total > 100]
+    assert big
+    assert all(any("unusually large" in c for c in rc.caveats) for rc in big)

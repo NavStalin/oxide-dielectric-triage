@@ -18,12 +18,21 @@ band_gap:             # eV. 0 at or below zero_at, linear to 1 at full_at.
 dielectric:           # total static kappa from DFPT. 0 at or below zero_at, linear to 1 at full_at.
   zero_at: 4.0        # about SiO2
   full_at: 25.0       # about HfO2/ZrO2 class
+  caveat_above: 100.0 # DFPT kappa above this gets a caveat (D-041). In the snapshot 133 of 1,734 values
+                      # exceed 100 (max 1,176); very large ionic terms usually mean a soft polar mode
+                      # near a structural instability. The score already saturates at full_at.
 
 simplicity:           # by number of distinct elements
   "2": 1.0
   "3": 0.7
   "4": 0.4
   "5+": 0.1
+
+# Criteria that are off by default (weight 0) and, once a request or slider turns them on, only rank
+# candidates that have the value. Otherwise "missing is neutral" lets no-data materials win a
+# request that asked specifically for that property (D-040). Maps criterion -> record field.
+require_data_when_enabled:
+  dielectric: kappa_total
 
 rank_by: suitability  # or: confidence_adjusted
 # Ties (same suitability to 3 decimals) are broken by evidence confidence, then formula (D-031).
