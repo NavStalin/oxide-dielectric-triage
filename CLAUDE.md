@@ -9,7 +9,7 @@ The panel is senior: judgment and scientific reasoning first, engineering second
 2. `docs/VERIFIED_FACTS.md`: real field names, coverage numbers and URLs, checked live. Trust this over the brief's guesses.
 3. `DECISIONS.md`: the decision log. D-013 to D-021 were made during planning and amend the brief.
 4. `docs/PLAN.md`: architecture, module specs, and milestone tasks with acceptance checks.
-5. `docs/TALK_NOTES.md`: material for the Monday talk. Add to it whenever the data surprises us or a decision is worth defending out loud. The sanity checks and learning roadmap (D-022, D-023) must stay in it.
+5. `docs/TALK_NOTES.md` (local only, git-ignored): material for the Monday talk. Add to it whenever the data surprises us or a decision is worth defending out loud. The sanity checks and learning roadmap (D-022, D-023) must stay in it.
 
 Where the brief and `DECISIONS.md` disagree, `DECISIONS.md` wins (most importantly D-013: recompute the hull, never score the JARVIS `ehull` field).
 

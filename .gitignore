@@ -8,3 +8,6 @@ data/raw/
 logs/
 *.egg-info/
 .DS_Store
+
+# Talk prep: kept local, not published
+docs/TALK_NOTES.md

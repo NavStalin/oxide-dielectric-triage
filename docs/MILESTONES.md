@@ -1,15 +1,14 @@
 # Milestone log
 
 Short status for each milestone: what was built, what we found, what's still open. The details are in
-`docs/PLAN.md` (the checklist), `DECISIONS.md` (the reasons) and `docs/TALK_NOTES.md` (the talk
-material). Add a section when each milestone closes.
+`docs/PLAN.md` (the checklist), `DECISIONS.md` (the reasons). Add a section when each milestone closes.
 
 | Milestone | Planned date | Status | Commit |
 |---|---|---|---|
-| 1. Data and scoring | Wed 18 Nov | Done | `de1ee57` |
-| 2. Policy, cross-check, views, interfaces | Thu 19 Nov | Done (finished early, 18 Nov) | `f29afa8` |
-| 3. Evals and README | Fri 20 Nov | Done (finished early, 19 Nov) | `3b6adac` |
-| 4. Design note and final review | Sat 21 Nov | Done (finished early, 19 Nov) | pending |
+| 1. Data and scoring | Wed 18 Nov | Done | `2d8d8a6` |
+| 2. Policy, cross-check, views, interfaces | Thu 19 Nov | Done (finished early, 18 Nov) | `98292be` |
+| 3. Evals and README | Fri 20 Nov | Done (finished early, 19 Nov) | `cf8ee5a` |
+| 4. Design note and final review | Sat 21 Nov | Done (finished early, 19 Nov) | `14e3f6f` |
 
 ---
 

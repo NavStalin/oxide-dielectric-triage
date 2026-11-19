@@ -112,7 +112,7 @@ from previous runs into a self-updating checklist. Why: without experimental fee
 its own outputs, it breaks reproducibility (the same query could change answer week to week), its
 lessons can't be cited, and a learning memory can be poisoned by users. The roadmap (checks as code →
 model proposes checks, scientist approves → lab results calibrate confidence) is in
-`docs/TALK_NOTES.md` and the design note.
+the design note.
 
 **D-024 Keep scope to oxide dielectrics; show flexibility inside it.** Agreed with Nav 2026-11-18.
 Alternative: support other materials classes (batteries, catalysts). Why: each class needs its own
@@ -232,4 +232,4 @@ one. It doesn't pick the polymorph with the largest gap, which would be cherry-p
 
 1. ~~Confirm D-013 (recomputed hull).~~ Accepted 2026-11-17.
 2. ~~Which LLM key?~~ Anthropic, set up 2026-11-18 in `.env` (git-ignored). Model `claude-opus-5-5`.
-3. Public GitHub repo or a zip for the recruiting coordinator?
+3. ~~Public GitHub repo or a zip?~~ Public repo `NavStalin/oxide-dielectric-triage`, decided 2026-11-19. Talk notes stay local.

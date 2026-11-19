@@ -105,7 +105,7 @@ are logged.
 Requires [uv](https://docs.astral.sh/uv/). It installs Python 3.12 itself.
 
 ```bash
-git clone <repo> && cd lila-triage
+git clone https://github.com/NavStalin/oxide-dielectric-triage.git && cd oxide-dielectric-triage
 make setup                      # uv sync
 uv sync --extra llm             # optional: Claude parser (anthropic, python-dotenv)
 make test                       # unit and end-to-end tests, no network
@@ -236,5 +236,5 @@ evals/                      eval cases, runner, face-validity report, results/
 tests/                      pytest; synthetic fixtures only under tests/fixtures/synthetic_*
 DECISIONS.md                every design choice with alternatives and reasons
 docs/                       design note (+ PDF, diagram), brief, verified facts, plan, milestone log,
-                            talk notes, reading list
+                            reading list
 ```
