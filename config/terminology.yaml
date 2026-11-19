@@ -1,0 +1,17 @@
+# Display labels. A site can rename terms without touching code.
+labels:
+  suitability: "Suitability"
+  confidence: "Evidence confidence"
+  stability: "Stability"
+  band_gap: "Band gap"
+  hazard: "Element hazard"
+  simplicity: "Simplicity"
+  dielectric: "Dielectric constant (κ)"
+  e_hull: "Energy above hull"
+  formula: "Formula"
+  caveats: "Caveats"
+  sources: "Sources"
+  needs_review: "Listed for review, not ranked"
+units:
+  e_hull: "meV/atom"     # displayed unit; stored values are eV/atom
+  band_gap: "eV"

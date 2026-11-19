@@ -1,0 +1,37 @@
+# Oxide dielectric triage: PI summary
+
+**Request:** {{ r.request | cell }}
+
+{% if r.refusals %}
+**Not done:**
+{% for f in r.refusals %}
+- {{ f.message }}
+{% endfor %}
+
+{% endif %}
+{% for note in r.notes %}
+> {{ note }}
+{% endfor %}
+{% if r.notes %}
+
+{% endif %}
+{% if not r.ranked %}
+No candidates matched the filters. See the audit view for what was filtered out.
+{% else %}
+| # | {{ L.formula }} | {{ L.suitability }} | {{ L.confidence }} | Why | Key caveat | {{ L.sources }} |
+|---|---|---|---|---|---|---|
+{% for rc in r.ranked[:n] %}
+| {{ rc.rank }}{% if rc.tied %} (tie){% endif %} | {{ rc.candidate.formula }} | {{ rc.suitability.total | num(3) }} | {{ rc.confidence.level }} | {{ rc.rationale | cell }} | {{ (rc.caveats[0] if rc.caveats else "None beyond the standing caveats.") | cell }} | {% for c in rc.citations if c.url %}[{{ c.record_id or c.source }}]({{ c.url }}){% if not loop.last %}, {% endif %}{% endfor %} |
+{% endfor %}
+{% endif %}
+
+{% if r.review_list %}
+{{ r.review_list | length }} more formulas are {{ L.needs_review | lower }}: DFT gives them zero gap, but for their elements that is unreliable. Listed in the audit view.
+
+{% endif %}
+**{{ L.caveats }} (always shown)**
+{% for c in r.standing_caveats %}
+- {{ c }}
+{% endfor %}
+
+<sub>Data: {{ r.manifest.source }}, file {{ r.manifest.file_name }}, retrieved {{ r.manifest.raw_file_retrieved_at }}; snapshot built {{ r.manifest.snapshot_built_at }}. Ranked by {{ L.suitability | lower }}; ties broken by {{ L.confidence | lower }}. Parser: {{ r.settings.provider }}.</sub>

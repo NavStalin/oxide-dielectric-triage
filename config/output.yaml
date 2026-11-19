@@ -1,0 +1,28 @@
+# Output settings. Field engineers change verbosity and format here.
+default_style: pi            # pi | audit
+shortlist:
+  pi: 5
+  audit: 10
+audit_sections:              # set false to hide a section in the audit view
+  criteria_table: true
+  raw_values: true
+  cross_check: true
+  polymorphs: true
+  review_list: true
+  config_applied: true
+  manifest: true
+  refusals: true
+  trace: true
+polymorphs_shown: 5
+review_list_shown: 25
+decimals:
+  suitability: 3
+  gap: 2
+
+# Standing caveats: always rendered, cannot be switched off by any setting.
+standing_caveats:
+  - "Values are DFT calculations for perfect bulk crystals, not measurements on thin films. Many deposited films are amorphous or strained."
+  - "DFT band gaps are approximate; the OptB88vdW fallback usually underestimates the gap."
+  - "Energy above hull is thermodynamic stability at 0 K, recomputed from JARVIS formation energies. It says nothing about kinetics, deposition conditions or reactions with the substrate."
+  - "Hazard flags are element-level (RoHS, IARC). They are not compound toxicology and do not assess oxidation state or exposure route."
+  - "This is a triage shortlist to support a scientist's judgment. It is not a recommendation to run any experiment."

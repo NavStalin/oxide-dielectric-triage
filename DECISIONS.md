@@ -163,11 +163,42 @@ Group 1, which the element rule cannot catch; it is a compound-level caveat for 
 Th and U exclusion is cited via IARC; Pa is excluded by admin policy without an external citation
 (CIAAW gives Th, Pa, U standard atomic weights).
 
+## Milestone 2 (2026-11-18)
+
+**D-033 Confidence −1 for f-electron and open-shell 3d elements, even with a positive gap.** Same
+elements as D-030. Found: YbO ranks #5 on default settings (on the hull, TBmBJ gap 5.80 eV, ICSD) while
+Yb2O3, the oxide that actually forms, is mis-described. The penalty and a top-priority caveat flag it
+without hiding it. Alternative: exclude these elements (too blunt; many are fine).
+
+**D-034 Ties are broken by confidence computed without OQMD, for every candidate.** OQMD runs on the
+shortlist only (D-005), so the tie-break must use evidence available offline for all tied candidates;
+OQMD then refines confidence on the shortlist. Ties are labelled "(tie)" in both views.
+
+**D-035 OQMD client: `sort_by=stability`, limit 50, 10 s timeout, one retry, then stop for the run.**
+OQMD returned HTTP 502 for most of 2026-11-18. After the first failure the remaining shortlist is marked
+"skipped after earlier failure" instead of waiting about 20 s per formula. The failure is named in a run
+note and on every affected row, and no OQMD value is shown. Successful responses are cached on disk.
+
+**D-036 Model output uses a flat schema with "keep default" sentinels.** The API rejected the first
+schema (optional and nullable fields) with "Schema is too complex" (verified 2026-11-18). All fields
+are now required; −1 / 0 / "default" mean "no change". The model's criteria pass through the same policy
+clamp as the rules parser, and any error or refusal falls back to the rules parser with a note.
+
+**D-037 Model-worded rationales only with the Claude parser, and only if every number passes the
+check.** Each sentence is checked against the candidate's own values (rounded to the precision written);
+a failing sentence is replaced by the template wording. Live test: 4/4 sentences passed.
+
+**D-038 Hazard compound notes are caveats, not penalties.** SiO2 shows the IARC crystalline-silica
+note as its key caveat; its hazard score stays 1.0 because the element rule is the stated method.
+
+**D-039 Citation hosts are listed separately from fetch hosts.** The app fetches only from
+`allowed_hosts` (figshare, OQMD); citation links may point to `citation_hosts` (NIST JARVIS pages, DOI,
+EUR-Lex, IARC). Keeps "what the app can reach" distinct from "where a scientist can click".
+
 ---
 
 ## Open questions for Nav
 
 1. ~~Confirm D-013 (recomputed hull).~~ Accepted 2026-11-17.
-2. Which LLM key do you have (Anthropic, OpenRouter, none)? Needed before Milestone 2's optional
-   `LLMProvider`. Nothing else depends on it.
+2. ~~Which LLM key?~~ Anthropic, set up 2026-11-18 in `.env` (git-ignored). Model `claude-opus-5-5`.
 3. Public GitHub repo or a zip for the recruiting coordinator?

@@ -25,4 +25,7 @@ simplicity:           # by number of distinct elements
   "4": 0.4
   "5+": 0.1
 
-rank_by: suitability  # or: confidence_adjusted (Milestone 2)
+rank_by: suitability  # or: confidence_adjusted
+# Ties (same suitability to 3 decimals) are broken by evidence confidence, then formula (D-031).
+# confidence_adjusted ranks by suitability x multiplier below; the displayed suitability is unchanged.
+confidence_multiplier: {High: 1.0, Medium: 0.9, Low: 0.8}

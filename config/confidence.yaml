@@ -1,0 +1,18 @@
+# Evidence confidence rubric (D-019). Points, then thresholds. Not part of suitability.
+points:
+  gap_tbmbj: 2              # band gap from TBmBJ
+  gap_fallback: 0           # band gap from OptB88vdW only (probable underestimate)
+  icsd_reference: 2         # representative has an ICSD reference (JARVIS icsd, or OQMD icsd_id)
+  oqmd_agree: 1             # OQMD stability agrees within tolerance (config/sources.yaml)
+  oqmd_disagree: -1
+  oqmd_unavailable: 0       # failure is named in the caveats
+  all_criteria_present: 1   # every criterion with weight > 0 has a value
+  sparse_hull: -1           # hull built from fewer than `sparse_hull_below` competing compositions
+  correlated_element: -1    # f-electron or open-shell 3d element: DFT energies and gaps less reliable (D-033)
+
+sparse_hull_below: 3
+
+levels:                     # minimum points for each level
+  High: 4
+  Medium: 2
+  Low: -99

@@ -120,6 +120,13 @@ HTTP 200, no key, 24 entries available for HfO2.
   at 25 s. Until it's confirmed, cite the API query URL that produced the value. The site is slow, so
   use timeouts and cache responses.
 
+### OQMD update (2026-11-18)
+
+- `sort_by=stability` is a documented parameter (API docs page); used with `limit=50`.
+- SiO2 query returned 204 entries, all named `SiO2`; lowest stability 0.0 (I-42d).
+- SrTiO3 and Y2O3 queries, and later HfO2, returned **HTTP 502** ("temporary error, try again in
+  30 seconds") repeatedly through the afternoon. Treat OQMD as unreliable; the app must work without it.
+
 ## 4. Hazard sources (URLs resolve; list contents not yet read line by line)
 
 | Source | URL | Status |

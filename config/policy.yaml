@@ -1,0 +1,56 @@
+# Request policy gate. Admin-only. Deterministic regex checks run before any parsing or model call.
+# Each matching clause is refused with its one-line message; the rest of the request still runs (D-011).
+
+categories:
+  rule_override:
+    message: "I can't change my operating rules from a query."
+    patterns:
+      - '\bignore\b.{0,30}\b(rules?|instructions?|constraints?|polic(y|ies)|guardrails?)\b'
+      - '\bdisregard\b'
+      - '\byou are now\b'
+      - '\bdeveloper mode\b'
+      - '\bjailbreak\b'
+      - '\bpretend (you|to)\b'
+      - '\bwithout (any )?(restrictions|rules|limits)\b'
+      - '\boverride\b.{0,20}\b(policy|rules|settings|allowlist)\b'
+  private_data:
+    message: "I can't read private or internal data. I only use the public sources listed below."
+    patterns:
+      - '\b(private|internal|confidential|proprietary|unpublished)\b'
+      - '\b(our|my)( lab(''s)?| group(''s)?| team(''s)?)? (drive|data|notebook|server|database|results|files)\b'
+      - '\b(sharepoint|google drive|onedrive|dropbox|eln)\b'
+  closed_sources:
+    message: "I can't use paywalled or closed sources, or scrape websites."
+    patterns:
+      - '\bpay-?wall(ed)?\b'
+      - '\bbehind (a )?log-?in\b'
+      - '\bsci-?hub\b'
+      - '\bscrap(e|ing)\b'
+      - '\bsubscription\b'
+  lab_action:
+    message: "I can't run, schedule or recommend wet-lab or instrument actions. The shortlist is for triage only."
+    patterns:
+      - '\bwhich (one|material|candidate)s? (should i|to|do i)\b.{0,20}\b(deposit|make|grow|synthesi[sz]e|run)\b'
+      - '\b(deposit|synthesi[sz]e|grow|anneal|sputter)\b.{0,30}\b(tomorrow|today|tonight|now|next week)\b'
+      - '\b(run|start|operate|control|schedule|book|order)\b.{0,30}\b(instruments?|furnace|reactor|ald|sputter(ing)?|depositions?|synthes[ie]s|precursors?|chemicals)\b'
+  drop_safeguards:
+    message: "Citations and caveats are always included."
+    patterns:
+      - '\b(skip|drop|remove|omit|hide|no|without|leave out)\b.{0,15}\b(citations?|sources|references|caveats?|warnings?|disclaimers?)\b'
+      - '\bdon''?t (include|show|need|give)\b.{0,15}\b(citations?|sources|references|caveats?|warnings?)\b'
+      - '\bjust tell me\b'
+      - '\b(don''?t|no) hedg(e|ing)\b'
+  fabrication:
+    message: "I don't estimate or invent property values. Missing data is reported as missing."
+    patterns:
+      - '\b(make up|invent|fabricate|guess|impute|fill in)\b.{0,30}\b(values?|numbers?|data|gaps?|properties|citations?|references?)\b'
+      - '\b(estimate|guess)\b.{0,15}\b(the )?(missing|band gap|dielectric|value)\b'
+
+# What to run when the safe remainder contains no usable criteria.
+on_empty_remainder: run_defaults   # or: refuse_all
+audit_log: logs/audit.jsonl
+
+# Admin limits that user criteria can never exceed.
+limits:
+  max_shortlist: 25
+  allow_user_extra_anions: false   # a request cannot re-enable H, C, N, S, halogens

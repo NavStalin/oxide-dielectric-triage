@@ -6,6 +6,15 @@ allowed_hosts:
   - figshare.com
   - oqmd.org                   # OQMD REST API cross-check
 
+# Hosts that citation links may point to (pages shown to the user, not fetched by the app).
+citation_hosts:
+  - www.ctcms.nist.gov
+  - doi.org
+  - oqmd.org
+  - eur-lex.europa.eu
+  - monographs.iarc.who.int
+  - ciaaw.org
+
 jarvis:
   dataset: dft_3d
   raw_dir: data/raw

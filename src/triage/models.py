@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Literal
+from typing import Any, Literal
 
 from pydantic import BaseModel, Field
 
@@ -73,6 +73,77 @@ class Suitability(BaseModel):
     total: float
     criteria: list[CriterionScore]
     missing: list[str] = Field(default_factory=list)
+
+
+class Criteria(BaseModel):
+    """What the scientist asked for, in typed form. Produced by a DecisionProvider, then clamped by policy."""
+
+    weights: dict[str, float]
+    min_band_gap: float | None = None  # eV, hard filter on the primary gap
+    max_e_hull: float | None = None  # eV/atom, hard filter
+    max_elements: int | None = None
+    exclude_elements: list[str] = Field(default_factory=list)
+    allow_extra_anions: bool = False
+    shortlist_size: int | None = None
+    style: Literal["pi", "audit"] | None = None
+    matched: list[str] = Field(default_factory=list)  # phrases the parser understood, with effect
+    unparsed: list[str] = Field(default_factory=list)  # phrases it did not understand
+    clamped: list[str] = Field(default_factory=list)  # what policy changed, and why
+    provider: str = "rules"
+
+
+class CrossCheck(BaseModel):
+    status: Literal["agree", "disagree", "unavailable", "not_found", "not_run"]
+    match_type: Literal["same_phase", "formula_level"] | None = None
+    oqmd_stability: Evidence | None = None
+    delta_ev: float | None = None
+    icsd_id: str | None = None
+    detail: str = ""
+
+
+class Confidence(BaseModel):
+    level: Literal["High", "Medium", "Low"]
+    points: int
+    reasons: list[str]
+
+
+class Refusal(BaseModel):
+    category: str
+    matched_text: str
+    message: str
+
+
+class RankedCandidate(BaseModel):
+    rank: int
+    tied: bool = False  # same suitability (to displayed precision) as a neighbour
+    candidate: Candidate
+    suitability: Suitability
+    confidence: Confidence
+    cross_check: CrossCheck
+    rationale: str
+    caveats: list[str]
+    citations: list[Evidence]
+
+
+class TraceStep(BaseModel):
+    step: str
+    detail: str
+    ms: float
+
+
+class TriageResult(BaseModel):
+    request: str
+    criteria: Criteria
+    refusals: list[Refusal]
+    ranked: list[RankedCandidate]
+    review_list: list[Candidate]
+    standing_caveats: list[str]
+    notes: list[str]  # run-level notes, e.g. "OQMD unreachable"
+    filter_counts: dict[str, Any]
+    manifest: dict[str, Any]
+    settings: dict[str, Any]
+    trace: list[TraceStep]
+    created_at: str
 
 
 class CheckResult(BaseModel):

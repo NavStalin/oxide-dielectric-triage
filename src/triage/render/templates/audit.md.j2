@@ -1,0 +1,153 @@
+# Oxide dielectric triage: audit view
+
+**Request:** {{ r.request | cell }}
+**Run:** {{ r.created_at }} · parser `{{ r.settings.provider }}` · style `{{ r.settings.style }}` · shortlist {{ r.settings.shortlist_size }} · rank by `{{ r.settings.rank_by }}`
+
+{% if out.audit_sections.refusals %}
+## Refusals and notes
+{% if r.refusals %}
+| Category | Matched text | Response |
+|---|---|---|
+{% for f in r.refusals %}
+| {{ f.category }} | {{ f.matched_text | cell }} | {{ f.message }} |
+{% endfor %}
+Each refusal was written to the audit log.
+{% else %}
+No part of the request was refused.
+{% endif %}
+{% for note in r.notes %}
+- {{ note }}
+{% endfor %}
+
+{% endif %}
+## How the request was read
+{% for m in r.criteria.matched %}
+- {{ m }}
+{% endfor %}
+{% if r.criteria.unparsed %}
+Not understood (ignored): {% for u in r.criteria.unparsed %}"{{ u }}"{% if not loop.last %}, {% endif %}{% endfor %}
+
+{% endif %}
+{% for cl in r.criteria.clamped %}
+- Policy: {{ cl }}
+{% endfor %}
+
+{% for rc in r.ranked %}
+{% set c = rc.candidate %}
+{% set rep = c.representative %}
+{% set gap = primary_gap(rep) %}
+## {{ rc.rank }}{% if rc.tied %} (tie){% endif %}. {{ c.formula }}: {{ L.suitability }} {{ rc.suitability.total | num(3) }}, {{ L.confidence }} {{ rc.confidence.level }} ({{ rc.confidence.points }} pts)
+
+{{ rc.rationale }}
+
+{% if out.audit_sections.raw_values %}
+**Representative:** [{{ rep.jid }}]({{ rc.citations[0].url }}) · space group {{ rep.spg_symbol }} · origin {{ rep.origin_reference or "missing" }} · retrieved {{ rc.citations[0].retrieved_at }}
+
+| Value | Raw | Unit | Method / source |
+|---|---|---|---|
+| {{ L.e_hull }} | {{ rep.e_hull | mev }} | meV/atom | recomputed hull from JARVIS formation energies, {{ rep.hull_n_compositions }} competing compositions (D-013) |
+| JARVIS `ehull` field | {{ rep.jarvis_ehull_raw | num(4) }} | eV/atom | not used (failed known-answer check C2, D-013) |
+| Formation energy | {{ rep.formation_energy_peratom | num(3) }} | eV/atom | JARVIS-DFT, OptB88vdW |
+| Band gap, TBmBJ | {{ rep.gap_mbj | num(3) }} | eV | JARVIS-DFT |
+| Band gap, OptB88vdW | {{ rep.gap_optb88 | num(3) }} | eV | JARVIS-DFT{% if gap[1] == "OptB88vdW" %} (used as fallback){% endif %} |
+| κ total (DFPT) | {{ rep.kappa_total | num(2) }} | – | JARVIS-DFT, max component |
+| κ electronic / ionic | {{ rep.kappa_electronic | num(2) }} / {{ rep.kappa_ionic | num(2) }} | – | JARVIS-DFT |
+| ICSD references | {{ rep.icsd_ids | length }} | – | {{ (rep.icsd_ids[:5] | join(", ")) or "none" }} |
+| Dimensionality label | {{ rep.dimensionality or "missing" }} | – | JARVIS (not filtered on, D-029) |
+
+{% endif %}
+{% if out.audit_sections.criteria_table %}
+| Criterion | Input | Score | Weight | Effective weight | Contribution |
+|---|---|---|---|---|---|
+{% for k in rc.suitability.criteria %}
+| {{ L[k.name] }} | {% if k.raw %}{{ k.raw.value | val }} {{ k.raw.unit or "" }} {% if k.raw.method %}({{ k.raw.method | cell }}){% endif %}{% else %}missing{% endif %} | {{ k.score | num(3) }} | {{ k.weight | num(2) }} | {{ k.effective_weight | num(3) }} | {{ k.contribution | num(3) }} |
+{% endfor %}
+| **Total** | | | | | **{{ rc.suitability.total | num(3) }}** |
+
+{% endif %}
+**Confidence:** {% for why in rc.confidence.reasons %}{{ why }}{% if not loop.last %}; {% endif %}{% endfor %}.
+
+{% if out.audit_sections.cross_check %}
+**Cross-check (OQMD):** {{ rc.cross_check.status }}{% if rc.cross_check.match_type %}, {{ rc.cross_check.match_type | replace("_", " ") }}{% endif %}. {{ rc.cross_check.detail }}{% if rc.cross_check.oqmd_stability %} [query]({{ rc.cross_check.oqmd_stability.url }}), retrieved {{ rc.cross_check.oqmd_stability.retrieved_at }}{% endif %}
+
+{% endif %}
+**{{ L.caveats }}:**
+{% for cv in rc.caveats %}
+- {{ cv }}
+{% else %}
+- None beyond the standing caveats.
+{% endfor %}
+
+{% if out.audit_sections.polymorphs and c.polymorphs | length > 1 %}
+**Polymorphs** ({{ c.polymorphs | length }} in JARVIS; first {{ out.polymorphs_shown }} by energy):
+
+| JARVIS ID | Space group | {{ L.e_hull }} (meV/atom) | TBmBJ gap | OptB88vdW gap | ICSD |
+|---|---|---|---|---|---|
+{% for p in c.polymorphs[:out.polymorphs_shown] %}
+| {{ p.jid }} | {{ p.spg_symbol }} | {{ p.e_hull | mev }} | {{ p.gap_mbj | num(2) }} | {{ p.gap_optb88 | num(2) }} | {{ "yes" if p.icsd_ids else "no" }} |
+{% endfor %}
+
+{% endif %}
+**{{ L.sources }}:**
+{% for ci in rc.citations %}
+- {{ ci.method }}: {% if ci.url %}[{{ ci.record_id or ci.value }}]({{ ci.url }}){% else %}{{ ci.record_id or ci.value }}{% endif %}{% if ci.retrieved_at %}, retrieved/checked {{ ci.retrieved_at }}{% endif %}
+
+{% endfor %}
+
+---
+{% endfor %}
+
+## κ vs band gap (shortlist)
+| {{ L.formula }} | Band gap (eV) | Method | κ total |
+|---|---|---|---|
+{% for rc in r.ranked %}
+{% set g = primary_gap(rc.candidate.representative) %}
+| {{ rc.candidate.formula }} | {{ g[0] | num(2) }} | {{ g[1] or "missing" }} | {{ rc.candidate.representative.kappa_total | num(1) }} |
+{% endfor %}
+High κ usually comes with a smaller gap; the app plots this trade-off across all candidates with DFPT κ.
+
+{% if out.audit_sections.review_list and r.review_list %}
+## {{ L.needs_review }} ({{ r.review_list | length }})
+DFT gives these a zero gap, but they contain f-electron or open-shell 3d elements where that is often wrong (D-030). Not ranked; gap unknown. First {{ out.review_list_shown }}:
+{{ r.review_list[:out.review_list_shown] | map(attribute="formula") | join(", ") }}
+
+{% endif %}
+{% if out.audit_sections.config_applied %}
+## Configuration and filters applied
+- Weights: {% for k, v in r.settings.weights.items() %}{{ k }} {{ v }}{% if not loop.last %}, {% endif %}{% endfor %}
+
+- Filters: {% for k, v in r.settings.filters.items() %}{{ k }}={{ v }}{% if not loop.last %}, {% endif %}{% endfor %}
+
+- OQMD cross-check enabled: {{ r.settings.oqmd_enabled }}
+- Config file hashes: {% for k, v in r.settings.config_hashes.items() %}{{ k }} {{ v }}{% if not loop.last %}, {% endif %}{% endfor %}
+
+
+| Filter step | Formulas |
+|---|---|
+{% for k, v in r.filter_counts.items() %}
+| {{ k }} | {{ v }} |
+{% endfor %}
+
+{% endif %}
+{% if out.audit_sections.manifest %}
+## Snapshot manifest
+- Source: {{ r.manifest.source }}, dataset `{{ r.manifest.dataset }}`, file {{ r.manifest.file_name }} ([download]({{ r.manifest.file_url }}))
+- Raw file retrieved {{ r.manifest.raw_file_retrieved_at }}, sha256 {{ (r.manifest.raw_file_sha256 or "")[:16] }}…; snapshot built {{ r.manifest.snapshot_built_at }}
+- References: {{ r.manifest.references | join(", ") }}
+- Sanity checks: {% for k, v in r.manifest.checks.items() %}{{ k }} {{ "pass" if v.passed else ("FAIL" if v.severity == "fail" else v.severity) }}{% if not loop.last %}, {% endif %}{% endfor %}
+
+
+{% endif %}
+## {{ L.caveats }} (always shown)
+{% for c in r.standing_caveats %}
+- {{ c }}
+{% endfor %}
+
+{% if out.audit_sections.trace %}
+## Execution trace
+| Step | Detail | ms |
+|---|---|---|
+{% for t in r.trace %}
+| {{ t.step }} | {{ t.detail | cell | truncate(300) }} | {{ t.ms }} |
+{% endfor %}
+{% endif %}

@@ -27,6 +27,56 @@ def snapshot_cmd() -> None:
     typer.echo("Snapshot written to data/snapshot/")
 
 
+@app.command("query")
+def query(
+    request: str = typer.Argument(..., help="Free-text request, e.g. the example in the README."),
+    style: str = typer.Option(None, help="pi or audit (default from config/output.yaml)."),
+    fmt: str = typer.Option("md", "--format", help="md or json."),
+    out: str = typer.Option(None, help="Write to this file instead of stdout."),
+    provider: str = typer.Option("rules", help="rules (default) or llm (needs ANTHROPIC_API_KEY)."),
+    top: int = typer.Option(None, help="Shortlist size."),
+    offline: bool = typer.Option(False, help="Skip the OQMD cross-check."),
+) -> None:
+    """Scientist: run a triage request and print the PI summary or audit view."""
+    from triage.pipeline import run_triage
+    from triage.render import render, to_json
+
+    overrides = {}
+    if style:
+        overrides["style"] = style
+    if top:
+        overrides["shortlist_size"] = top
+    result = run_triage(
+        request, provider=provider, overrides=overrides, oqmd_enabled=False if offline else None
+    )
+    text = to_json(result) if fmt == "json" else render(result, style)
+    if out:
+        from pathlib import Path
+
+        Path(out).write_text(text)
+        typer.echo(f"wrote {out}")
+    else:
+        typer.echo(text)
+
+
+@app.command("config-show")
+def config_show() -> None:
+    """Admin/field engineer: print the active configuration files and their hashes."""
+    for name in [
+        "ranking",
+        "candidates",
+        "hazards",
+        "sources",
+        "policy",
+        "confidence",
+        "output",
+        "terminology",
+        "checks",
+    ]:
+        typer.echo(f"--- config/{name}.yaml ({config.file_hash(name)})")
+        typer.echo((config.CONFIG_DIR / f"{name}.yaml").read_text())
+
+
 @app.command("preview")
 def preview(top: int = 20) -> None:
     """Dev: default ranking, no cross-check or confidence yet."""

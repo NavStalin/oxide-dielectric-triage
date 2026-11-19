@@ -1,0 +1,10 @@
+{
+  "_comment": "SYNTHETIC test fixture shaped like an OQMD formationenergy response. Not real data. Never read by the app.",
+  "links": {"next": null},
+  "data": [
+    {"name": "HfO2", "entry_id": 1001, "icsd_id": 1, "stability": 0.01, "delta_e": -3.8, "spacegroup": "P21/c", "band_gap": 4.0},
+    {"name": "HfO2", "entry_id": 1002, "icsd_id": null, "stability": 0.06, "delta_e": -3.7, "spacegroup": "P42/nmc", "band_gap": 4.5},
+    {"name": "Hf2O3", "entry_id": 1003, "icsd_id": null, "stability": 0.3, "delta_e": -3.0, "spacegroup": "P1", "band_gap": 0.0}
+  ],
+  "meta": {"data_returned": 3}
+}

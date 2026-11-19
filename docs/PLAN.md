@@ -284,22 +284,22 @@ Done when: `make snapshot && make test` pass from a clean clone with the raw zip
 
 ### Milestone 2 (Thu 19 Nov): policy, cross-check, views, interfaces
 
-- [ ] `sources/oqmd.py`: allowlisted host, 10 s timeout, pagination, cache in
+- [x] `sources/oqmd.py`: allowlisted host, 10 s timeout, pagination, cache in
       `data/snapshot/oqmd_cache/`, `SourceFailure` on any error. Tests with `responses`; one
       `network`-marked live test.
-- [ ] `confidence.py` with tests for each rubric line.
-- [ ] Rank ties (D-031): sort by suitability, then confidence level, then formula; label ties in both views.
-- [ ] Review list (D-030): audit view shows the count and a collapsible list of `needs_review` formulas
+- [x] `confidence.py` with tests for each rubric line.
+- [x] Rank ties (D-031): sort by suitability, then confidence level, then formula; label ties in both views.
+- [x] Review list (D-030): audit view shows the count and a collapsible list of `needs_review` formulas
       with the reason; PI summary shows one line with the count.
-- [ ] `policy.py` with a test per category, the clamp, and the host allowlist.
-- [ ] `providers/rules.py`: parse the example request into `Criteria`; unknown phrases go to `unparsed`.
-- [ ] `pipeline.py`, `trace.py`.
-- [ ] `render/` templates for both views; `export.py`; snapshot tests on a synthetic result.
-- [ ] `cli.py` (`query`, `snapshot`, `facecheck`, `config-show`).
-- [ ] `app/streamlit_app.py`: request box, sliders for weights and thresholds, toggles, two tabs
+- [x] `policy.py` with a test per category, the clamp, and the host allowlist.
+- [x] `providers/rules.py`: parse the example request into `Criteria`; unknown phrases go to `unparsed`.
+- [x] `pipeline.py`, `trace.py`.
+- [x] `render/` templates for both views; `export.py`; snapshot tests on a synthetic result.
+- [x] `cli.py` (`query`, `snapshot`, `facecheck`, `config-show`).
+- [x] `app/streamlit_app.py`: request box, sliders for weights and thresholds, toggles, two tabs
       (PI summary, audit), κ vs gap plot, download buttons, refusals banner.
-- [ ] Ask Nav which key they have; build `providers/llm.py` only if there is one and time allows.
-- [ ] Show Nav: both views for the example request, and the adversarial request end to end.
+- [x] Ask Nav which key they have; build `providers/llm.py` only if there is one and time allows.
+- [x] Show Nav: both views for the example request, and the adversarial request end to end.
 
 ### Milestone 3 (Fri 20 Nov): evals and README
 
