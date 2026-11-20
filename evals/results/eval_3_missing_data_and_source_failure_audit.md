@@ -1,15 +1,15 @@
 # Oxide dielectric triage: audit view
 
 **Request:** oxides, binaries only, top 25
-**Run:** 2026-11-20T21:25:50+00:00 · parser `rules` · style `audit` · shortlist 25 · rank by `suitability`
+**Run:** 2026-11-20T22:03:52+00:00 · parser `rules` · style `audit` · shortlist 25 · rank by `suitability`
 
 ## Refusals and notes
 No part of the request was refused.
 - Alexandria cross-check failed: Alexandria unreachable (ConnectionError). Affected candidates are marked; no Alexandria values shown.
 
 ## How the request was read
-- 'binaries only' -> filter: binary compounds only
-- 'top 25' -> shortlist size 25
+- 'binaries only' -\> filter\: binary compounds only
+- 'top 25' -\> shortlist size 25
 Not understood (ignored): "oxides"
 
 ## 1 (tie). Al2O3: Suitability 1.000, Evidence confidence High (5 pts)
@@ -1248,7 +1248,7 @@ Ce2O3, Ce3O, Ce5O9, Ce7O12, CeO, Co2O3, Co5O8, Co7O12, CoO, CoO2, Cr3O, Cr3O2, C
 - Weights: stability 0.35, band_gap 0.3, hazard 0.2, simplicity 0.15, dielectric 0.0
 - Filters: min_band_gap=None, max_e_hull=None, max_elements=2, exclude_elements=[], allow_extra_anions=False
 - Stability cross-check (Alexandria) enabled: True
-- Config file hashes: ranking dc0c5a1dab49, candidates 39061fedf98a, hazards fdfa6b01c897, sources d662beaac648, policy 89afc674c1f7, confidence c6b5f9bd9548, output c55f3669d194, terminology 79179a30262d
+- Config file hashes: ranking dc0c5a1dab49, candidates 39061fedf98a, hazards fdfa6b01c897, sources d662beaac648, policy 7fb95e8f8b03, confidence c6b5f9bd9548, output c55f3669d194, terminology 79179a30262d
 
 | Filter step | Formulas |
 |---|---|
@@ -1277,12 +1277,13 @@ Ce2O3, Ce3O, Ce5O9, Ce7O12, CeO, Co2O3, Co5O8, Co7O12, CoO, CoO2, Cr3O, Cr3O2, C
 ## Execution trace
 | Step | Detail | ms |
 |---|---|---|
-| policy gate | 0 refusal(s): []; remainder: 'oxides. binaries only. top 25' | 0.1 |
-| parse request | provider=rules; matched=2; unparsed=['oxides'] | 0.1 |
-| apply settings and clamp | weights={'stability': 0.35, 'band_gap': 0.3, 'hazard': 0.2, 'simplicity': 0.15, 'dielectric': 0.0}; clamped=[] | 0.0 |
-| load snapshot | 25194 records; built 2026-11-18T22:23:34+00:00 | 0.0 |
-| candidates and filters | {'formulas': 15671, 'dropped: contains H, C, N, S or halogen': 4156, 'dropped: metal (no band gap)': 2119, 'dropped: element with no stable isotopes': 506, 'dropped: not an oxide': 1, 'dropped: more than 2 elements': 8651, 'needs review (not ranked)': 85, 'ranked': 153} | 97.0 |
+| normalise request text | 29 characters in, 29 read; no change | 0.0 |
+| policy gate | 0 refusal\(s\)\: \[\]; remainder\: 'oxides. binaries only. top 25' | 0.1 |
+| parse request | provider\=rules; matched\=2; unparsed\=\['oxides'\] | 0.1 |
+| apply settings and clamp | weights\=\{'stability'\: 0\.35, 'band\_gap'\: 0\.3, 'hazard'\: 0\.2, 'simplicity'\: 0\.15, 'dielectric'\: 0\.0\}; clamped\=\[\] | 0.0 |
+| load snapshot | 25194 records; built 2026-11-18T22\:23\:34\+00\:00 | 0.0 |
+| candidates and filters | \{'formulas'\: 15671, 'dropped\: contains H, C, N, S or halogen'\: 4156, 'dropped\: metal \(no band gap\)'\: 2119, 'dropped\: element with no stable isotopes'\: 506, 'dropped\: not an oxide'\: 1, 'dropped\: more than 2 elements'\: 8651, 'needs review \(not ranked\)'\: 85, 'ranked'\: 153\} | 100.4 |
 | score | 153 candidates scored | 4.3 |
 | rank (ties by offline confidence) | shortlist pool 25 of 153 | 1.0 |
-| Alexandria cross-check | Al2O3:unavailable, SiO2:unavailable, Li2O:unavailable, B2O3:unavailable, YbO:unavailable, HfO2:unavailable, P2O5:unavailable, Nd2O3:unavailable, CaO:unavailable, Pr2O3:unavailable, SrO:unavailable, MgO:unavailable, KO:unavailable, NdO2:unavailable, BeO:unavailable, TeO2:unavailable,... | 1010.7 |
-| confidence, caveats, citations | 25 ranked | 1.3 |
+| Alexandria cross-check | Al2O3\:unavailable, SiO2\:unavailable, Li2O\:unavailable, B2O3\:unavailable, YbO\:unavailable, HfO2\:unavailable, P2O5\:unavailable, Nd2O3\:unavailable, CaO\:unavailable, Pr2O3\:unavailable, SrO\:unavailable, MgO\:unavailable, KO\:unavailable, NdO2\:unavailable, BeO\:unavailable, TeO2\:unavailable,\.\.. | 1005.8 |
+| confidence, caveats, citations | 25 ranked | 2.3 |

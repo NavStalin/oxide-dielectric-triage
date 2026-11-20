@@ -38,7 +38,11 @@ make app          # opens the app at http://localhost:8501
    The app lists which phrases it used and which it didn't understand.
 2. Turn on **Adjust ranking manually** in the sidebar to set weights, minimum gap, maximum energy
    above hull and shortlist size with sliders.
+   The box **How your request was read** lists what the tool understood, what it ignored and what
+   the site rules limited. Example buttons above the request box load a ready-made request.
 3. Read the tabs:
+   - **Shortlist**: a sortable table, then one expandable panel per material with its reason,
+     caveats, confidence reasons, score arithmetic and sources.
    - **PI summary**: rank, suitability, confidence, a one-line reason, the key caveat and links to
      the source records.
    - **Audit view**:
@@ -50,7 +54,14 @@ make app          # opens the app at http://localhost:8501
    - **κ vs band gap**: the trade-off plot for candidates that have DFPT κ.
    - **JSON**: the full result.
 
-   Both views download as Markdown, and the result downloads as JSON.
+   Both views download as Markdown, and the result downloads as JSON. The standing caveats sit
+   below the tabs and are always visible.
+4. Open **Under the hood** (left-hand menu) to see how the result was produced. It is read-only:
+   - **This run**: every step with its timing, and how the list narrowed.
+   - **Where each number came from**: the record, method and link behind each value.
+   - **Data flow**: a simple and a detailed diagram (also in `docs/dataflow_simple.png` and
+     `docs/dataflow_detailed.png`; editable `.dot` sources beside them, rebuilt with `make diagrams`).
+   - **Site rules** and **Refusal log**: what no request can change, and what has been refused.
 
 From the command line:
 
@@ -95,7 +106,9 @@ uv run triage query "high-k oxides for capacitors, ternaries are fine" --format 
 It can't read private drives, paywalled papers or any URL outside the admin allowlist. It can't
 control instruments, and it never drops citations or caveats. A request that asks for any of these
 gets a one-line refusal for that part. The rest of the request still runs, and the refused parts
-are logged.
+are logged. Hidden or look-alike characters are normalised before the request is read, requests
+are cut at 2,000 characters, and anything you type is shown in reports as plain text, never as
+formatting or links.
 
 ---
 
@@ -216,7 +229,7 @@ a verdict file and both rendered views to `evals/results/`. `SUMMARY.md` is the 
 | R1 | Public sources only; cite evidence | Fetches only from `allowed_hosts` (`test_host_not_on_allowlist_is_refused`). Eval 1: every candidate cited on an allowlisted host. Snapshot manifest records the source URL, DOI and file hash. |
 | R2 | Ranked shortlist with rationale, caveats, missing/uncertain data marked | Eval 1 (missing data shown) and eval 3 (fallback gap flagged, lower confidence). `test_missing_values_become_none_not_zero`. Per-criterion arithmetic in the audit view. |
 | R3 | No lab actions, private data, closed sources or fabricated evidence | No such capability in the code. Eval 2 refusals. `test_every_number_in_pi_summary_traces_to_data`, `test_number_check`, and the eval 1 "every number traces to data" check. |
-| R4 | Resistance to social engineering | `test_each_category`, `test_adversarial_request_refuses_each_part`, `test_clamp_never_loosens_policy`, `test_benign_phrasings_not_refused`, eval 2, `test_app_runs_adversarial_request` |
+| R4 | Resistance to social engineering | `tests/test_tamper.py` (hidden characters, oversized input, injected Markdown), `test_each_category`, `test_adversarial_request_refuses_each_part`, `test_clamp_never_loosens_policy`, `test_benign_phrasings_not_refused`, eval 2, `test_app_runs_adversarial_request` |
 | R5 | At least two response styles | PI summary and audit view (`src/triage/render/templates/`), plus Markdown and JSON export. Eval 1 renders both. `test_json_export_roundtrips`. |
 | R6 | How each role adjusts criteria, verbosity, terminology, format | "Who changes what" above, and design note section 5 |
 | L1 | Working repo or app | `make setup && make app`. CLI `triage query`. Clean-clone test below. |
@@ -229,7 +242,7 @@ a verdict file and both rendered views to `evals/results/`. `SUMMARY.md` is the 
 ## Repository map
 
 ```
-app/streamlit_app.py        UI over the library
+app/                        Streamlit UI over the library: views/triage.py, views/under_the_hood.py
 src/triage/                 library: sources/, hull, candidates, scoring, confidence, policy,
                             providers/ (rules, llm), pipeline, render/
 config/                     all tunable behaviour (YAML)

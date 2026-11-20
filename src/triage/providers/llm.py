@@ -196,6 +196,14 @@ def rationales(facts: list[dict], client=None) -> dict[str, str]:
 NUMBER = re.compile(r"(?<![A-Za-z0-9_.])-?\d+(?:\.\d+)?")
 
 
+_MARKUP = re.compile(r"[\[\]<>`|]|https?:|www\.|!\(", re.IGNORECASE)
+
+
+def plain_text_check(sentence: str) -> bool:
+    """True only if a model-written sentence carries no links, images, HTML or table syntax."""
+    return not _MARKUP.search(sentence) and "\n" not in sentence.strip()
+
+
 def number_check(sentence: str, allowed: list[float], rel_tol: float = 0.005) -> bool:
     """True only if every number in a model-written sentence matches a value from the cited records.
 

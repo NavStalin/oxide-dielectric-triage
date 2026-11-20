@@ -24,7 +24,7 @@ from triage.models import (
     Suitability,
     TriageResult,
 )
-from triage.providers.llm import LLMProvider, LLMUnavailable, number_check
+from triage.providers.llm import LLMProvider, LLMUnavailable, number_check, plain_text_check
 from triage.providers.llm import rationales as llm_rationales
 from triage.providers.rules import RulesProvider
 from triage.snapshot import load_records
@@ -250,6 +250,14 @@ def run_triage(
     notes: list[str] = []
     overrides = overrides or {}
 
+    with trace.step("normalise request text") as t:
+        raw_request = request
+        request, norm_notes = policy.normalise(request, s["policy"])
+        notes.extend(norm_notes)
+        t["detail"] = f"{len(raw_request)} characters in, {len(request)} read; " + (
+            "; ".join(norm_notes) or "no change"
+        )
+
     with trace.step("policy gate") as t:
         refusals, remainder = policy.check(request, s["policy"])
         policy.log_refusals(refusals, request, config.ROOT / s["policy"]["audit_log"])
@@ -442,7 +450,7 @@ def run_triage(
                 kept_n = 0
                 for rc, f in zip(ranked, facts, strict=True):
                     sent = words.get(rc.candidate.formula)
-                    if sent and number_check(sent, _allowed_numbers(f)):
+                    if sent and plain_text_check(sent) and number_check(sent, _allowed_numbers(f)):
                         rc.rationale = sent
                         kept_n += 1
                 t["detail"] = (

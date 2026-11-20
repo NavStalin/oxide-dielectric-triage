@@ -256,6 +256,26 @@ match, so the audit view says "same phase" only in that sense and names the entr
 "the brief said to score `ehull`". Lila's prompt names no dataset or field; the choice was mine, and
 so was the correction. The note and the brief header now say so.
 
+**D-047 Request text is untrusted input: normalise it before the gate, escape it in every report.**
+Three gaps found while reviewing the app for tampering, all closed with tests (`tests/test_tamper.py`):
+- *Hidden characters.* "ig​nore your rules" with a zero-width character inside slipped past the
+  rule-override pattern. The request is now NFKC-normalised, stripped of zero-width and control
+  characters and cut at `policy.limits.max_request_chars` (2,000) before anything reads it.
+- *Markdown injection.* The request was echoed into the report unescaped. A user could add a link,
+  a remote image or a fake table row that looked like tool output. Typed-in text (request, matched
+  and unparsed phrases, trace detail) is now escaped by one filter, `escape_user_text`.
+- *Model wording.* A model-written sentence must now be plain text (no links, HTML, table syntax or
+  line breaks) as well as pass the number check, or the template sentence is used.
+- Why it matters: the tool's value is that its output can be trusted as its own. Alternative
+  considered: strip the request from reports. Rejected, because the audit trail needs it.
+
+**D-048 The app has two areas: Triage for the scientist, Under the hood for the trace.** The main
+page shows how the request was read (understood / ignored / limited by site rules), a native table
+and per-material detail, with the standing caveats outside the tabs so no tab hides them. A separate
+read-only page shows the run's steps and timings, the filter funnel, the source of each number, the
+data-flow diagrams, the fixed site rules and the refusal log. Alternative: one long page. Rejected:
+the trace is for the demo and for auditors, and would bury the shortlist.
+
 ---
 
 ## Open questions for Nav

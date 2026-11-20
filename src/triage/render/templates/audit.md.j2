@@ -1,6 +1,6 @@
 # Oxide dielectric triage: audit view
 
-**Request:** {{ r.request | cell }}
+**Request:** {{ r.request | esc }}
 **Run:** {{ r.created_at }} · parser `{{ r.settings.provider }}` · style `{{ r.settings.style }}` · shortlist {{ r.settings.shortlist_size }} · rank by `{{ r.settings.rank_by }}`
 
 {% if out.audit_sections.refusals %}
@@ -9,7 +9,7 @@
 | Category | Matched text | Response |
 |---|---|---|
 {% for f in r.refusals %}
-| {{ f.category }} | {{ f.matched_text | cell }} | {{ f.message }} |
+| {{ f.category }} | {{ f.matched_text | esc }} | {{ f.message }} |
 {% endfor %}
 Each refusal was written to the audit log.
 {% else %}
@@ -22,10 +22,10 @@ No part of the request was refused.
 {% endif %}
 ## How the request was read
 {% for m in r.criteria.matched %}
-- {{ m }}
+- {{ m | esc }}
 {% endfor %}
 {% if r.criteria.unparsed %}
-Not understood (ignored): {% for u in r.criteria.unparsed %}"{{ u }}"{% if not loop.last %}, {% endif %}{% endfor %}
+Not understood (ignored): {% for u in r.criteria.unparsed %}"{{ u | esc }}"{% if not loop.last %}, {% endif %}{% endfor %}
 
 {% endif %}
 {% for cl in r.criteria.clamped %}
@@ -148,6 +148,6 @@ DFT gives these a zero gap, but they contain f-electron or open-shell 3d element
 | Step | Detail | ms |
 |---|---|---|
 {% for t in r.trace %}
-| {{ t.step }} | {{ t.detail | cell | truncate(300) }} | {{ t.ms }} |
+| {{ t.step }} | {{ t.detail | truncate(300) | esc }} | {{ t.ms }} |
 {% endfor %}
 {% endif %}

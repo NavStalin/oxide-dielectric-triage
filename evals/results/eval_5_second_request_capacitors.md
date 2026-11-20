@@ -2,7 +2,7 @@
 
 Request: "High-k oxides for capacitors. I can accept a smaller band gap and ternaries are fine."
 
-Parser: rules. Cross-check: offline. Run at 2026-11-20T21:25:50+00:00.
+Parser: rules. Cross-check: offline. Run at 2026-11-20T22:03:53+00:00.
 
 ## Expected
 

@@ -2,7 +2,7 @@
 
 Request: "oxides, binaries only, top 25"
 
-Parser: rules. Cross-check: down. Run at 2026-11-20T21:25:50+00:00.
+Parser: rules. Cross-check: down. Run at 2026-11-20T22:03:52+00:00.
 
 ## Expected
 

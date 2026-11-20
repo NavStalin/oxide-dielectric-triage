@@ -1,0 +1,79 @@
+digraph dataflow {
+  graph [rankdir=TB fontname="Helvetica" fontsize=13 labelloc=t pad=0.3 nodesep=0.35 ranksep=0.5
+         label=<<b>Data flow in detail</b><br/><font point-size='10'>each box: what happens, the file that does it, and the counts on the default request</font>>];
+  node  [shape=box style="rounded,filled" fontname="Helvetica" fontsize=11 margin="0.14,0.08" penwidth=1.4];
+  edge  [fontname="Helvetica" fontsize=9.5 color="#444444" arrowsize=0.7];
+
+  subgraph cluster_admin {
+    label="A. Snapshot refresh — site admin, offline, `triage snapshot`" color="#bbbbbb" style=rounded fontsize=11;
+    a1 [label="JARVIS-DFT dft_3d file\nfigshare download + DOI\n93,902 records" fillcolor="#ecf6ee" color="#2f7a45"];
+    a2 [label="Keep records containing oxygen\nsources/jarvis.py\n25,194 records" fillcolor="#eef2f8" color="#3b5b8c"];
+    a3 [label="Recompute energy above hull\nhull.py (linear programme over\nall 93,902 formation energies)" fillcolor="#eef2f8" color="#3b5b8c"];
+    a4 [label="Sanity checks C1–C5\nchecks.py + config/checks.yaml\nknown stable oxides must sit on the hull" fillcolor="#fdecec" color="#a33a3a"];
+    a5 [label="data/snapshot/\noxides.parquet, manifest.json,\nchecks_report.json" fillcolor="#f3eefa" color="#6b4a9b"];
+    a1 -> a2 -> a3 -> a4;
+    a4 -> a5 [label=" pass"];
+    a4 -> a4x [label=" a blocking check fails"];
+    a4x [label="Keep the previous snapshot" fillcolor="#fdecec" color="#a33a3a"];
+  }
+
+  subgraph cluster_req {
+    label="B. Reading the request — every run" color="#bbbbbb" style=rounded fontsize=11;
+    r0 [label="Request text" fillcolor="#f3eefa" color="#6b4a9b"];
+    r1 [label="Normalise text\npolicy.normalise()\nfold look-alike letters, strip hidden\ncharacters, cut at 2,000 characters" fillcolor="#fdecec" color="#a33a3a"];
+    r2 [label="Policy gate\npolicy.check() + config/policy.yaml\n6 refusal categories, clause by clause" fillcolor="#fdecec" color="#a33a3a"];
+    r3 [label="Parse to typed Criteria\nproviders/rules.py (default)\nproviders/llm.py (Claude, optional)" fillcolor="#fff4e6" color="#c46a00" style="rounded,filled,dashed"];
+    r4 [label="Clamp to site limits\npolicy.clamp()\na request can tighten, never loosen" fillcolor="#fdecec" color="#a33a3a"];
+    rlog [label="logs/audit.jsonl\none line per refusal" fillcolor="#f3eefa" color="#6b4a9b"];
+    r0 -> r1 -> r2;
+    r2 -> r3 [label=" safe remainder"];
+    r3 -> r4;
+    r2 -> rlog [label=" refused clauses"];
+  }
+
+  subgraph cluster_rank {
+    label="C. Deciding — code only, `run_triage()` in pipeline.py" color="#bbbbbb" style=rounded fontsize=11;
+    c1 [label="Group by formula, pick the\nlowest-energy polymorph\ncandidates.py · 15,671 formulas" fillcolor="#eef2f8" color="#3b5b8c"];
+    c2 [label="Filters\n−4,156 non-oxide anions\n−2,119 metals · −506 radioactive · −1 not an oxide" fillcolor="#eef2f8" color="#3b5b8c"];
+    c2r [label="Set aside for review: 3,520\nrare-earth and some 3d oxides,\nDFT gap not trustworthy" fillcolor="#f3eefa" color="#6b4a9b"];
+    c3 [label="Score suitability 0–1\nscoring.py + config/ranking.yaml\n5,369 formulas · missing data left out,\nweights rescaled" fillcolor="#eef2f8" color="#3b5b8c"];
+    c4 [label="Rank\nties broken by evidence confidence\nkeep the top N" fillcolor="#eef2f8" color="#3b5b8c"];
+    c5 [label="Cross-check stability\nsources/alexandria.py (or oqmd.py)\nshortlist only · cached · one retry" fillcolor="#ecf6ee" color="#2f7a45" style="rounded,filled,dashed"];
+    c5x [label="Source down: rows marked\n'not cross-checked',\nno value filled in" fillcolor="#fdecec" color="#a33a3a"];
+    c6 [label="Confidence High / Medium / Low\nconfidence.py + config/confidence.yaml\npoints for method, ICSD, agreement" fillcolor="#eef2f8" color="#3b5b8c"];
+    c7 [label="Caveats and citations\npipeline.py\nevery value keeps its record ID and URL" fillcolor="#eef2f8" color="#3b5b8c"];
+    c1 -> c2 -> c3 -> c4 -> c5 -> c6 -> c7;
+    c2 -> c2r;
+    c5 -> c5x [style=dashed];
+  }
+
+  subgraph cluster_out {
+    label="D. Reporting" color="#bbbbbb" style=rounded fontsize=11;
+    o1 [label="Wording\ntemplate sentences, or Claude if on:\nevery number checked, no links allowed" fillcolor="#fff4e6" color="#c46a00" style="rounded,filled,dashed"];
+    o2 [label="Render\nrender/templates/*.j2\ntyped-in text is escaped;\ncaveats can't be switched off" fillcolor="#eef2f8" color="#3b5b8c"];
+    o3 [label="PI summary · Audit view\nMarkdown · JSON · execution trace" fillcolor="#f3eefa" color="#6b4a9b"];
+    o4 [label="Scientist\nargues with the working" fillcolor="#f3eefa" color="#6b4a9b"];
+    o1 -> o2 -> o3 -> o4;
+  }
+
+  cfg [label="config/*.yaml\nsources · hazards · policy · candidates · ranking\nconfidence · checks · output · terminology\n(hashes recorded in every result)" fillcolor="#fdecec" color="#a33a3a"];
+  alex [label="Alexandria OPTIMADE API\npublic, no key, CC BY 4.0" fillcolor="#ecf6ee" color="#2f7a45"];
+
+  a5 -> c1 [label=" read-only"];
+  r4 -> c1 [label=" weights and filters"];
+  c7 -> o1;
+  alex -> c5 [style=dashed label=" only allowlisted hosts"];
+  cfg -> r2 [style=dashed];
+  cfg -> c3 [style=dashed];
+  cfg -> c6 [style=dashed];
+
+  subgraph cluster_legend {
+    label="Key" fontsize=10 color="#bbbbbb" style=rounded;
+    k1 [label="code (always the same answer)" fillcolor="#eef2f8" color="#3b5b8c"];
+    k2 [label="AI model (optional, language only)" fillcolor="#fff4e6" color="#c46a00" style="rounded,filled,dashed"];
+    k3 [label="public data" fillcolor="#ecf6ee" color="#2f7a45"];
+    k4 [label="site rules and safety" fillcolor="#fdecec" color="#a33a3a"];
+    k5 [label="what goes in or comes out" fillcolor="#f3eefa" color="#6b4a9b"];
+    k1 -> k2 -> k3 -> k4 -> k5 [style=invis];
+  }
+}

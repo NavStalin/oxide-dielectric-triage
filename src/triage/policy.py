@@ -9,6 +9,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import unicodedata
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -18,6 +19,35 @@ from triage.models import Criteria, Refusal
 CLAUSE_SPLIT = re.compile(
     r"(?<=[.!?;])\s+|,\s+|\s+\band\b\s+(?=[a-z])|\s+\bthen\b\s+", re.IGNORECASE
 )
+
+
+# Zero-width and bidirectional-control characters: invisible, and usable to hide text from a regex.
+_INVISIBLE = re.compile("[\u200b-\u200f\u202a-\u202e\u2060-\u2064\ufeff\u00ad]")
+
+
+def normalise(text: str, cfg: dict[str, Any]) -> tuple[str, list[str]]:
+    """Make the request safe to match against: one canonical form, no invisible characters, capped length.
+
+    Returns (clean_text, notes). Runs before the gate, so look-alike characters ("ｉｇｎｏｒｅ"),
+    zero-width characters and very long inputs can't slip a prohibited clause past the patterns.
+    """
+    notes: list[str] = []
+    clean = unicodedata.normalize("NFKC", text)
+    clean = _INVISIBLE.sub("", clean)
+    clean = "".join(
+        ch if ch in "\n\t" or unicodedata.category(ch)[0] != "C" else " " for ch in clean
+    )
+    if clean != text:
+        notes.append(
+            "Unusual or invisible characters in the request were normalised before reading it."
+        )
+    limit = cfg["limits"]["max_request_chars"]
+    if len(clean) > limit:
+        notes.append(
+            f"The request was longer than {limit} characters; only the first {limit} were read."
+        )
+        clean = clean[:limit]
+    return clean, notes
 
 
 def split_clauses(text: str) -> list[str]:

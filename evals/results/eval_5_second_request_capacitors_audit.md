@@ -1,15 +1,15 @@
 # Oxide dielectric triage: audit view
 
 **Request:** High-k oxides for capacitors. I can accept a smaller band gap and ternaries are fine.
-**Run:** 2026-11-20T21:25:50+00:00 · parser `rules` · style `pi` · shortlist 5 · rank by `suitability`
+**Run:** 2026-11-20T22:03:53+00:00 · parser `rules` · style `pi` · shortlist 5 · rank by `suitability`
 
 ## Refusals and notes
 No part of the request was refused.
 
 ## How the request was read
-- 'High-k oxides for capacitors' -> dielectric constant criterion on (weight 0.25)
-- 'I can accept a smaller band gap' -> band gap weight lowered to 0.15
-- 'ternaries are fine' -> simplicity weight lowered to 0.05 (ternaries fine)
+- 'High-k oxides for capacitors' -\> dielectric constant criterion on \(weight 0\.25\)
+- 'I can accept a smaller band gap' -\> band gap weight lowered to 0\.15
+- 'ternaries are fine' -\> simplicity weight lowered to 0\.05 \(ternaries fine\)
 
 ## 1. NaSmO2: Suitability 0.972, Evidence confidence Medium (2 pts)
 
@@ -248,7 +248,7 @@ BaYFeCuO5, Co3TeO8, Co5O8, FeSbO4, HoBi2O6, K3CrO4, Li3CrO4, Li4V3SiO10, LiCoGeO
 - Weights: stability 0.35, band_gap 0.15, hazard 0.2, simplicity 0.05, dielectric 0.25
 - Filters: min_band_gap=None, max_e_hull=None, max_elements=None, exclude_elements=[], allow_extra_anions=False
 - Stability cross-check (Alexandria) enabled: False
-- Config file hashes: ranking dc0c5a1dab49, candidates 39061fedf98a, hazards fdfa6b01c897, sources d662beaac648, policy 89afc674c1f7, confidence c6b5f9bd9548, output c55f3669d194, terminology 79179a30262d
+- Config file hashes: ranking dc0c5a1dab49, candidates 39061fedf98a, hazards fdfa6b01c897, sources d662beaac648, policy 7fb95e8f8b03, confidence c6b5f9bd9548, output c55f3669d194, terminology 79179a30262d
 
 | Filter step | Formulas |
 |---|---|
@@ -277,12 +277,13 @@ BaYFeCuO5, Co3TeO8, Co5O8, FeSbO4, HoBi2O6, K3CrO4, Li3CrO4, Li4V3SiO10, LiCoGeO
 ## Execution trace
 | Step | Detail | ms |
 |---|---|---|
-| policy gate | 0 refusal(s): []; remainder: 'High-k oxides for capacitors. I can accept a smaller band gap. ternaries are fine' | 0.2 |
-| parse request | provider=rules; matched=3; unparsed=[] | 0.1 |
-| apply settings and clamp | weights={'stability': 0.35, 'band_gap': 0.15, 'hazard': 0.2, 'simplicity': 0.05, 'dielectric': 0.25}; clamped=[] | 0.0 |
-| load snapshot | 25194 records; built 2026-11-18T22:23:34+00:00 | 0.0 |
-| candidates and filters | {'formulas': 15671, 'dropped: contains H, C, N, S or halogen': 4156, 'dropped: metal (no band gap)': 2119, 'dropped: element with no stable isotopes': 506, 'dropped: not an oxide': 1, 'dropped: no dielectric data (criterion turned on by request)': 8430, 'needs review (not ranked)': 16, 'ranked': 443} | 100.5 |
-| score | 443 candidates scored | 129.3 |
-| rank (ties by offline confidence) | shortlist pool 5 of 443 | 2.9 |
-| Alexandria cross-check | NaSmO2:not_run, LuTaO4:not_run, NaPrO2:not_run, TeO2:not_run, SnB4O7:not_run | 0.0 |
+| normalise request text | 85 characters in, 85 read; no change | 0.0 |
+| policy gate | 0 refusal\(s\)\: \[\]; remainder\: 'High-k oxides for capacitors. I can accept a smaller band gap. ternaries are fine' | 0.2 |
+| parse request | provider\=rules; matched\=3; unparsed\=\[\] | 0.1 |
+| apply settings and clamp | weights\=\{'stability'\: 0\.35, 'band\_gap'\: 0\.15, 'hazard'\: 0\.2, 'simplicity'\: 0\.05, 'dielectric'\: 0\.25\}; clamped\=\[\] | 0.0 |
+| load snapshot | 25194 records; built 2026-11-18T22\:23\:34\+00\:00 | 0.0 |
+| candidates and filters | \{'formulas'\: 15671, 'dropped\: contains H, C, N, S or halogen'\: 4156, 'dropped\: metal \(no band gap\)'\: 2119, 'dropped\: element with no stable isotopes'\: 506, 'dropped\: not an oxide'\: 1, 'dropped\: no dielectric data \(criterion turned on by request\)'\: 8430, 'needs review \(not ranked\)'\: 16, 'ranked'\: 443\} | 94.3 |
+| score | 443 candidates scored | 107.3 |
+| rank (ties by offline confidence) | shortlist pool 5 of 443 | 2.8 |
+| Alexandria cross-check | NaSmO2\:not\_run, LuTaO4\:not\_run, NaPrO2\:not\_run, TeO2\:not\_run, SnB4O7\:not\_run | 0.0 |
 | confidence, caveats, citations | 5 ranked | 0.1 |

@@ -1,0 +1,15 @@
+# Look and feel only. Behaviour lives in config/*.yaml.
+[theme]
+primaryColor = "#2f5d8c"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f4f6f9"
+textColor = "#1c2530"
+font = "sans-serif"
+baseRadius = "medium"
+showWidgetBorder = true
+
+[client]
+toolbarMode = "minimal"
+
+[browser]
+gatherUsageStats = false

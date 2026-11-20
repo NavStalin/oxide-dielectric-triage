@@ -112,7 +112,8 @@ the tool uses the OptB88vdW gap, flagged as a probable underestimate, with no in
   safe remainder still runs.
 - **A clamp limits what a request can change.** A request, parsed by rules or by the model, can
   tighten filters. It can't widen the allowlist, raise the shortlist cap or allow excluded elements.
-  Citations and the standing caveats are rendered by templates that no setting can turn off.
+  Citations and the standing caveats are rendered by templates that no setting can turn off. Request text is
+  normalised (hidden and look-alike characters, length) before the gate and escaped in reports (D-047).
 - **The model stays at the edges.** The default parser is keyword rules: offline and deterministic.
   The optional Claude parser fills the same typed form (D-036) and falls back to rules on any error.
   If Claude words a rationale, every number in it must match the candidate's record, or the template
@@ -122,9 +123,8 @@ the tool uses the OptB88vdW gap, flagged as a probable underestimate, with no in
   filled in (D-035). This path was exercised for real: OQMD, the first cross-check source, failed or
   took 30 s per query throughout the build. The default is now Alexandria (PBE, CC BY 4.0, no key),
   and OQMD stays selectable in config (D-044).
-- **The cross-check earns its place.** On the example request, Alexandria agrees with the recomputed
-  hull for Al2O3, SiO2, Li2O and B2O3. It puts YbO 294 meV/atom above its hull, where JARVIS has it
-  stable, so YbO carries that caveat and loses a confidence point.
+- **The cross-check earns its place.** On the example request Alexandria agrees for Al2O3, SiO2, Li2O
+  and B2O3, and puts YbO 294 meV/atom above its hull, so YbO gets a caveat and loses a point.
 
 ## 5. Configuration by role
 

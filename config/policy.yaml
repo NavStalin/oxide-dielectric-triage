@@ -53,4 +53,5 @@ audit_log: logs/audit.jsonl
 # Admin limits that user criteria can never exceed.
 limits:
   max_shortlist: 25
+  max_request_chars: 2000          # longer requests are cut here before anything reads them
   allow_user_extra_anions: false   # a request cannot re-enable H, C, N, S, halogens

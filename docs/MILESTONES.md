@@ -168,3 +168,15 @@ the brief) wasn't built.
 - **Live result:** the example request cross-checked in a few seconds. Al2O3, SiO2, Li2O and B2O3 agree.
   YbO disagrees by 294 meV/atom and now carries that caveat. See `evals/results/live_crosscheck.md`.
 - **Tests:** 96 pass. Evals: 24/24 offline checks pass.
+
+## After milestone 4 (2026-11-20): app layout and tamper hardening
+
+- **Tampering (D-047):** hidden and look-alike characters are normalised before the policy gate,
+  requests are cut at 2,000 characters, typed-in text is escaped in every report, and model-written
+  sentences must be plain text. Found by reviewing the app, not by a failing test.
+- **App (D-048):** two areas. *Triage* shows how the request was read, a native shortlist table and
+  per-material detail. *Under the hood* shows the run's steps, the filter funnel, the source of each
+  number, the data-flow diagrams, the site rules and the refusal log.
+- **Diagrams:** `docs/dataflow_simple.png` and `docs/dataflow_detailed.png`, with editable `.dot`
+  sources. `make diagrams` rebuilds them.
+- **Tests:** 113 pass. Evals: 24/24 offline checks pass.

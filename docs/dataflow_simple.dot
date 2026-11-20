@@ -1,0 +1,38 @@
+digraph dataflow {
+  graph [rankdir=TB fontname="Helvetica" fontsize=13 labelloc=t pad=0.3 nodesep=0.35 ranksep=0.5
+         label=<<b>How a request becomes a shortlist</b><br/><font point-size='10'>simple view</font>>];
+  node  [shape=box style="rounded,filled" fontname="Helvetica" fontsize=11 margin="0.14,0.08" penwidth=1.4];
+  edge  [fontname="Helvetica" fontsize=9.5 color="#444444" arrowsize=0.7];
+
+  db      [label="Public database\nJARVIS-DFT (NIST)" fillcolor="#ecf6ee" color="#2f7a45"];
+  snap    [label="Checked local copy\n(made once by the site admin)" fillcolor="#f3eefa" color="#6b4a9b"];
+  ask     [label="Scientist types a request\nin plain English" fillcolor="#f3eefa" color="#6b4a9b"];
+  gate    [label="1. Safety gate\nrefuses what isn't allowed,\nkeeps the rest" fillcolor="#fdecec" color="#a33a3a"];
+  read    [label="2. Understand the request\nkeyword rules, or Claude if switched on" fillcolor="#fff4e6" color="#c46a00" style="rounded,filled,dashed"];
+  rank    [label="3. Filter, score and rank\nstability, band gap, hazard, simplicity" fillcolor="#eef2f8" color="#3b5b8c"];
+  second  [label="4. Second opinion\nAlexandria database (online, optional)" fillcolor="#ecf6ee" color="#2f7a45" style="rounded,filled,dashed"];
+  conf    [label="5. Confidence, caveats, citations\nhow far to trust each row" fillcolor="#eef2f8" color="#3b5b8c"];
+  report  [label="6. Two reports\nPI summary and audit view" fillcolor="#f3eefa" color="#6b4a9b"];
+  person  [label="Scientist decides\nwhat to run" fillcolor="#f3eefa" color="#6b4a9b"];
+  rules   [label="Site rules\n(config files; a request\ncan't change them)" fillcolor="#fdecec" color="#a33a3a"];
+  log     [label="Refusal log" fillcolor="#f3eefa" color="#6b4a9b"];
+
+  db -> snap [label=" download, recompute stability,\n sanity-check"];
+  ask -> gate -> read -> rank -> second -> conf -> report -> person;
+  snap -> rank [label=" read-only"];
+  gate -> log [label=" refused parts"];
+  rules -> gate [style=dashed];
+  rules -> rank [style=dashed];
+  { rank=same; snap; rank; }
+  { rank=same; gate; log; rules; }
+
+  subgraph cluster_legend {
+    label="Key" fontsize=10 color="#bbbbbb" style=rounded;
+    k1 [label="code (always the same answer)" fillcolor="#eef2f8" color="#3b5b8c"];
+    k2 [label="AI model (optional, language only)" fillcolor="#fff4e6" color="#c46a00" style="rounded,filled,dashed"];
+    k3 [label="public data" fillcolor="#ecf6ee" color="#2f7a45"];
+    k4 [label="site rules and safety" fillcolor="#fdecec" color="#a33a3a"];
+    k5 [label="what goes in or comes out" fillcolor="#f3eefa" color="#6b4a9b"];
+    k1 -> k2 -> k3 -> k4 -> k5 [style=invis];
+  }
+}
