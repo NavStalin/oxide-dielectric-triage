@@ -11,9 +11,8 @@ pytestmark = pytest.mark.skipif(
 
 def test_evals_pass_and_write_results(monkeypatch, tmp_path):
     from evals import run_evals
-    from triage.sources import oqmd
 
-    monkeypatch.setattr(oqmd.time, "sleep", lambda s: None)
+    monkeypatch.setattr("time.sleep", lambda s: None)
     monkeypatch.setattr(run_evals, "RESULTS", tmp_path)
     assert run_evals.main([]) == 0
     assert (tmp_path / "SUMMARY.md").exists()

@@ -1,7 +1,7 @@
 """run_triage: request text in, TriageResult out. The single code path for CLI, app and evals.
 
 Order: policy gate -> parse -> clamp -> candidates and filters -> score -> rank (ties by confidence)
--> OQMD cross-check on the shortlist -> confidence -> caveats, citations, rationale.
+-> stability cross-check on the shortlist -> confidence -> caveats, citations, rationale.
 """
 
 from __future__ import annotations
@@ -28,7 +28,8 @@ from triage.providers.llm import LLMProvider, LLMUnavailable, number_check
 from triage.providers.llm import rationales as llm_rationales
 from triage.providers.rules import RulesProvider
 from triage.snapshot import load_records
-from triage.sources import oqmd
+from triage.sources import alexandria, oqmd
+from triage.sources.http import SourceFailure
 from triage.trace import Trace
 
 LEVEL_ORDER = {"High": 0, "Medium": 1, "Low": 2}
@@ -108,7 +109,7 @@ def caveats_for(cand: Candidate, suit: Suitability, xc: CrossCheck, s: dict) -> 
             "Band gap is the OptB88vdW fallback (no TBmBJ value): probably an underestimate."
         )
     if xc.status == "disagree":
-        out.append(f"OQMD disagrees on stability: {xc.detail}.")
+        out.append(f"{xc.source} disagrees on stability: {xc.detail}.")
     corr = sorted(set(r.elements) & set(s["candidates"]["unreliable_zero_gap_elements"]))
     if corr:
         out.append(
@@ -171,8 +172,8 @@ def citations_for(cand: Candidate, xc: CrossCheck, s: dict, manifest: dict) -> l
             retrieved_at=manifest.get("raw_file_retrieved_at"),
         ),
     ]
-    if xc.oqmd_stability is not None:
-        out.append(xc.oqmd_stability)
+    if xc.ref_stability is not None:
+        out.append(xc.ref_stability)
     for f in hazards.flags_for(r.elements, s["hazards"]):
         for key in f.sources:
             hs = s["hazards"]["sources"][key]
@@ -220,12 +221,15 @@ def rank_offline(
     """
     s = s or _settings()
     corr_els = s["candidates"]["unreliable_zero_gap_elements"]
-    no_xc = CrossCheck(status="not_run", detail="OQMD cross-check runs on the shortlist only")
+    no_xc = CrossCheck(status="not_run", detail="cross-check runs on the shortlist only")
     out = [(c, su, confidence.assess(c, su, no_xc, s["confidence"], corr_els)) for c, su in scored]
     out.sort(
         key=lambda x: (-round(x[1].total, 3), LEVEL_ORDER[x[2].level], -x[2].points, x[0].formula)
     )
     return out
+
+
+XC_ADAPTERS = {"alexandria": alexandria, "oqmd": oqmd}
 
 
 # ---------- main ------------------------------------------------------------------------------
@@ -235,8 +239,9 @@ def run_triage(
     request: str,
     provider: str = "rules",
     overrides: dict[str, Any] | None = None,
-    oqmd_enabled: bool | None = None,
-    oqmd_session: Any = requests,
+    crosscheck_enabled: bool | None = None,
+    crosscheck_session: Any = requests,
+    crosscheck_cache_dir: Path | None = None,
     snapshot_dir: Path | None = None,
     llm_client: Any = None,
 ) -> TriageResult:
@@ -347,37 +352,42 @@ def run_triage(
         pool = prelim[: n * 2 if s["ranking"]["rank_by"] == "confidence_adjusted" else n]
         t["detail"] = f"shortlist pool {len(pool)} of {len(prelim)}"
 
-    use_oqmd = s["sources"]["oqmd"]["enabled"] if oqmd_enabled is None else oqmd_enabled
-    with trace.step("OQMD cross-check") as t:
+    xc_cfg = s["sources"]["cross_check"]
+    adapter = XC_ADAPTERS[xc_cfg["source"]]
+    use_xc = xc_cfg["enabled"] if crosscheck_enabled is None else crosscheck_enabled
+    with trace.step(f"{adapter.NAME} cross-check") as t:
         xcs: dict[str, CrossCheck] = {}
         failed: str | None = None
-        cache_dir = Path(snap) / "oqmd_cache"
+        cache_dir = crosscheck_cache_dir or Path(snap) / "crosscheck_cache" / xc_cfg["source"]
         for c, _, _ in pool:
-            if not use_oqmd:
-                xcs[c.formula] = CrossCheck(status="not_run", detail="OQMD cross-check disabled")
+            if not use_xc:
+                xcs[c.formula] = CrossCheck(status="not_run", detail="cross-check turned off")
                 continue
             if failed:
                 xcs[c.formula] = CrossCheck(
-                    status="unavailable", detail=f"skipped after earlier failure: {failed}"
+                    status="unavailable",
+                    source=adapter.NAME,
+                    detail=f"skipped after earlier failure: {failed}",
                 )
                 continue
             try:
-                payload = oqmd.fetch(
-                    c.formula,
-                    s["sources"]["oqmd"],
+                payload = adapter.fetch(
+                    c,
+                    s["sources"][xc_cfg["source"]],
                     s["sources"]["allowed_hosts"],
                     cache_dir,
-                    session=oqmd_session,
+                    session=crosscheck_session,
                 )
-                xcs[c.formula] = oqmd.cross_check(
-                    c, payload, s["sources"]["oqmd"]["agreement_tolerance_ev"]
-                )
-            except oqmd.SourceFailure as e:
+                xcs[c.formula] = adapter.cross_check(c, payload, xc_cfg["agreement_tolerance_ev"])
+            except SourceFailure as e:
                 failed = str(e)
-                xcs[c.formula] = CrossCheck(status="unavailable", detail=str(e))
+                xcs[c.formula] = CrossCheck(
+                    status="unavailable", source=adapter.NAME, detail=str(e)
+                )
         if failed:
             notes.append(
-                f"OQMD cross-check failed: {failed}. Affected candidates are marked; no OQMD values shown."
+                f"{adapter.NAME} cross-check failed: {failed}. Affected candidates are marked; "
+                f"no {adapter.NAME} values shown."
             )
         t["detail"] = ", ".join(f"{k}:{v.status}" for k, v in xcs.items())
 
@@ -454,7 +464,8 @@ def run_triage(
             "allow_extra_anions": crit.allow_extra_anions,
         },
         "rank_by": s["ranking"]["rank_by"],
-        "oqmd_enabled": use_oqmd,
+        "crosscheck_enabled": use_xc,
+        "crosscheck_source": adapter.NAME,
         "config_hashes": {k: config.file_hash(k) for k in s},
     }
     return TriageResult(

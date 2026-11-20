@@ -5,7 +5,7 @@ checked; the rendered outputs are saved next to the verdicts so a reader can see
 
     uv run python -m evals.run_evals                  # offline, deterministic (default)
     uv run python -m evals.run_evals --provider llm   # same cases through the model parser
-    uv run python -m evals.run_evals --live-oqmd      # also try the real OQMD cross-check
+    uv run python -m evals.run_evals --live-crosscheck   # also run the real online cross-check
 
 Exit code is 1 if any assertion fails.
 """
@@ -16,6 +16,7 @@ import argparse
 import json
 import re
 import sys
+import tempfile
 from collections.abc import Callable
 from datetime import UTC, datetime
 from pathlib import Path
@@ -33,13 +34,14 @@ from triage.render import render
 
 HERE = Path(__file__).parent
 RESULTS = HERE / "results"
+XC_SOURCES = {"Alexandria", "OQMD"}
 EXCLUDED_ANIONS = {"H", "C", "N", "S", "F", "Cl", "Br", "I"}
 
 Check = tuple[str, bool, str]
 
 
 class DownSession:
-    """OQMD simulated as unreachable: every request raises, and calls are counted."""
+    """Cross-check source simulated as unreachable: every request raises, and calls are counted."""
 
     def __init__(self) -> None:
         self.calls = 0
@@ -155,24 +157,27 @@ def eval_3(r: TriageResult, pi: str, audit: str, ctx: dict) -> list[Check]:
     lower = bool(fb and tb) and max(rc.confidence.points for rc in fb) < max(
         rc.confidence.points for rc in tb
     )
-    oqmd_vals = [
+    xc_vals = [
         rc.candidate.formula
         for rc in r.ranked
-        if rc.cross_check.oqmd_stability is not None
-        or any(c.source == "OQMD" for c in rc.citations)
+        if rc.cross_check.ref_stability is not None
+        or any(c.source in XC_SOURCES for c in rc.citations)
     ]
     return [
         ("run includes fallback-gap candidates", bool(fb), f"{len(fb)} fallback, {len(tb)} TBmBJ"),
         ("fallback gap flagged on every one", bool(fb) and flagged, ""),
         ("fallback lowers confidence", lower, "max points: fallback vs TBmBJ"),
-        ("run succeeds with OQMD down", bool(r.ranked), f"{len(r.ranked)} ranked"),
+        (
+            "run succeeds with the cross-check source down",
+            bool(r.ranked),
+            f"{len(r.ranked)} ranked",
+        ),
         (
             "failure named in the output",
-            any("OQMD cross-check failed" in n for n in r.notes)
-            and "OQMD cross-check failed" in audit,
-            "; ".join(n for n in r.notes if "OQMD" in n)[:160],
+            any("cross-check failed" in n for n in r.notes) and "cross-check failed" in audit,
+            "; ".join(n for n in r.notes if "cross-check" in n)[:160],
         ),
-        ("no OQMD value or citation shown", not oqmd_vals, f"offending: {oqmd_vals}"),
+        ("no cross-check value or citation shown", not xc_vals, f"offending: {xc_vals}"),
         (
             "gives up after one retry",
             ctx["session"].calls == 2,
@@ -236,13 +241,18 @@ ASSERT: dict[int, Callable[..., list[Check]]] = {1: eval_1, 2: eval_2, 3: eval_3
 def run_case(case: dict, provider: str, done: dict[int, TriageResult]) -> dict:
     ctx: dict = {"log_before": audit_log_lines()}
     kwargs: dict = {"provider": provider, "overrides": case.get("overrides")}
-    if case["oqmd"] == "offline":
-        kwargs["oqmd_enabled"] = False
-    elif case["oqmd"] == "down":
+    if case["crosscheck"] == "offline":
+        kwargs["crosscheck_enabled"] = False
+    elif case["crosscheck"] == "down":
         ctx["session"] = DownSession()
-        kwargs.update(oqmd_enabled=True, oqmd_session=ctx["session"])
+        # An empty cache, so earlier live answers can't stand in for the simulated outage.
+        kwargs.update(
+            crosscheck_enabled=True,
+            crosscheck_session=ctx["session"],
+            crosscheck_cache_dir=Path(tempfile.mkdtemp(prefix="triage_eval_")),
+        )
     else:
-        kwargs["oqmd_enabled"] = True
+        kwargs["crosscheck_enabled"] = True
     r = run_triage(case["request"], **kwargs)
     ctx["log_after"] = audit_log_lines()
     if "compare_to" in case:
@@ -261,7 +271,7 @@ def write_case(out: dict, suffix: str) -> Path:
         "",
         f'Request: "{c["request"]}"',
         "",
-        f"Parser: {r.criteria.provider}. OQMD: {c['oqmd']}. Run at {r.created_at}.",
+        f"Parser: {r.criteria.provider}. Cross-check: {c['crosscheck']}. Run at {r.created_at}.",
         "",
         "## Expected",
         "",
@@ -293,7 +303,7 @@ def write_case(out: dict, suffix: str) -> Path:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--provider", default="rules", choices=["rules", "llm"])
-    ap.add_argument("--live-oqmd", action="store_true")
+    ap.add_argument("--live-crosscheck", action="store_true")
     args = ap.parse_args(argv)
 
     cases = yaml.safe_load((HERE / "cases.yaml").read_text())["cases"]
@@ -321,19 +331,33 @@ def main(argv: list[str] | None = None) -> int:
                 + ("" if ok else f"  ({det})")
             )
 
-    live_lines: list[str] = []
-    if args.live_oqmd:
-        r = run_triage(cases[0]["request"], provider=args.provider, oqmd_enabled=True)
-        live_lines = [
-            "## Live OQMD cross-check (eval 1 request)",
+    # The live run is kept in its own file so the offline `make evals` never overwrites it.
+    live_file = RESULTS / "live_crosscheck.md"
+    if args.live_crosscheck:
+        r = run_triage(cases[0]["request"], provider=args.provider, crosscheck_enabled=True)
+        live = [
+            f"# Live {r.settings['crosscheck_source']} cross-check (eval 1 request)",
             "",
+            f"Run {r.created_at} against the real service. Not part of the offline pass/fail checks.",
+            "",
+            "| # | Formula | Confidence | Cross-check | Detail |",
+            "|---|---|---|---|---|",
             *[
-                f"- {rc.candidate.formula}: {rc.cross_check.status}. {rc.cross_check.detail}"
+                f"| {rc.rank} | {rc.candidate.formula} | {rc.confidence.level} | "
+                f"{rc.cross_check.status} | {rc.cross_check.detail} |"
                 for rc in r.ranked
             ],
+            "",
             *[f"- note: {n}" for n in r.notes],
             "",
         ]
+        live_file.write_text("\n".join(live))
+        print("\n".join(live))
+    live_lines = (
+        ["A live cross-check run is recorded in [live_crosscheck.md](live_crosscheck.md).", ""]
+        if live_file.exists() and not suffix
+        else []
+    )
 
     summary = [
         f"# Eval results{' (' + args.provider + ' parser)' if suffix else ''}",

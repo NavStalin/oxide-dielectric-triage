@@ -35,7 +35,7 @@ def query(
     out: str = typer.Option(None, help="Write to this file instead of stdout."),
     provider: str = typer.Option("rules", help="rules (default) or llm (needs ANTHROPIC_API_KEY)."),
     top: int = typer.Option(None, help="Shortlist size."),
-    offline: bool = typer.Option(False, help="Skip the OQMD cross-check."),
+    offline: bool = typer.Option(False, help="Skip the online stability cross-check."),
 ) -> None:
     """Scientist: run a triage request and print the PI summary or audit view."""
     from triage.pipeline import run_triage
@@ -47,7 +47,10 @@ def query(
     if top:
         overrides["shortlist_size"] = top
     result = run_triage(
-        request, provider=provider, overrides=overrides, oqmd_enabled=False if offline else None
+        request,
+        provider=provider,
+        overrides=overrides,
+        crosscheck_enabled=False if offline else None,
     )
     text = to_json(result) if fmt == "json" else render(result, style)
     if out:

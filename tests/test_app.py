@@ -1,4 +1,4 @@
-"""Drive the Streamlit app headlessly (offline: OQMD toggle defaults to off)."""
+"""Drive the Streamlit app headlessly (offline: the cross-check toggle defaults to off)."""
 
 import pytest
 from streamlit.testing.v1 import AppTest

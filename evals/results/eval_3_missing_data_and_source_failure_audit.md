@@ -1,11 +1,11 @@
 # Oxide dielectric triage: audit view
 
 **Request:** oxides, binaries only, top 25
-**Run:** 2026-11-19T19:13:04+00:00 · parser `rules` · style `audit` · shortlist 25 · rank by `suitability`
+**Run:** 2026-11-20T21:25:50+00:00 · parser `rules` · style `audit` · shortlist 25 · rank by `suitability`
 
 ## Refusals and notes
 No part of the request was refused.
-- OQMD cross-check failed: OQMD unreachable (ConnectionError). Affected candidates are marked; no OQMD values shown.
+- Alexandria cross-check failed: Alexandria unreachable (ConnectionError). Affected candidates are marked; no Alexandria values shown.
 
 ## How the request was read
 - 'binaries only' -> filter: binary compounds only
@@ -39,11 +39,11 @@ Strongest: on the convex hull; band gap 7.57 eV (TBmBJ).
 | Dielectric constant (κ) | 12  (DFPT total, max component) | 0.379 | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **1.000** |
 
-**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (unavailable: OQMD unreachable (ConnectionError)); +1 all weighted criteria have values.
+**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (unavailable: Alexandria unreachable (ConnectionError)); +1 all weighted criteria have values.
 
-**Cross-check (OQMD):** unavailable. OQMD unreachable (ConnectionError)
+**Cross-check (Alexandria):** unavailable. Alexandria unreachable (ConnectionError)
 **Caveats:**
-- Stability not cross-checked: OQMD unreachable (ConnectionError).
+- Stability not cross-checked: Alexandria unreachable (ConnectionError).
 
 **Polymorphs** (14 in JARVIS; first 5 by energy):
 
@@ -87,12 +87,12 @@ Strongest: on the convex hull; band gap 8.10 eV (TBmBJ).
 | Dielectric constant (κ) | 4.88  (DFPT total, max component) | 0.042 | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **1.000** |
 
-**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (unavailable: skipped after earlier failure: OQMD unreachable (ConnectionError)); +1 all weighted criteria have values.
+**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (unavailable: skipped after earlier failure: Alexandria unreachable (ConnectionError)); +1 all weighted criteria have values.
 
-**Cross-check (OQMD):** unavailable. skipped after earlier failure: OQMD unreachable (ConnectionError)
+**Cross-check (Alexandria):** unavailable. skipped after earlier failure: Alexandria unreachable (ConnectionError)
 **Caveats:**
 - Compound-form hazard not captured by element flags: IARC 'Silica dust, crystalline, in the form of quartz or cristobalite'. Group 1 as respirable crystalline dust. Si is not flagged at element level.
-- Stability not cross-checked: skipped after earlier failure: OQMD unreachable (ConnectionError).
+- Stability not cross-checked: skipped after earlier failure: Alexandria unreachable (ConnectionError).
 
 **Polymorphs** (94 in JARVIS; first 5 by energy):
 
@@ -136,12 +136,12 @@ Strongest: on the convex hull; band gap 7.59 eV (TBmBJ).
 | Dielectric constant (κ) | missing | missing | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **1.000** |
 
-**Confidence:** +2 band gap from TBmBJ; +0 no ICSD reference found; +0 no OQMD cross-check (unavailable: skipped after earlier failure: OQMD unreachable (ConnectionError)); +1 all weighted criteria have values.
+**Confidence:** +2 band gap from TBmBJ; +0 no ICSD reference found; +0 no stability cross-check (unavailable: skipped after earlier failure: Alexandria unreachable (ConnectionError)); +1 all weighted criteria have values.
 
-**Cross-check (OQMD):** unavailable. skipped after earlier failure: OQMD unreachable (ConnectionError)
+**Cross-check (Alexandria):** unavailable. skipped after earlier failure: Alexandria unreachable (ConnectionError)
 **Caveats:**
 - No ICSD experimental structure reference found for this polymorph.
-- Stability not cross-checked: skipped after earlier failure: OQMD unreachable (ConnectionError).
+- Stability not cross-checked: skipped after earlier failure: Alexandria unreachable (ConnectionError).
 
 **Polymorphs** (6 in JARVIS; first 5 by energy):
 
@@ -185,14 +185,14 @@ Strongest: on the convex hull; band gap 6.54 eV (OptB88vdW).
 | Dielectric constant (κ) | missing | missing | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **1.000** |
 
-**Confidence:** +0 band gap from OptB88vdW fallback (probable underestimate); +0 no ICSD reference found; +0 no OQMD cross-check (unavailable: skipped after earlier failure: OQMD unreachable (ConnectionError)); +1 all weighted criteria have values.
+**Confidence:** +0 band gap from OptB88vdW fallback (probable underestimate); +0 no ICSD reference found; +0 no stability cross-check (unavailable: skipped after earlier failure: Alexandria unreachable (ConnectionError)); +1 all weighted criteria have values.
 
-**Cross-check (OQMD):** unavailable. skipped after earlier failure: OQMD unreachable (ConnectionError)
+**Cross-check (Alexandria):** unavailable. skipped after earlier failure: Alexandria unreachable (ConnectionError)
 **Caveats:**
 - Band gap is the OptB88vdW fallback (no TBmBJ value): probably an underestimate.
 - Representative JVASP-152827 (P3_121) has no ICSD reference; JVASP-14147 (P3_121) is 5 meV/atom higher and has one.
 - No ICSD experimental structure reference found for this polymorph.
-- Stability not cross-checked: skipped after earlier failure: OQMD unreachable (ConnectionError).
+- Stability not cross-checked: skipped after earlier failure: Alexandria unreachable (ConnectionError).
 
 **Polymorphs** (7 in JARVIS; first 5 by energy):
 
@@ -236,12 +236,12 @@ Strongest: on the convex hull; band gap 5.80 eV (TBmBJ).
 | Dielectric constant (κ) | 15.6  (DFPT total, max component) | 0.552 | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **0.985** |
 
-**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (unavailable: skipped after earlier failure: OQMD unreachable (ConnectionError)); +1 all weighted criteria have values; -1 contains Yb: DFT energies and gaps less reliable.
+**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (unavailable: skipped after earlier failure: Alexandria unreachable (ConnectionError)); +1 all weighted criteria have values; -1 contains Yb: DFT energies and gaps less reliable.
 
-**Cross-check (OQMD):** unavailable. skipped after earlier failure: OQMD unreachable (ConnectionError)
+**Cross-check (Alexandria):** unavailable. skipped after earlier failure: Alexandria unreachable (ConnectionError)
 **Caveats:**
 - Contains Yb: DFT energies and gaps are less reliable for these elements, so stability and gap may be wrong.
-- Stability not cross-checked: skipped after earlier failure: OQMD unreachable (ConnectionError).
+- Stability not cross-checked: skipped after earlier failure: Alexandria unreachable (ConnectionError).
 
 **Sources:**
 - JARVIS-DFT dft_3d record: [JVASP-1291](https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-1291.html), retrieved/checked 2026-11-17T20:56:28+00:00
@@ -275,11 +275,11 @@ Strongest: on the convex hull; band gap 5.66 eV (TBmBJ).
 | Dielectric constant (κ) | missing | missing | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **0.975** |
 
-**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (unavailable: skipped after earlier failure: OQMD unreachable (ConnectionError)); +1 all weighted criteria have values.
+**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (unavailable: skipped after earlier failure: Alexandria unreachable (ConnectionError)); +1 all weighted criteria have values.
 
-**Cross-check (OQMD):** unavailable. skipped after earlier failure: OQMD unreachable (ConnectionError)
+**Cross-check (Alexandria):** unavailable. skipped after earlier failure: Alexandria unreachable (ConnectionError)
 **Caveats:**
-- Stability not cross-checked: skipped after earlier failure: OQMD unreachable (ConnectionError).
+- Stability not cross-checked: skipped after earlier failure: Alexandria unreachable (ConnectionError).
 
 **Polymorphs** (13 in JARVIS; first 5 by energy):
 
@@ -323,12 +323,12 @@ Strongest: on the convex hull; band gap 5.40 eV (OptB88vdW).
 | Dielectric constant (κ) | missing | missing | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **0.955** |
 
-**Confidence:** +0 band gap from OptB88vdW fallback (probable underestimate); +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (unavailable: skipped after earlier failure: OQMD unreachable (ConnectionError)); +1 all weighted criteria have values.
+**Confidence:** +0 band gap from OptB88vdW fallback (probable underestimate); +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (unavailable: skipped after earlier failure: Alexandria unreachable (ConnectionError)); +1 all weighted criteria have values.
 
-**Cross-check (OQMD):** unavailable. skipped after earlier failure: OQMD unreachable (ConnectionError)
+**Cross-check (Alexandria):** unavailable. skipped after earlier failure: Alexandria unreachable (ConnectionError)
 **Caveats:**
 - Band gap is the OptB88vdW fallback (no TBmBJ value): probably an underestimate.
-- Stability not cross-checked: skipped after earlier failure: OQMD unreachable (ConnectionError).
+- Stability not cross-checked: skipped after earlier failure: Alexandria unreachable (ConnectionError).
 
 **Polymorphs** (4 in JARVIS; first 5 by energy):
 
@@ -371,12 +371,12 @@ Strongest: on the convex hull; band gap 5.32 eV (TBmBJ).
 | Dielectric constant (κ) | 21.4  (DFPT total, max component) | 0.827 | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **0.948** |
 
-**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (unavailable: skipped after earlier failure: OQMD unreachable (ConnectionError)); +1 all weighted criteria have values; -1 contains Nd: DFT energies and gaps less reliable.
+**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (unavailable: skipped after earlier failure: Alexandria unreachable (ConnectionError)); +1 all weighted criteria have values; -1 contains Nd: DFT energies and gaps less reliable.
 
-**Cross-check (OQMD):** unavailable. skipped after earlier failure: OQMD unreachable (ConnectionError)
+**Cross-check (Alexandria):** unavailable. skipped after earlier failure: Alexandria unreachable (ConnectionError)
 **Caveats:**
 - Contains Nd: DFT energies and gaps are less reliable for these elements, so stability and gap may be wrong.
-- Stability not cross-checked: skipped after earlier failure: OQMD unreachable (ConnectionError).
+- Stability not cross-checked: skipped after earlier failure: Alexandria unreachable (ConnectionError).
 
 **Polymorphs** (5 in JARVIS; first 5 by energy):
 
@@ -420,11 +420,11 @@ Strongest: on the convex hull; band gap 5.29 eV (TBmBJ).
 | Dielectric constant (κ) | 14.9  (DFPT total, max component) | 0.517 | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **0.947** |
 
-**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (unavailable: skipped after earlier failure: OQMD unreachable (ConnectionError)); +1 all weighted criteria have values.
+**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (unavailable: skipped after earlier failure: Alexandria unreachable (ConnectionError)); +1 all weighted criteria have values.
 
-**Cross-check (OQMD):** unavailable. skipped after earlier failure: OQMD unreachable (ConnectionError)
+**Cross-check (Alexandria):** unavailable. skipped after earlier failure: Alexandria unreachable (ConnectionError)
 **Caveats:**
-- Stability not cross-checked: skipped after earlier failure: OQMD unreachable (ConnectionError).
+- Stability not cross-checked: skipped after earlier failure: Alexandria unreachable (ConnectionError).
 
 **Polymorphs** (6 in JARVIS; first 5 by energy):
 
@@ -468,12 +468,12 @@ Strongest: on the convex hull; band gap 5.21 eV (TBmBJ).
 | Dielectric constant (κ) | 21.6  (DFPT total, max component) | 0.840 | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **0.941** |
 
-**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (unavailable: skipped after earlier failure: OQMD unreachable (ConnectionError)); +1 all weighted criteria have values; -1 contains Pr: DFT energies and gaps less reliable.
+**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (unavailable: skipped after earlier failure: Alexandria unreachable (ConnectionError)); +1 all weighted criteria have values; -1 contains Pr: DFT energies and gaps less reliable.
 
-**Cross-check (OQMD):** unavailable. skipped after earlier failure: OQMD unreachable (ConnectionError)
+**Cross-check (Alexandria):** unavailable. skipped after earlier failure: Alexandria unreachable (ConnectionError)
 **Caveats:**
 - Contains Pr: DFT energies and gaps are less reliable for these elements, so stability and gap may be wrong.
-- Stability not cross-checked: skipped after earlier failure: OQMD unreachable (ConnectionError).
+- Stability not cross-checked: skipped after earlier failure: Alexandria unreachable (ConnectionError).
 
 **Polymorphs** (3 in JARVIS; first 5 by energy):
 
@@ -515,11 +515,11 @@ Strongest: on the convex hull; band gap 4.96 eV (TBmBJ).
 | Dielectric constant (κ) | 17.5  (DFPT total, max component) | 0.645 | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **0.922** |
 
-**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (unavailable: skipped after earlier failure: OQMD unreachable (ConnectionError)); +1 all weighted criteria have values.
+**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (unavailable: skipped after earlier failure: Alexandria unreachable (ConnectionError)); +1 all weighted criteria have values.
 
-**Cross-check (OQMD):** unavailable. skipped after earlier failure: OQMD unreachable (ConnectionError)
+**Cross-check (Alexandria):** unavailable. skipped after earlier failure: Alexandria unreachable (ConnectionError)
 **Caveats:**
-- Stability not cross-checked: skipped after earlier failure: OQMD unreachable (ConnectionError).
+- Stability not cross-checked: skipped after earlier failure: Alexandria unreachable (ConnectionError).
 
 **Polymorphs** (4 in JARVIS; first 5 by energy):
 
@@ -562,14 +562,14 @@ Strongest: on the convex hull; band gap 4.85 eV (OptB88vdW).
 | Dielectric constant (κ) | missing | missing | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **0.914** |
 
-**Confidence:** +0 band gap from OptB88vdW fallback (probable underestimate); +0 no ICSD reference found; +0 no OQMD cross-check (unavailable: skipped after earlier failure: OQMD unreachable (ConnectionError)); +1 all weighted criteria have values.
+**Confidence:** +0 band gap from OptB88vdW fallback (probable underestimate); +0 no ICSD reference found; +0 no stability cross-check (unavailable: skipped after earlier failure: Alexandria unreachable (ConnectionError)); +1 all weighted criteria have values.
 
-**Cross-check (OQMD):** unavailable. skipped after earlier failure: OQMD unreachable (ConnectionError)
+**Cross-check (Alexandria):** unavailable. skipped after earlier failure: Alexandria unreachable (ConnectionError)
 **Caveats:**
 - Band gap is the OptB88vdW fallback (no TBmBJ value): probably an underestimate.
 - Representative JVASP-115229 (I4/mmm) has no ICSD reference; JVASP-116 (Fm-3m) is 30 meV/atom higher and has one.
 - No ICSD experimental structure reference found for this polymorph.
-- Stability not cross-checked: skipped after earlier failure: OQMD unreachable (ConnectionError).
+- Stability not cross-checked: skipped after earlier failure: Alexandria unreachable (ConnectionError).
 
 **Polymorphs** (14 in JARVIS; first 5 by energy):
 
@@ -613,11 +613,11 @@ Strongest: on the convex hull; band gap 4.83 eV (TBmBJ).
 | Dielectric constant (κ) | 5.82  (DFPT total, max component) | 0.087 | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **0.913** |
 
-**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (unavailable: skipped after earlier failure: OQMD unreachable (ConnectionError)); +1 all weighted criteria have values.
+**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (unavailable: skipped after earlier failure: Alexandria unreachable (ConnectionError)); +1 all weighted criteria have values.
 
-**Cross-check (OQMD):** unavailable. skipped after earlier failure: OQMD unreachable (ConnectionError)
+**Cross-check (Alexandria):** unavailable. skipped after earlier failure: Alexandria unreachable (ConnectionError)
 **Caveats:**
-- Stability not cross-checked: skipped after earlier failure: OQMD unreachable (ConnectionError).
+- Stability not cross-checked: skipped after earlier failure: Alexandria unreachable (ConnectionError).
 
 **Polymorphs** (2 in JARVIS; first 5 by energy):
 
@@ -658,12 +658,12 @@ Strongest: on the convex hull; band gap 4.80 eV (TBmBJ).
 | Dielectric constant (κ) | 14.1  (DFPT total, max component) | 0.481 | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **0.910** |
 
-**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (unavailable: skipped after earlier failure: OQMD unreachable (ConnectionError)); +1 all weighted criteria have values; -1 contains Nd: DFT energies and gaps less reliable.
+**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (unavailable: skipped after earlier failure: Alexandria unreachable (ConnectionError)); +1 all weighted criteria have values; -1 contains Nd: DFT energies and gaps less reliable.
 
-**Cross-check (OQMD):** unavailable. skipped after earlier failure: OQMD unreachable (ConnectionError)
+**Cross-check (Alexandria):** unavailable. skipped after earlier failure: Alexandria unreachable (ConnectionError)
 **Caveats:**
 - Contains Nd: DFT energies and gaps are less reliable for these elements, so stability and gap may be wrong.
-- Stability not cross-checked: skipped after earlier failure: OQMD unreachable (ConnectionError).
+- Stability not cross-checked: skipped after earlier failure: Alexandria unreachable (ConnectionError).
 
 **Polymorphs** (3 in JARVIS; first 5 by energy):
 
@@ -705,13 +705,13 @@ Strongest: on the convex hull; band gap 8.04 eV (OptB88vdW).
 | Dielectric constant (κ) | 7.67  (DFPT total, max component) | 0.175 | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **0.900** |
 
-**Confidence:** +0 band gap from OptB88vdW fallback (probable underestimate); +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (unavailable: skipped after earlier failure: OQMD unreachable (ConnectionError)); +1 all weighted criteria have values.
+**Confidence:** +0 band gap from OptB88vdW fallback (probable underestimate); +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (unavailable: skipped after earlier failure: Alexandria unreachable (ConnectionError)); +1 all weighted criteria have values.
 
-**Cross-check (OQMD):** unavailable. skipped after earlier failure: OQMD unreachable (ConnectionError)
+**Cross-check (Alexandria):** unavailable. skipped after earlier failure: Alexandria unreachable (ConnectionError)
 **Caveats:**
 - Band gap is the OptB88vdW fallback (no TBmBJ value): probably an underestimate.
 - Element flag Be: Beryllium and beryllium compounds.
-- Stability not cross-checked: skipped after earlier failure: OQMD unreachable (ConnectionError).
+- Stability not cross-checked: skipped after earlier failure: Alexandria unreachable (ConnectionError).
 
 **Polymorphs** (4 in JARVIS; first 5 by energy):
 
@@ -755,11 +755,11 @@ Strongest: on the convex hull; no flagged elements.
 | Dielectric constant (κ) | 28.8  (DFPT total, max component) | 1.000 | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **0.898** |
 
-**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (unavailable: skipped after earlier failure: OQMD unreachable (ConnectionError)); +1 all weighted criteria have values.
+**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (unavailable: skipped after earlier failure: Alexandria unreachable (ConnectionError)); +1 all weighted criteria have values.
 
-**Cross-check (OQMD):** unavailable. skipped after earlier failure: OQMD unreachable (ConnectionError)
+**Cross-check (Alexandria):** unavailable. skipped after earlier failure: Alexandria unreachable (ConnectionError)
 **Caveats:**
-- Stability not cross-checked: skipped after earlier failure: OQMD unreachable (ConnectionError).
+- Stability not cross-checked: skipped after earlier failure: Alexandria unreachable (ConnectionError).
 
 **Polymorphs** (12 in JARVIS; first 5 by energy):
 
@@ -803,12 +803,12 @@ Strongest: on the convex hull; no flagged elements.
 | Dielectric constant (κ) | missing | missing | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **0.873** |
 
-**Confidence:** +0 band gap from OptB88vdW fallback (probable underestimate); +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (unavailable: skipped after earlier failure: OQMD unreachable (ConnectionError)); +1 all weighted criteria have values.
+**Confidence:** +0 band gap from OptB88vdW fallback (probable underestimate); +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (unavailable: skipped after earlier failure: Alexandria unreachable (ConnectionError)); +1 all weighted criteria have values.
 
-**Cross-check (OQMD):** unavailable. skipped after earlier failure: OQMD unreachable (ConnectionError)
+**Cross-check (Alexandria):** unavailable. skipped after earlier failure: Alexandria unreachable (ConnectionError)
 **Caveats:**
 - Band gap is the OptB88vdW fallback (no TBmBJ value): probably an underestimate.
-- Stability not cross-checked: skipped after earlier failure: OQMD unreachable (ConnectionError).
+- Stability not cross-checked: skipped after earlier failure: Alexandria unreachable (ConnectionError).
 
 **Polymorphs** (6 in JARVIS; first 5 by energy):
 
@@ -852,11 +852,11 @@ Strongest: on the convex hull; no flagged elements.
 | Dielectric constant (κ) | 6.08  (DFPT total, max component) | 0.099 | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **0.871** |
 
-**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (unavailable: skipped after earlier failure: OQMD unreachable (ConnectionError)); +1 all weighted criteria have values.
+**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (unavailable: skipped after earlier failure: Alexandria unreachable (ConnectionError)); +1 all weighted criteria have values.
 
-**Cross-check (OQMD):** unavailable. skipped after earlier failure: OQMD unreachable (ConnectionError)
+**Cross-check (Alexandria):** unavailable. skipped after earlier failure: Alexandria unreachable (ConnectionError)
 **Caveats:**
-- Stability not cross-checked: skipped after earlier failure: OQMD unreachable (ConnectionError).
+- Stability not cross-checked: skipped after earlier failure: Alexandria unreachable (ConnectionError).
 
 **Polymorphs** (3 in JARVIS; first 5 by energy):
 
@@ -898,11 +898,11 @@ Strongest: on the convex hull; no flagged elements.
 | Dielectric constant (κ) | missing | missing | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **0.870** |
 
-**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (unavailable: skipped after earlier failure: OQMD unreachable (ConnectionError)); +1 all weighted criteria have values.
+**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (unavailable: skipped after earlier failure: Alexandria unreachable (ConnectionError)); +1 all weighted criteria have values.
 
-**Cross-check (OQMD):** unavailable. skipped after earlier failure: OQMD unreachable (ConnectionError)
+**Cross-check (Alexandria):** unavailable. skipped after earlier failure: Alexandria unreachable (ConnectionError)
 **Caveats:**
-- Stability not cross-checked: skipped after earlier failure: OQMD unreachable (ConnectionError).
+- Stability not cross-checked: skipped after earlier failure: Alexandria unreachable (ConnectionError).
 
 **Polymorphs** (10 in JARVIS; first 5 by energy):
 
@@ -946,12 +946,12 @@ Strongest: on the convex hull; no flagged elements.
 | Dielectric constant (κ) | missing | missing | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **0.867** |
 
-**Confidence:** +0 band gap from OptB88vdW fallback (probable underestimate); +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (unavailable: skipped after earlier failure: OQMD unreachable (ConnectionError)); +1 all weighted criteria have values.
+**Confidence:** +0 band gap from OptB88vdW fallback (probable underestimate); +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (unavailable: skipped after earlier failure: Alexandria unreachable (ConnectionError)); +1 all weighted criteria have values.
 
-**Cross-check (OQMD):** unavailable. skipped after earlier failure: OQMD unreachable (ConnectionError)
+**Cross-check (Alexandria):** unavailable. skipped after earlier failure: Alexandria unreachable (ConnectionError)
 **Caveats:**
 - Band gap is the OptB88vdW fallback (no TBmBJ value): probably an underestimate.
-- Stability not cross-checked: skipped after earlier failure: OQMD unreachable (ConnectionError).
+- Stability not cross-checked: skipped after earlier failure: Alexandria unreachable (ConnectionError).
 
 **Polymorphs** (3 in JARVIS; first 5 by energy):
 
@@ -993,13 +993,13 @@ Strongest: on the convex hull; no flagged elements.
 | Dielectric constant (κ) | missing | missing | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **0.865** |
 
-**Confidence:** +0 band gap from OptB88vdW fallback (probable underestimate); +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (unavailable: skipped after earlier failure: OQMD unreachable (ConnectionError)); +1 all weighted criteria have values; -1 contains Tm: DFT energies and gaps less reliable.
+**Confidence:** +0 band gap from OptB88vdW fallback (probable underestimate); +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (unavailable: skipped after earlier failure: Alexandria unreachable (ConnectionError)); +1 all weighted criteria have values; -1 contains Tm: DFT energies and gaps less reliable.
 
-**Cross-check (OQMD):** unavailable. skipped after earlier failure: OQMD unreachable (ConnectionError)
+**Cross-check (Alexandria):** unavailable. skipped after earlier failure: Alexandria unreachable (ConnectionError)
 **Caveats:**
 - Band gap is the OptB88vdW fallback (no TBmBJ value): probably an underestimate.
 - Contains Tm: DFT energies and gaps are less reliable for these elements, so stability and gap may be wrong.
-- Stability not cross-checked: skipped after earlier failure: OQMD unreachable (ConnectionError).
+- Stability not cross-checked: skipped after earlier failure: Alexandria unreachable (ConnectionError).
 
 **Polymorphs** (3 in JARVIS; first 5 by energy):
 
@@ -1041,13 +1041,13 @@ Strongest: on the convex hull; no flagged elements.
 | Dielectric constant (κ) | missing | missing | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **0.860** |
 
-**Confidence:** +0 band gap from OptB88vdW fallback (probable underestimate); +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (unavailable: skipped after earlier failure: OQMD unreachable (ConnectionError)); +1 all weighted criteria have values; -1 contains Er: DFT energies and gaps less reliable.
+**Confidence:** +0 band gap from OptB88vdW fallback (probable underestimate); +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (unavailable: skipped after earlier failure: Alexandria unreachable (ConnectionError)); +1 all weighted criteria have values; -1 contains Er: DFT energies and gaps less reliable.
 
-**Cross-check (OQMD):** unavailable. skipped after earlier failure: OQMD unreachable (ConnectionError)
+**Cross-check (Alexandria):** unavailable. skipped after earlier failure: Alexandria unreachable (ConnectionError)
 **Caveats:**
 - Band gap is the OptB88vdW fallback (no TBmBJ value): probably an underestimate.
 - Contains Er: DFT energies and gaps are less reliable for these elements, so stability and gap may be wrong.
-- Stability not cross-checked: skipped after earlier failure: OQMD unreachable (ConnectionError).
+- Stability not cross-checked: skipped after earlier failure: Alexandria unreachable (ConnectionError).
 
 **Polymorphs** (4 in JARVIS; first 5 by energy):
 
@@ -1090,13 +1090,13 @@ Strongest: on the convex hull; no flagged elements.
 | Dielectric constant (κ) | missing | missing | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **0.857** |
 
-**Confidence:** +0 band gap from OptB88vdW fallback (probable underestimate); +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (unavailable: skipped after earlier failure: OQMD unreachable (ConnectionError)); +1 all weighted criteria have values; -1 contains Ho: DFT energies and gaps less reliable.
+**Confidence:** +0 band gap from OptB88vdW fallback (probable underestimate); +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (unavailable: skipped after earlier failure: Alexandria unreachable (ConnectionError)); +1 all weighted criteria have values; -1 contains Ho: DFT energies and gaps less reliable.
 
-**Cross-check (OQMD):** unavailable. skipped after earlier failure: OQMD unreachable (ConnectionError)
+**Cross-check (Alexandria):** unavailable. skipped after earlier failure: Alexandria unreachable (ConnectionError)
 **Caveats:**
 - Band gap is the OptB88vdW fallback (no TBmBJ value): probably an underestimate.
 - Contains Ho: DFT energies and gaps are less reliable for these elements, so stability and gap may be wrong.
-- Stability not cross-checked: skipped after earlier failure: OQMD unreachable (ConnectionError).
+- Stability not cross-checked: skipped after earlier failure: Alexandria unreachable (ConnectionError).
 
 **Polymorphs** (4 in JARVIS; first 5 by energy):
 
@@ -1139,13 +1139,13 @@ Strongest: on the convex hull; no flagged elements.
 | Dielectric constant (κ) | missing | missing | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **0.856** |
 
-**Confidence:** +0 band gap from OptB88vdW fallback (probable underestimate); +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (unavailable: skipped after earlier failure: OQMD unreachable (ConnectionError)); +1 all weighted criteria have values; -1 contains Dy: DFT energies and gaps less reliable.
+**Confidence:** +0 band gap from OptB88vdW fallback (probable underestimate); +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (unavailable: skipped after earlier failure: Alexandria unreachable (ConnectionError)); +1 all weighted criteria have values; -1 contains Dy: DFT energies and gaps less reliable.
 
-**Cross-check (OQMD):** unavailable. skipped after earlier failure: OQMD unreachable (ConnectionError)
+**Cross-check (Alexandria):** unavailable. skipped after earlier failure: Alexandria unreachable (ConnectionError)
 **Caveats:**
 - Band gap is the OptB88vdW fallback (no TBmBJ value): probably an underestimate.
 - Contains Dy: DFT energies and gaps are less reliable for these elements, so stability and gap may be wrong.
-- Stability not cross-checked: skipped after earlier failure: OQMD unreachable (ConnectionError).
+- Stability not cross-checked: skipped after earlier failure: Alexandria unreachable (ConnectionError).
 
 **Polymorphs** (4 in JARVIS; first 5 by energy):
 
@@ -1188,11 +1188,11 @@ Strongest: on the convex hull; no flagged elements.
 | Dielectric constant (κ) | 6.92  (DFPT total, max component) | 0.139 | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **0.855** |
 
-**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (unavailable: skipped after earlier failure: OQMD unreachable (ConnectionError)); +1 all weighted criteria have values.
+**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (unavailable: skipped after earlier failure: Alexandria unreachable (ConnectionError)); +1 all weighted criteria have values.
 
-**Cross-check (OQMD):** unavailable. skipped after earlier failure: OQMD unreachable (ConnectionError)
+**Cross-check (Alexandria):** unavailable. skipped after earlier failure: Alexandria unreachable (ConnectionError)
 **Caveats:**
-- Stability not cross-checked: skipped after earlier failure: OQMD unreachable (ConnectionError).
+- Stability not cross-checked: skipped after earlier failure: Alexandria unreachable (ConnectionError).
 
 **Polymorphs** (7 in JARVIS; first 5 by energy):
 
@@ -1247,8 +1247,8 @@ Ce2O3, Ce3O, Ce5O9, Ce7O12, CeO, Co2O3, Co5O8, Co7O12, CoO, CoO2, Cr3O, Cr3O2, C
 ## Configuration and filters applied
 - Weights: stability 0.35, band_gap 0.3, hazard 0.2, simplicity 0.15, dielectric 0.0
 - Filters: min_band_gap=None, max_e_hull=None, max_elements=2, exclude_elements=[], allow_extra_anions=False
-- OQMD cross-check enabled: True
-- Config file hashes: ranking dc0c5a1dab49, candidates 39061fedf98a, hazards fdfa6b01c897, sources f9f0473d8ee5, policy 89afc674c1f7, confidence c4dca0a00d8d, output c55f3669d194, terminology 79179a30262d
+- Stability cross-check (Alexandria) enabled: True
+- Config file hashes: ranking dc0c5a1dab49, candidates 39061fedf98a, hazards fdfa6b01c897, sources d662beaac648, policy 89afc674c1f7, confidence c6b5f9bd9548, output c55f3669d194, terminology 79179a30262d
 
 | Filter step | Formulas |
 |---|---|
@@ -1281,8 +1281,8 @@ Ce2O3, Ce3O, Ce5O9, Ce7O12, CeO, Co2O3, Co5O8, Co7O12, CoO, CoO2, Cr3O, Cr3O2, C
 | parse request | provider=rules; matched=2; unparsed=['oxides'] | 0.1 |
 | apply settings and clamp | weights={'stability': 0.35, 'band_gap': 0.3, 'hazard': 0.2, 'simplicity': 0.15, 'dielectric': 0.0}; clamped=[] | 0.0 |
 | load snapshot | 25194 records; built 2026-11-18T22:23:34+00:00 | 0.0 |
-| candidates and filters | {'formulas': 15671, 'dropped: contains H, C, N, S or halogen': 4156, 'dropped: metal (no band gap)': 2119, 'dropped: element with no stable isotopes': 506, 'dropped: not an oxide': 1, 'dropped: more than 2 elements': 8651, 'needs review (not ranked)': 85, 'ranked': 153} | 94.1 |
-| score | 153 candidates scored | 4.4 |
+| candidates and filters | {'formulas': 15671, 'dropped: contains H, C, N, S or halogen': 4156, 'dropped: metal (no band gap)': 2119, 'dropped: element with no stable isotopes': 506, 'dropped: not an oxide': 1, 'dropped: more than 2 elements': 8651, 'needs review (not ranked)': 85, 'ranked': 153} | 97.0 |
+| score | 153 candidates scored | 4.3 |
 | rank (ties by offline confidence) | shortlist pool 25 of 153 | 1.0 |
-| OQMD cross-check | Al2O3:unavailable, SiO2:unavailable, Li2O:unavailable, B2O3:unavailable, YbO:unavailable, HfO2:unavailable, P2O5:unavailable, Nd2O3:unavailable, CaO:unavailable, Pr2O3:unavailable, SrO:unavailable, MgO:unavailable, KO:unavailable, NdO2:unavailable, BeO:unavailable, TeO2:unavailable,... | 1005.7 |
-| confidence, caveats, citations | 25 ranked | 2.5 |
+| Alexandria cross-check | Al2O3:unavailable, SiO2:unavailable, Li2O:unavailable, B2O3:unavailable, YbO:unavailable, HfO2:unavailable, P2O5:unavailable, Nd2O3:unavailable, CaO:unavailable, Pr2O3:unavailable, SrO:unavailable, MgO:unavailable, KO:unavailable, NdO2:unavailable, BeO:unavailable, TeO2:unavailable,... | 1010.7 |
+| confidence, caveats, citations | 25 ranked | 1.3 |

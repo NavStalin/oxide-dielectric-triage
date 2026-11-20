@@ -1,0 +1,7 @@
+{
+  "_comment": "SYNTHETIC test fixture shaped like an Alexandria OPTIMADE /structures response. Not real data. Never read by the app.",
+  "data": [
+    {"id": "syn-agm-1", "type": "structures", "attributes": {"chemical_formula_reduced": "HfO2", "_alexandria_hull_distance": 0.012, "_alexandria_space_group": 14, "_alexandria_xc_functional": "gga_x_pbe + gga_c_pbe"}}
+  ],
+  "meta": {"more_data_available": false}
+}

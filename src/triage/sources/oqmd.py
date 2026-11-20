@@ -1,29 +1,30 @@
 """OQMD REST cross-check for shortlisted formulas (D-005, D-017, D-018).
 
-Fields verified live 2026-11-17 (docs/VERIFIED_FACTS.md section 3). The API is slow and returns
-intermittent 502s (observed 2026-11-18), so: allowlisted host, short timeout, one retry, on-disk cache,
-and every failure becomes a named SourceFailure, never a crash and never a made-up value.
+Fields verified live 2026-11-17 (docs/VERIFIED_FACTS.md section 3). The API was slow
+(about 30 s per query) or returning 502s throughout the build (18-20 Nov 2026), so it is the
+alternative cross-check source, not the default (D-044). Select it in config/sources.yaml.
 """
 
 from __future__ import annotations
 
 import json
 import re
-import time
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
-from urllib.parse import urlencode, urlparse
+from urllib.parse import urlencode
 
 import requests
 
 from triage.models import Candidate, CrossCheck, Evidence
+from triage.sources.http import SourceFailure, get_json
+
+__all__ = ["NAME", "SourceFailure", "cross_check", "fetch"]
 
 FIELDS = "name,entry_id,icsd_id,stability,delta_e,spacegroup,band_gap"
 
 
-class SourceFailure(Exception):
-    """OQMD could not be reached or returned something unusable."""
+NAME = "OQMD"
 
 
 def parse_formula(formula: str) -> dict[str, float]:
@@ -47,44 +48,27 @@ def query_url(formula: str, base_url: str) -> str:
 
 
 def fetch(
-    formula: str,
+    cand: Candidate,
     cfg: dict[str, Any],
     allowed_hosts: list[str],
     cache_dir: Path,
     session: Any = requests,
 ) -> dict[str, Any]:
     """Return {'url', 'retrieved_at', 'rows'}; cached on disk. Raises SourceFailure."""
+    formula = cand.formula
     url = query_url(formula, cfg["base_url"])
-    host = urlparse(url).hostname or ""
-    if host not in allowed_hosts:
-        raise SourceFailure(f"host {host} not in allowlist")
     cache = cache_dir / f"{formula}.json"
     if cache.exists():
         return json.loads(cache.read_text())
-
-    last_err = "unknown error"
-    for attempt in range(2):
-        try:
-            resp = session.get(url, timeout=cfg["timeout_s"])
-            if resp.status_code != 200:
-                last_err = f"HTTP {resp.status_code}"
-            else:
-                data = resp.json()
-                payload = {
-                    "url": url,
-                    "retrieved_at": datetime.now(UTC).isoformat(timespec="seconds"),
-                    "rows": data.get("data", []),
-                }
-                cache_dir.mkdir(parents=True, exist_ok=True)
-                cache.write_text(json.dumps(payload))
-                return payload
-        except requests.Timeout:
-            last_err = f"timeout after {cfg['timeout_s']} s"
-        except (requests.RequestException, ValueError) as e:
-            last_err = type(e).__name__
-        if attempt == 0:
-            time.sleep(1.0)
-    raise SourceFailure(f"OQMD unreachable ({last_err})")
+    data = get_json(url, cfg["timeout_s"], allowed_hosts, NAME, session)
+    payload = {
+        "url": url,
+        "retrieved_at": datetime.now(UTC).isoformat(timespec="seconds"),
+        "rows": data.get("data", []),
+    }
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    cache.write_text(json.dumps(payload))
+    return payload
 
 
 def _norm_spg(s: str | None) -> str:
@@ -100,7 +84,9 @@ def cross_check(cand: Candidate, payload: dict[str, Any], tol: float) -> CrossCh
     ]
     if not rows:
         return CrossCheck(
-            status="not_found", detail=f"OQMD has no entry with stability for {cand.formula}"
+            status="not_found",
+            source=NAME,
+            detail=f"OQMD has no entry with stability for {cand.formula}",
         )
 
     rep = cand.representative
@@ -115,8 +101,9 @@ def cross_check(cand: Candidate, payload: dict[str, Any], tol: float) -> CrossCh
     icsd = best.get("icsd_id")
     return CrossCheck(
         status=status,
+        source=NAME,
         match_type=match_type,
-        oqmd_stability=Evidence(
+        ref_stability=Evidence(
             value=float(best["stability"]),
             unit="eV/atom",
             method="OQMD stability (hull distance)",

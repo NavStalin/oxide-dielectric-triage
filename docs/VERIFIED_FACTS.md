@@ -127,6 +127,46 @@ HTTP 200, no key, 24 entries available for HfO2.
 - SrTiO3 and Y2O3 queries, and later HfO2, returned **HTTP 502** ("temporary error, try again in
   30 seconds") repeatedly through the afternoon. Treat OQMD as unreliable; the app must work without it.
 - 2026-11-19: still failing (HTTP 502 and timeouts on three full runs about 40 s apart).
+- 2026-11-20: one HfO2 query timed out at 30 s; the next returned HTTP 200 after 29.5 s. That is
+  three times the app's 10 s timeout, so OQMD is no longer the default cross-check (D-044).
+
+## 3a. Alexandria OPTIMADE API (checked live 2026-11-20)
+
+The default stability cross-check since D-044. Database from the group of Miguel Marques, Ruhr
+University Bochum; 5,777,914 PBE entries (`meta.data_available`).
+
+- Base URL: `https://alexandria.icams.rub.de/pbe/v1`. No key. HTTP 200 in about 0.6 s per query.
+- Licence: CC BY 4.0, stated on `https://alexandria.icams.rub.de/about.html`. Citation given there:
+  Cavignac et al., J. Phys. Mater. 9, 025014 (2026), `https://doi.org/10.1088/2515-7639/ae6620`.
+- Provider fields (from `/info/structures`): `_alexandria_hull_distance` (eV/atom, "distance from the
+  global convex hull"), `_alexandria_space_group` (number), `_alexandria_xc_functional`
+  (`gga_x_pbe + gga_c_pbe`), `_alexandria_band_gap`, `_alexandria_formation_energy_per_atom`.
+  `_alexandria_e_above_hull` does **not** exist (the API returns a warning and null).
+- `chemical_formula_reduced` lists elements alphabetically: `"O2Si"`, `"O2Zr"`, `"O3Y2"`. A filter on
+  `"SiO2"` returns nothing.
+- `sort=_alexandria_hull_distance` works, and so does filtering on `_alexandria_space_group`,
+  including with `OR`.
+- Record URL `https://alexandria.icams.rub.de/pbe/v1/structures/agm002169750` returns HTTP 200 (JSON).
+- Lowest hull distance per formula (space group, entry):
+  Al2O3 0.0 (167, agm003206244); HfO2 0.0 (141, agm002169750), with monoclinic 14 at 0.0057;
+  ZrO2 0.0 (14, agm003212171); Y2O3 0.0 (206, agm003272261); La2O3 0.0 (206, agm003247493);
+  Li2O 0.0 (225, agm003161304); SiO2 0.0 (122, agm002228342), with quartz 152 at 0.0108
+  (agm005227110).
+- SiO2 in space group 154 alone returns agm005248574 at 0.328 eV/atom, a different structure. Quartz
+  is stored as 152, its mirror image. A space-group match is not a structure match (D-045).
+- Live run of the example request (2026-11-20): Al2O3, SiO2, Li2O and B2O3 agree within 0.05 eV/atom.
+  YbO disagrees: 0.294 eV/atom above Alexandria's hull (agm003157679) against 0 from the recomputed
+  JARVIS hull. Recorded in `evals/results/live_crosscheck.md`.
+
+## 3b. Background for the talk: HfO2 in chips
+
+- IEEE Spectrum, "Intel's 45-nanometer Penryn processors arrive" (November 2007),
+  `https://spectrum.ieee.org/intel-45nanometer-penryn-processors-arrive` (HTTP 200, 2026-11-20). Quote:
+  "the insulating layer between the gate and the transistor channel are made from a hafnium-based
+  high-k dielectric material instead of silicon dioxide".
+- Intel's own January 2007 press release is at
+  `https://www.intel.com/pressroom/archive/releases/2007/20070128comp.htm`. It returned HTTP 403 to
+  an automated fetch, so its wording is **not verified** here. Open it in a browser before quoting it.
 
 ## 4. Hazard sources (URLs resolve; list contents not yet read line by line)
 

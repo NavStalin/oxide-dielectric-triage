@@ -3,6 +3,9 @@
 Read `docs/BRIEF.md`, `docs/VERIFIED_FACTS.md` and `DECISIONS.md` first. This file says what to
 build, in what order, and how to tell each piece is done.
 
+> **Update 2026-11-20:** where this plan says OQMD, the default cross-check is now Alexandria
+> (D-044). OQMD remains as the alternative adapter. The plan is otherwise kept as written.
+
 ## 0. Requirements from the prompt (verbatim) and where each is met
 
 This is the acceptance list. The Saturday review goes through it line by line and records the file

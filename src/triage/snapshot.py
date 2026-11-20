@@ -177,9 +177,9 @@ def snapshot(raw_dir: Path | None = None, out_dir: Path | None = None) -> tuple[
 
     if failed:
         return False, manifest, results  # leave tmp for inspection; live snapshot untouched
-    keep = out_dir / "oqmd_cache"
+    keep = out_dir / "crosscheck_cache"
     if keep.exists():
-        shutil.move(str(keep), str(tmp / "oqmd_cache"))
+        shutil.move(str(keep), str(tmp / "crosscheck_cache"))
     shutil.rmtree(out_dir, ignore_errors=True)
     tmp.rename(out_dir)
     return True, manifest, results

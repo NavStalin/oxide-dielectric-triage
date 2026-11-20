@@ -33,16 +33,25 @@ def assess(
     if r.has_icsd:
         add(p["icsd_reference"], "experimental structure reference (ICSD, via JARVIS)")
     elif xc.icsd_id:
-        add(p["icsd_reference"], f"experimental structure reference (ICSD {xc.icsd_id}, via OQMD)")
+        add(
+            p["icsd_reference"],
+            f"experimental structure reference (ICSD {xc.icsd_id}, via {xc.source})",
+        )
     else:
         reasons.append("+0 no ICSD reference found")
 
     if xc.status == "agree":
-        add(p["oqmd_agree"], f"OQMD agrees on stability ({xc.match_type.replace('_', ' ')})")
+        add(
+            p["crosscheck_agree"],
+            f"{xc.source} agrees on stability ({xc.match_type.replace('_', ' ')})",
+        )
     elif xc.status == "disagree":
-        add(p["oqmd_disagree"], f"OQMD disagrees on stability by {xc.delta_ev * 1000:.0f} meV/atom")
+        add(
+            p["crosscheck_disagree"],
+            f"{xc.source} disagrees on stability by {xc.delta_ev * 1000:.0f} meV/atom",
+        )
     else:
-        add(p["oqmd_unavailable"], f"no OQMD cross-check ({xc.status}: {xc.detail})")
+        add(p["crosscheck_unavailable"], f"no stability cross-check ({xc.status}: {xc.detail})")
 
     if not suit.missing:
         add(p["all_criteria_present"], "all weighted criteria have values")

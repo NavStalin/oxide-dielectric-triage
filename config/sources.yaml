@@ -4,12 +4,14 @@
 allowed_hosts:
   - ndownloader.figshare.com   # JARVIS-DFT dataset download
   - figshare.com
-  - oqmd.org                   # OQMD REST API cross-check
+  - alexandria.icams.rub.de    # Alexandria OPTIMADE API: stability cross-check (default)
+  - oqmd.org                   # OQMD REST API: alternative cross-check
 
 # Hosts that citation links may point to (pages shown to the user, not fetched by the app).
 citation_hosts:
   - www.ctcms.nist.gov
   - doi.org
+  - alexandria.icams.rub.de
   - oqmd.org
   - eur-lex.europa.eu
   - monographs.iarc.who.int
@@ -21,11 +23,21 @@ jarvis:
   record_url_template: "https://www.ctcms.nist.gov/~knc6/jsmol/{jid}.html"   # verified 200 for JVASP-9147
   dataset_doi: "https://doi.org/10.6084/m9.figshare.6815699"
 
-oqmd:
+# Stability cross-check on the shortlist, against a second, independent DFT database (D-044).
+cross_check:
   enabled: true
+  source: alexandria           # alexandria | oqmd
+  agreement_tolerance_ev: 0.05
+
+alexandria:                    # PBE database, Ruhr University Bochum. No key. CC BY 4.0.
+  base_url: "https://alexandria.icams.rub.de/pbe/v1"
+  record_url_template: "https://alexandria.icams.rub.de/pbe/v1/structures/{id}"   # verified 200 for agm002169750
+  timeout_s: 10
+  citation: "https://doi.org/10.1088/2515-7639/ae6620"
+
+oqmd:                          # alternative; about 30 s per query or failing, 18-20 Nov 2026
   base_url: "https://oqmd.org/oqmdapi/formationenergy"
   timeout_s: 10
-  agreement_tolerance_ev: 0.05
 
 materials_project:
   enabled: false   # needs an account and API key

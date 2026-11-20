@@ -1,7 +1,7 @@
 # Oxide dielectric triage: audit view
 
 **Request:** High-k oxides for capacitors. I can accept a smaller band gap and ternaries are fine.
-**Run:** 2026-11-19T19:13:05+00:00 · parser `rules` · style `pi` · shortlist 5 · rank by `suitability`
+**Run:** 2026-11-20T21:25:50+00:00 · parser `rules` · style `pi` · shortlist 5 · rank by `suitability`
 
 ## Refusals and notes
 No part of the request was refused.
@@ -38,13 +38,13 @@ Strongest: on the convex hull; dielectric constant 32.8.
 | Dielectric constant (κ) | 32.8  (DFPT total, max component) | 1.000 | 0.25 | 0.250 | 0.250 |
 | **Total** | | | | | **0.972** |
 
-**Confidence:** +2 band gap from TBmBJ; +0 no ICSD reference found; +0 no OQMD cross-check (not_run: OQMD cross-check disabled); +1 all weighted criteria have values; -1 contains Sm: DFT energies and gaps less reliable.
+**Confidence:** +2 band gap from TBmBJ; +0 no ICSD reference found; +0 no stability cross-check (not_run: cross-check turned off); +1 all weighted criteria have values; -1 contains Sm: DFT energies and gaps less reliable.
 
-**Cross-check (OQMD):** not_run. OQMD cross-check disabled
+**Cross-check:** not_run. cross-check turned off
 **Caveats:**
 - Contains Sm: DFT energies and gaps are less reliable for these elements, so stability and gap may be wrong.
 - No ICSD experimental structure reference found for this polymorph.
-- Stability not cross-checked: OQMD cross-check disabled.
+- Stability not cross-checked: cross-check turned off.
 
 **Polymorphs** (2 in JARVIS; first 5 by energy):
 
@@ -85,12 +85,12 @@ Strongest: on the convex hull; dielectric constant 276.9.
 | Dielectric constant (κ) | 277  (DFPT total, max component) | 1.000 | 0.25 | 0.250 | 0.250 |
 | **Total** | | | | | **0.961** |
 
-**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (not_run: OQMD cross-check disabled); +1 all weighted criteria have values.
+**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (not_run: cross-check turned off); +1 all weighted criteria have values.
 
-**Cross-check (OQMD):** not_run. OQMD cross-check disabled
+**Cross-check:** not_run. cross-check turned off
 **Caveats:**
 - DFPT dielectric constant 277 is unusually large (above 100); often a sign of a soft polar mode near an instability. Treat κ with caution.
-- Stability not cross-checked: OQMD cross-check disabled.
+- Stability not cross-checked: cross-check turned off.
 
 **Polymorphs** (2 in JARVIS; first 5 by energy):
 
@@ -131,12 +131,12 @@ Strongest: on the convex hull; dielectric constant 31.1.
 | Dielectric constant (κ) | 31.1  (DFPT total, max component) | 1.000 | 0.25 | 0.250 | 0.250 |
 | **Total** | | | | | **0.957** |
 
-**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (not_run: OQMD cross-check disabled); +1 all weighted criteria have values; -1 contains Pr: DFT energies and gaps less reliable.
+**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (not_run: cross-check turned off); +1 all weighted criteria have values; -1 contains Pr: DFT energies and gaps less reliable.
 
-**Cross-check (OQMD):** not_run. OQMD cross-check disabled
+**Cross-check:** not_run. cross-check turned off
 **Caveats:**
 - Contains Pr: DFT energies and gaps are less reliable for these elements, so stability and gap may be wrong.
-- Stability not cross-checked: OQMD cross-check disabled.
+- Stability not cross-checked: cross-check turned off.
 
 **Sources:**
 - JARVIS-DFT dft_3d record: [JVASP-2829](https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-2829.html), retrieved/checked 2026-11-17T20:56:28+00:00
@@ -170,11 +170,11 @@ Strongest: on the convex hull; dielectric constant 28.8.
 | Dielectric constant (κ) | 28.8  (DFPT total, max component) | 1.000 | 0.25 | 0.250 | 0.250 |
 | **Total** | | | | | **0.949** |
 
-**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (not_run: OQMD cross-check disabled); +1 all weighted criteria have values.
+**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (not_run: cross-check turned off); +1 all weighted criteria have values.
 
-**Cross-check (OQMD):** not_run. OQMD cross-check disabled
+**Cross-check:** not_run. cross-check turned off
 **Caveats:**
-- Stability not cross-checked: OQMD cross-check disabled.
+- Stability not cross-checked: cross-check turned off.
 
 **Polymorphs** (12 in JARVIS; first 5 by energy):
 
@@ -218,11 +218,11 @@ Strongest: on the convex hull; dielectric constant 27.8.
 | Dielectric constant (κ) | 27.8  (DFPT total, max component) | 1.000 | 0.25 | 0.250 | 0.250 |
 | **Total** | | | | | **0.947** |
 
-**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (not_run: OQMD cross-check disabled); +1 all weighted criteria have values.
+**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (not_run: cross-check turned off); +1 all weighted criteria have values.
 
-**Cross-check (OQMD):** not_run. OQMD cross-check disabled
+**Cross-check:** not_run. cross-check turned off
 **Caveats:**
-- Stability not cross-checked: OQMD cross-check disabled.
+- Stability not cross-checked: cross-check turned off.
 
 **Sources:**
 - JARVIS-DFT dft_3d record: [JVASP-49166](https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-49166.html), retrieved/checked 2026-11-17T20:56:28+00:00
@@ -247,8 +247,8 @@ BaYFeCuO5, Co3TeO8, Co5O8, FeSbO4, HoBi2O6, K3CrO4, Li3CrO4, Li4V3SiO10, LiCoGeO
 ## Configuration and filters applied
 - Weights: stability 0.35, band_gap 0.15, hazard 0.2, simplicity 0.05, dielectric 0.25
 - Filters: min_band_gap=None, max_e_hull=None, max_elements=None, exclude_elements=[], allow_extra_anions=False
-- OQMD cross-check enabled: False
-- Config file hashes: ranking dc0c5a1dab49, candidates 39061fedf98a, hazards fdfa6b01c897, sources f9f0473d8ee5, policy 89afc674c1f7, confidence c4dca0a00d8d, output c55f3669d194, terminology 79179a30262d
+- Stability cross-check (Alexandria) enabled: False
+- Config file hashes: ranking dc0c5a1dab49, candidates 39061fedf98a, hazards fdfa6b01c897, sources d662beaac648, policy 89afc674c1f7, confidence c6b5f9bd9548, output c55f3669d194, terminology 79179a30262d
 
 | Filter step | Formulas |
 |---|---|
@@ -281,8 +281,8 @@ BaYFeCuO5, Co3TeO8, Co5O8, FeSbO4, HoBi2O6, K3CrO4, Li3CrO4, Li4V3SiO10, LiCoGeO
 | parse request | provider=rules; matched=3; unparsed=[] | 0.1 |
 | apply settings and clamp | weights={'stability': 0.35, 'band_gap': 0.15, 'hazard': 0.2, 'simplicity': 0.05, 'dielectric': 0.25}; clamped=[] | 0.0 |
 | load snapshot | 25194 records; built 2026-11-18T22:23:34+00:00 | 0.0 |
-| candidates and filters | {'formulas': 15671, 'dropped: contains H, C, N, S or halogen': 4156, 'dropped: metal (no band gap)': 2119, 'dropped: element with no stable isotopes': 506, 'dropped: not an oxide': 1, 'dropped: no dielectric data (criterion turned on by request)': 8430, 'needs review (not ranked)': 16, 'ranked': 443} | 99.0 |
-| score | 443 candidates scored | 108.9 |
-| rank (ties by offline confidence) | shortlist pool 5 of 443 | 3.3 |
-| OQMD cross-check | NaSmO2:not_run, LuTaO4:not_run, NaPrO2:not_run, TeO2:not_run, SnB4O7:not_run | 0.0 |
+| candidates and filters | {'formulas': 15671, 'dropped: contains H, C, N, S or halogen': 4156, 'dropped: metal (no band gap)': 2119, 'dropped: element with no stable isotopes': 506, 'dropped: not an oxide': 1, 'dropped: no dielectric data (criterion turned on by request)': 8430, 'needs review (not ranked)': 16, 'ranked': 443} | 100.5 |
+| score | 443 candidates scored | 129.3 |
+| rank (ties by offline confidence) | shortlist pool 5 of 443 | 2.9 |
+| Alexandria cross-check | NaSmO2:not_run, LuTaO4:not_run, NaPrO2:not_run, TeO2:not_run, SnB4O7:not_run | 0.0 |
 | confidence, caveats, citations | 5 ranked | 0.1 |

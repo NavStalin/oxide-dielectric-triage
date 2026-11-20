@@ -13,7 +13,7 @@ class Evidence(BaseModel):
     value: float | str | None
     unit: str | None = None
     method: str | None = None  # e.g. "TBmBJ", "OptB88vdW", "DFPT", "recomputed hull"
-    source: Literal["JARVIS-DFT", "OQMD", "derived", "config"]
+    source: Literal["JARVIS-DFT", "Alexandria", "OQMD", "derived", "config"]
     record_id: str | None = None
     url: str | None = None
     retrieved_at: str | None = None
@@ -94,8 +94,9 @@ class Criteria(BaseModel):
 
 class CrossCheck(BaseModel):
     status: Literal["agree", "disagree", "unavailable", "not_found", "not_run"]
+    source: str | None = None  # display name of the cross-check source, e.g. "Alexandria"
     match_type: Literal["same_phase", "formula_level"] | None = None
-    oqmd_stability: Evidence | None = None
+    ref_stability: Evidence | None = None  # the other source's hull distance
     delta_ev: float | None = None
     icsd_id: str | None = None
     detail: str = ""

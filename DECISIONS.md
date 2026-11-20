@@ -226,6 +226,36 @@ out of `run_triage` so the report places all 5,369 formulas with exactly the sam
 app. Where a representative has no TBmBJ gap, the report names the lowest-energy polymorph that has
 one. It doesn't pick the polymorph with the largest gap, which would be cherry-picking.
 
+## After milestone 4 (2026-11-20)
+
+**D-044 Alexandria is the default stability cross-check; OQMD is the alternative.** *Changes D-005.*
+OQMD returned HTTP 502 or timed out on 18, 19 and 20 November; when it did answer, a query took about
+30 s against a 10 s timeout. A cross-check that never runs gives no evidence. Alexandria (PBE, Ruhr
+University Bochum) is public, needs no key, is CC BY 4.0 and answers in under a second through a
+standard OPTIMADE API. It is independent of JARVIS: a different functional (PBE, not OptB88vdW) and
+its own hull over 5.8 million entries. `config/sources.yaml` `cross_check.source` selects the adapter;
+both sit behind the same two functions (`fetch`, `cross_check`). Lila's prompt names no source, so
+nothing in it is affected.
+- Alternatives considered:
+  - Raise the OQMD timeout to 60 s: a ten-material shortlist would take minutes and still fail often.
+  - Materials Project: needs an account and a key, which breaks "runs with no key".
+  - Drop the cross-check: loses the only independent test of the recomputed hull.
+- What it cost: Alexandria has no ICSD ids, so the ICSD point now comes from JARVIS alone.
+- First live result: 4 of 5 agree, and YbO disagrees by 294 meV/atom. The cross-check found a
+  material the recomputed hull over-rates, which is what it is for.
+
+**D-045 A space group and its mirror image count as the same phase in the cross-check.** The JARVIS
+representative for SiO2 is right-handed quartz (space group 154). Alexandria stores left-handed quartz
+(152). Asking for 154 alone returned a different structure at 328 meV/atom and a false "disagree". The
+11 mirror-image pairs are now queried together. A space-group match is still not a full structure
+match, so the audit view says "same phase" only in that sense and names the entry compared.
+- Alternative considered: compare at formula level only. Simpler, but it would hide polymorph-level
+  disagreement.
+
+**D-046 `docs/BRIEF.md` is labelled as my planning brief, not Lila's prompt.** The design note said
+"the brief said to score `ehull`". Lila's prompt names no dataset or field; the choice was mine, and
+so was the correction. The note and the brief header now say so.
+
 ---
 
 ## Open questions for Nav

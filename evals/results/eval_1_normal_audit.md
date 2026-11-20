@@ -1,7 +1,7 @@
 # Oxide dielectric triage: audit view
 
 **Request:** Find promising oxide dielectric candidates for thin-film experiments. Prefer thermodynamically stable materials, wide band gaps, non-toxic elements, simple compositions, and public evidence. Return a ranked shortlist with caveats.
-**Run:** 2026-11-19T19:13:02+00:00 · parser `rules` · style `pi` · shortlist 5 · rank by `suitability`
+**Run:** 2026-11-20T21:25:48+00:00 · parser `rules` · style `pi` · shortlist 5 · rank by `suitability`
 
 ## Refusals and notes
 No part of the request was refused.
@@ -44,11 +44,11 @@ Strongest: on the convex hull; band gap 7.57 eV (TBmBJ).
 | Dielectric constant (κ) | 12  (DFPT total, max component) | 0.379 | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **1.000** |
 
-**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (not_run: OQMD cross-check disabled); +1 all weighted criteria have values.
+**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (not_run: cross-check turned off); +1 all weighted criteria have values.
 
-**Cross-check (OQMD):** not_run. OQMD cross-check disabled
+**Cross-check:** not_run. cross-check turned off
 **Caveats:**
-- Stability not cross-checked: OQMD cross-check disabled.
+- Stability not cross-checked: cross-check turned off.
 
 **Polymorphs** (14 in JARVIS; first 5 by energy):
 
@@ -92,12 +92,12 @@ Strongest: on the convex hull; band gap 8.10 eV (TBmBJ).
 | Dielectric constant (κ) | 4.88  (DFPT total, max component) | 0.042 | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **1.000** |
 
-**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (not_run: OQMD cross-check disabled); +1 all weighted criteria have values.
+**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (not_run: cross-check turned off); +1 all weighted criteria have values.
 
-**Cross-check (OQMD):** not_run. OQMD cross-check disabled
+**Cross-check:** not_run. cross-check turned off
 **Caveats:**
 - Compound-form hazard not captured by element flags: IARC 'Silica dust, crystalline, in the form of quartz or cristobalite'. Group 1 as respirable crystalline dust. Si is not flagged at element level.
-- Stability not cross-checked: OQMD cross-check disabled.
+- Stability not cross-checked: cross-check turned off.
 
 **Polymorphs** (94 in JARVIS; first 5 by energy):
 
@@ -141,12 +141,12 @@ Strongest: on the convex hull; band gap 7.59 eV (TBmBJ).
 | Dielectric constant (κ) | missing | missing | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **1.000** |
 
-**Confidence:** +2 band gap from TBmBJ; +0 no ICSD reference found; +0 no OQMD cross-check (not_run: OQMD cross-check disabled); +1 all weighted criteria have values.
+**Confidence:** +2 band gap from TBmBJ; +0 no ICSD reference found; +0 no stability cross-check (not_run: cross-check turned off); +1 all weighted criteria have values.
 
-**Cross-check (OQMD):** not_run. OQMD cross-check disabled
+**Cross-check:** not_run. cross-check turned off
 **Caveats:**
 - No ICSD experimental structure reference found for this polymorph.
-- Stability not cross-checked: OQMD cross-check disabled.
+- Stability not cross-checked: cross-check turned off.
 
 **Polymorphs** (6 in JARVIS; first 5 by energy):
 
@@ -190,14 +190,14 @@ Strongest: on the convex hull; band gap 6.54 eV (OptB88vdW).
 | Dielectric constant (κ) | missing | missing | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **1.000** |
 
-**Confidence:** +0 band gap from OptB88vdW fallback (probable underestimate); +0 no ICSD reference found; +0 no OQMD cross-check (not_run: OQMD cross-check disabled); +1 all weighted criteria have values.
+**Confidence:** +0 band gap from OptB88vdW fallback (probable underestimate); +0 no ICSD reference found; +0 no stability cross-check (not_run: cross-check turned off); +1 all weighted criteria have values.
 
-**Cross-check (OQMD):** not_run. OQMD cross-check disabled
+**Cross-check:** not_run. cross-check turned off
 **Caveats:**
 - Band gap is the OptB88vdW fallback (no TBmBJ value): probably an underestimate.
 - Representative JVASP-152827 (P3_121) has no ICSD reference; JVASP-14147 (P3_121) is 5 meV/atom higher and has one.
 - No ICSD experimental structure reference found for this polymorph.
-- Stability not cross-checked: OQMD cross-check disabled.
+- Stability not cross-checked: cross-check turned off.
 
 **Polymorphs** (7 in JARVIS; first 5 by energy):
 
@@ -241,12 +241,12 @@ Strongest: on the convex hull; band gap 5.80 eV (TBmBJ).
 | Dielectric constant (κ) | 15.6  (DFPT total, max component) | 0.552 | 0.00 | 0.000 | 0.000 |
 | **Total** | | | | | **0.985** |
 
-**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no OQMD cross-check (not_run: OQMD cross-check disabled); +1 all weighted criteria have values; -1 contains Yb: DFT energies and gaps less reliable.
+**Confidence:** +2 band gap from TBmBJ; +2 experimental structure reference (ICSD, via JARVIS); +0 no stability cross-check (not_run: cross-check turned off); +1 all weighted criteria have values; -1 contains Yb: DFT energies and gaps less reliable.
 
-**Cross-check (OQMD):** not_run. OQMD cross-check disabled
+**Cross-check:** not_run. cross-check turned off
 **Caveats:**
 - Contains Yb: DFT energies and gaps are less reliable for these elements, so stability and gap may be wrong.
-- Stability not cross-checked: OQMD cross-check disabled.
+- Stability not cross-checked: cross-check turned off.
 
 **Sources:**
 - JARVIS-DFT dft_3d record: [JVASP-1291](https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-1291.html), retrieved/checked 2026-11-17T20:56:28+00:00
@@ -271,8 +271,8 @@ Al2Co3GeO8, Al2Cr2O7, Al2CrO5, Al2CuO4, Al2Fe2O7, Al2FeO4, Al3Cr3Sb2O16, Al4Cu2O
 ## Configuration and filters applied
 - Weights: stability 0.35, band_gap 0.3, hazard 0.2, simplicity 0.15, dielectric 0.0
 - Filters: min_band_gap=None, max_e_hull=None, max_elements=None, exclude_elements=[], allow_extra_anions=False
-- OQMD cross-check enabled: False
-- Config file hashes: ranking dc0c5a1dab49, candidates 39061fedf98a, hazards fdfa6b01c897, sources f9f0473d8ee5, policy 89afc674c1f7, confidence c4dca0a00d8d, output c55f3669d194, terminology 79179a30262d
+- Stability cross-check (Alexandria) enabled: False
+- Config file hashes: ranking dc0c5a1dab49, candidates 39061fedf98a, hazards fdfa6b01c897, sources d662beaac648, policy 89afc674c1f7, confidence c6b5f9bd9548, output c55f3669d194, terminology 79179a30262d
 
 | Filter step | Formulas |
 |---|---|
@@ -301,11 +301,11 @@ Al2Co3GeO8, Al2Cr2O7, Al2CrO5, Al2CuO4, Al2Fe2O7, Al2FeO4, Al3Cr3Sb2O16, Al4Cu2O
 | Step | Detail | ms |
 |---|---|---|
 | policy gate | 0 refusal(s): []; remainder: 'Find promising oxide dielectric candidates for thin-film experiments. Prefer thermodynamically stable materials. wide band gaps. non-toxic elements. simple compositions. and public evidence. Return a ranked shortlist with caveats' | 2.3 |
-| parse request | provider=rules; matched=9; unparsed=[] | 2.6 |
+| parse request | provider=rules; matched=9; unparsed=[] | 2.5 |
 | apply settings and clamp | weights={'stability': 0.35, 'band_gap': 0.3, 'hazard': 0.2, 'simplicity': 0.15, 'dielectric': 0.0}; clamped=[] | 0.1 |
-| load snapshot | 25194 records; built 2026-11-18T22:23:34+00:00 | 529.3 |
-| candidates and filters | {'formulas': 15671, 'dropped: contains H, C, N, S or halogen': 4156, 'dropped: metal (no band gap)': 2119, 'dropped: element with no stable isotopes': 506, 'dropped: not an oxide': 1, 'needs review (not ranked)': 3520, 'ranked': 5369} | 173.3 |
-| score | 5369 candidates scored | 329.7 |
-| rank (ties by offline confidence) | shortlist pool 5 of 5369 | 40.1 |
-| OQMD cross-check | Al2O3:not_run, SiO2:not_run, Li2O:not_run, B2O3:not_run, YbO:not_run | 0.0 |
+| load snapshot | 25194 records; built 2026-11-18T22:23:34+00:00 | 526.5 |
+| candidates and filters | {'formulas': 15671, 'dropped: contains H, C, N, S or halogen': 4156, 'dropped: metal (no band gap)': 2119, 'dropped: element with no stable isotopes': 506, 'dropped: not an oxide': 1, 'needs review (not ranked)': 3520, 'ranked': 5369} | 170.4 |
+| score | 5369 candidates scored | 357.1 |
+| rank (ties by offline confidence) | shortlist pool 5 of 5369 | 41.5 |
+| Alexandria cross-check | Al2O3:not_run, SiO2:not_run, Li2O:not_run, B2O3:not_run, YbO:not_run | 0.0 |
 | confidence, caveats, citations | 5 ranked | 0.2 |

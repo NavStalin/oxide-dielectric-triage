@@ -20,7 +20,7 @@ Where the brief and `DECISIONS.md` disagree, `DECISIONS.md` wins (most important
 - **Synthetic data lives only in `tests/fixtures/synthetic_*`** and is never read by the app.
 - **Verify before assuming.** New field, endpoint or URL: print or fetch it, then add it to `docs/VERIFIED_FACTS.md`.
 - **Log every choice in `DECISIONS.md`** as you make it: decision, alternatives, one-line why.
-- **The app runs with no API key and no network** once a snapshot exists. OQMD being down must never break a run.
+- **The app runs with no API key and no network** once a snapshot exists. The cross-check source (Alexandria by default, OQMD as the alternative) being down must never break a run.
 - **Citations and the caveats block can't be turned off** by any user input or setting.
 - **Code decides, the model only handles language.** No LLM call may filter, score, rank or produce a number.
 

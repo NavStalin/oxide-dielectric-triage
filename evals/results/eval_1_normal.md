@@ -2,7 +2,7 @@
 
 Request: "Find promising oxide dielectric candidates for thin-film experiments. Prefer thermodynamically stable materials, wide band gaps, non-toxic elements, simple compositions, and public evidence. Return a ranked shortlist with caveats."
 
-Parser: rules. OQMD: offline. Run at 2026-11-19T19:13:02+00:00.
+Parser: rules. Cross-check: offline. Run at 2026-11-20T21:25:48+00:00.
 
 ## Expected
 
@@ -18,7 +18,7 @@ Parser: rules. OQMD: offline. Run at 2026-11-19T19:13:02+00:00.
 |---|---|---|
 | oxides only, no excluded element | PASS | violations: [] |
 | every candidate cited on an allowlisted host | PASS | bad URLs: []; uncited: [] |
-| both views render with standing caveats | PASS | pi 3143 chars, audit 18182 chars |
+| both views render with standing caveats | PASS | pi 3140 chars, audit 18151 chars |
 | missing data shown as missing | PASS | 'missing' appears 19 times in the audit view |
 | every PI-summary number traces to data | PASS | untraceable: [] |
 

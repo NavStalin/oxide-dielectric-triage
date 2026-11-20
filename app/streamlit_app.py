@@ -26,6 +26,9 @@ st.caption(
 
 rank_cfg = config.load("ranking")
 out_cfg = config.load("output")
+XC_NAME = {"alexandria": "Alexandria", "oqmd": "OQMD"}[
+    config.load("sources")["cross_check"]["source"]
+]
 
 with st.sidebar:
     st.header("Settings")
@@ -39,8 +42,8 @@ with st.sidebar:
         disabled=not has_llm,
         help="Both produce the same typed criteria. Policy limits apply either way.",
     )
-    oqmd_on = st.toggle(
-        "Cross-check stability with OQMD (online)",
+    xc_on = st.toggle(
+        f"Cross-check stability with {XC_NAME} (online)",
         value=False,
         help="Off = fully offline. Failures are reported, never hidden.",
     )
@@ -100,7 +103,7 @@ if run:
         )
     with st.spinner("Running triage..."):
         st.session_state["result"] = run_triage(
-            request, provider=provider, overrides=overrides, oqmd_enabled=oqmd_on
+            request, provider=provider, overrides=overrides, crosscheck_enabled=xc_on
         )
 
 res = st.session_state.get("result")

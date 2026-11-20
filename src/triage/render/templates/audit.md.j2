@@ -68,7 +68,7 @@ Not understood (ignored): {% for u in r.criteria.unparsed %}"{{ u }}"{% if not l
 **Confidence:** {% for why in rc.confidence.reasons %}{{ why }}{% if not loop.last %}; {% endif %}{% endfor %}.
 
 {% if out.audit_sections.cross_check %}
-**Cross-check (OQMD):** {{ rc.cross_check.status }}{% if rc.cross_check.match_type %}, {{ rc.cross_check.match_type | replace("_", " ") }}{% endif %}. {{ rc.cross_check.detail }}{% if rc.cross_check.oqmd_stability %} [query]({{ rc.cross_check.oqmd_stability.url }}), retrieved {{ rc.cross_check.oqmd_stability.retrieved_at }}{% endif %}
+**Cross-check{% if rc.cross_check.source %} ({{ rc.cross_check.source }}){% endif %}:** {{ rc.cross_check.status }}{% if rc.cross_check.match_type %}, {{ rc.cross_check.match_type | replace("_", " ") }}{% endif %}. {{ rc.cross_check.detail }}{% if rc.cross_check.ref_stability %} [record]({{ rc.cross_check.ref_stability.url }}), retrieved {{ rc.cross_check.ref_stability.retrieved_at }}{% endif %}
 
 {% endif %}
 **{{ L.caveats }}:**
@@ -118,7 +118,7 @@ DFT gives these a zero gap, but they contain f-electron or open-shell 3d element
 
 - Filters: {% for k, v in r.settings.filters.items() %}{{ k }}={{ v }}{% if not loop.last %}, {% endif %}{% endfor %}
 
-- OQMD cross-check enabled: {{ r.settings.oqmd_enabled }}
+- Stability cross-check ({{ r.settings.crosscheck_source }}) enabled: {{ r.settings.crosscheck_enabled }}
 - Config file hashes: {% for k, v in r.settings.config_hashes.items() %}{{ k }} {{ v }}{% if not loop.last %}, {% endif %}{% endfor %}
 
 

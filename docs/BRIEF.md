@@ -1,5 +1,12 @@
 # Brief: Lila Sciences take-home — oxide dielectric triage assistant
 
+> **What this file is.** This is my own planning brief, written before the build to steer the work.
+> It is not Lila's prompt. Lila's prompt names no dataset, field or source: it asks for public
+> sources, citations, a ranked shortlist with caveats, resistance to social engineering, two response
+> styles and a note on configuration. Every dataset and field choice below is mine, and several were
+> changed once the data was checked (see `DECISIONS.md`: D-013 replaced the `ehull` field, D-044
+> replaced OQMD with Alexandria as the default cross-check).
+
 Paste this into Claude Code at the root of an empty repo (or save it as `CLAUDE.md`). Work in small milestones and check in with me after each one.
 
 ## Context

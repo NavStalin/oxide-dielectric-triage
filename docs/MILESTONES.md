@@ -154,6 +154,17 @@ the brief) wasn't built.
 - The first test run took 74 s, which was one-time startup cost; the repeat run took 15 s.
 
 **Open**
-- A live OQMD cross-check before the talk.
+- ~~A live OQMD cross-check before the talk.~~ Replaced on 2026-11-20: see "After milestone 4" below.
 - Public GitHub repo or zip.
 - Sunday buffer: Nav reads the note and the README.
+
+## After milestone 4 (2026-11-20): cross-check source changed
+
+- **Why:** OQMD failed or took about 30 s per query on 18, 19 and 20 November, so the live cross-check
+  had never run.
+- **What changed:** Alexandria (public, no key, CC BY 4.0) is the default cross-check. OQMD is still
+  selectable in `config/sources.yaml` (D-044). Mirror-image space groups are treated as one phase
+  (D-045). The design note no longer says Lila's brief named the `ehull` field (D-046).
+- **Live result:** the example request cross-checked in a few seconds. Al2O3, SiO2, Li2O and B2O3 agree.
+  YbO disagrees by 294 meV/atom and now carries that caveat. See `evals/results/live_crosscheck.md`.
+- **Tests:** 96 pass. Evals: 24/24 offline checks pass.

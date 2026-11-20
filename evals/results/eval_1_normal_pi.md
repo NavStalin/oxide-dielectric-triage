@@ -4,7 +4,7 @@
 
 | # | Formula | Suitability | Evidence confidence | Why | Key caveat | Sources |
 |---|---|---|---|---|---|---|
-| 1 (tie) | Al2O3 | 1.000 | High | Strongest: on the convex hull; band gap 7.57 eV (TBmBJ). | Stability not cross-checked: OQMD cross-check disabled. | [JVASP-32](https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-32.html), [jdft_3d-9-24-2025.json](https://doi.org/10.6084/m9.figshare.6815699) |
+| 1 (tie) | Al2O3 | 1.000 | High | Strongest: on the convex hull; band gap 7.57 eV (TBmBJ). | Stability not cross-checked: cross-check turned off. | [JVASP-32](https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-32.html), [jdft_3d-9-24-2025.json](https://doi.org/10.6084/m9.figshare.6815699) |
 | 2 (tie) | SiO2 | 1.000 | High | Strongest: on the convex hull; band gap 8.10 eV (TBmBJ). | Compound-form hazard not captured by element flags: IARC 'Silica dust, crystalline, in the form of quartz or cristobalite'. Group 1 as respirable crystalline dust. Si is not flagged at element level. | [JVASP-41](https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-41.html), [jdft_3d-9-24-2025.json](https://doi.org/10.6084/m9.figshare.6815699) |
 | 3 (tie) | Li2O | 1.000 | Medium | Strongest: on the convex hull; band gap 7.59 eV (TBmBJ). | No ICSD experimental structure reference found for this polymorph. | [JVASP-118614](https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-118614.html), [jdft_3d-9-24-2025.json](https://doi.org/10.6084/m9.figshare.6815699) |
 | 4 (tie) | B2O3 | 1.000 | Low | Strongest: on the convex hull; band gap 6.54 eV (OptB88vdW). | Band gap is the OptB88vdW fallback (no TBmBJ value): probably an underestimate. | [JVASP-152827](https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-152827.html), [jdft_3d-9-24-2025.json](https://doi.org/10.6084/m9.figshare.6815699) |
